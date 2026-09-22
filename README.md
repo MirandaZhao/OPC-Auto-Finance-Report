@@ -31,7 +31,8 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/<你的用户名>/sme-finance-dashboard.git
+
+git clone https://github.com/MirandaZhao/OPC-Auto-Finance-Report.git
 cd sme-finance-dashboard
 # 直接双击 index.html，或起一个本地静态服务器：
 python3 -m http.server 8000
@@ -40,27 +41,6 @@ python3 -m http.server 8000
 
 导入自己的数据：进入「数据管理」→「复制模板列名」→ 按 [data/template.csv](data/template.csv) 的格式整理近 12–24 个月数据（金额单位：万元）→「选择 CSV 文件」。
 
-## 项目结构
-
-```
-index.html              整个应用：样式 + 计算引擎 + 渲染层（单文件）
-data/template.csv       CSV 导入模板（含 24 个月样例数据）
-docs/design.md          系统设计：架构、计算引擎、评分规则、推演模型
-docs/workflow.md        数据流程：从记账数字到建议的每一步
-docs/metrics.md         指标口径与阈值
-tests/engine.test.js    计算引擎自动化测试（Node 内置 test runner）
-tests/EVALUATION.md     测试与评估报告（含日期与已知局限）
-DEPLOY.md               部署指南（GitHub Pages / 任意静态托管）
-.github/workflows/      CI：每次推送自动跑测试；推送到 main 自动部署
-```
-
-## 运行测试
-
-```bash
-node --test tests/engine.test.js   # 需要 Node.js ≥ 18
-```
-
-测试直接从 `index.html` 抽出计算引擎在沙盒中执行，验证报表勾稽、评分边界、推演方向等 14 项。最近一次结果见 [tests/EVALUATION.md](tests/EVALUATION.md)。
 
 ## 技术说明
 
