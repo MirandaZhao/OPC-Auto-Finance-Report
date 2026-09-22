@@ -44,7 +44,7 @@ python3 -m http.server 8000
 
 ## 技术说明
 
-- 纯前端：HTML + CSS + 原生 JavaScript，图表用 [Chart.js 4](https://www.chartjs.org/)（CDN）。
+- 纯前端：HTML + CSS + 原生 JavaScript。
 - 计算引擎（`ENGINE`）与渲染层分离，引擎不依赖 DOM，可单独测试。
 - 数据只在浏览器内存中处理，刷新页面即恢复样例数据；不上传、不存储。
 - 设计细节见 [docs/design.md](docs/design.md)。
