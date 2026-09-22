@@ -1,8 +1,6 @@
 # 经营看板 · 小微企业财务分析与风险预警
 
-一个打开就能用的网页，把小微企业每月的财务数字变成老板看得懂的经营结论：钱够不够、利润去哪了、哪个客户欠款该催、未来 6 个月账上还剩多少。
-
-**在线演示：** https://<你的 GitHub 用户名>.github.io/sme-finance-dashboard/ （部署方法见 [DEPLOY.md](DEPLOY.md)）
+一个打开就能用的网页，把小微企业每月的财务数字变成老板看得懂的经营结论：钱够不够、利润去哪了、哪个客户欠款该催、未来账上现金流还剩多少。
 
 > An open-source, single-file web dashboard that turns a small business's monthly bookkeeping numbers into plain-language health scores, risk warnings and actionable advice. No server, no login, no data leaves the browser.
 
@@ -75,7 +73,6 @@ node --test tests/engine.test.js   # 需要 Node.js ≥ 18
 
 - 看板是只读分析工具，不替代会计核算；评分阈值是经验值，适合制造、贸易类小微企业，其他行业需调整（见 `docs/metrics.md`）。
 - 样例数据为虚构的小型机械配件加工企业 2024 年 9 月—2026 年 8 月的经营数据，仅用于演示。
-- 财务软件接口与手工录入功能为规划中的功能，演示版未开放。
 
 ## 参与
 
