@@ -83,4 +83,4 @@ node --test tests/engine.test.js   # 需要 Node.js ≥ 18
 
 ## 许可证
 
-[MIT](LICENSE) © 2026 <你的姓名>
+[MIT](LICENSE) © 2026 <Miranda Zhao>
