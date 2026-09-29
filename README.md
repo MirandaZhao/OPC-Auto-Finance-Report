@@ -47,7 +47,7 @@ python3 -m http.server 8000
 - 纯前端：HTML + CSS + 原生 JavaScript。
 - 计算引擎（`ENGINE`）与渲染层分离，引擎不依赖 DOM，可单独测试。
 - 数据只在浏览器内存中处理，刷新页面即恢复样例数据；不上传、不存储。
-- 设计细节见 [docs/design.md](docs/design.md)。
+- 设计细节以及指标定义见 [docs/design.md](docs/design.md)。
 
 ## 局限与声明
 
