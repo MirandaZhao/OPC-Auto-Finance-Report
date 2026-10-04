@@ -6,6 +6,11 @@
 
 **Settings → Pages → Source** 选择 `Deploy from a branch`，分支 `main`，目录 `/ (root)`。因为入口文件叫 `index.html`，无需其他配置。
 
+1. 把本仓库推送到 GitHub（仓库名建议 `business-dashboard`）
+2. 仓库页面 → **Settings** → 左侧 **Pages**
+3. **Source** 选择 `Deploy from a branch`，分支选 `main`，目录选 `/ (root)`，保存
+4. 约 1 分钟后访问：`https://<你的用户名>.github.io/business-dashboard/`
+
 ## 方式二：任意静态托管 / 内网
 
 把 `index.html` 上传到 Netlify、Vercel、Cloudflare Pages、阿里云 OSS、Nginx 等即可。本地预览：
