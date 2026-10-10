@@ -26,9 +26,11 @@ forecast()     沙盘推演，拖滑块即时重算
 2. **选范围**：用月份筛选切换到本月、最近 12 个月或某一年（`metrics(sel)`）。
 3. **读建议**：在「分析建议」中按轻重排序往下看。每条建议都说明做什么、找谁、预计效果（`advice()`）。
 4. **做推演**：在「现金流」中拖动滑块，回答"如果……会怎样"（`forecast()`）。
-5. **换数据**：在「数据管理」中导入自己的 CSV（`importCSV()` → `quality()`）。刷新页面即恢复样例。
+5. **换数据**：在「数据管理」中导入自己的 CSV（`importCSV()` → `quality()`）。
 
 ## 二、开发与发布
+
+### 日常开发
 
 ```bash
 git clone …
@@ -42,19 +44,20 @@ python3 -m http.server 8000               # 打开 http://localhost:8000/index.h
 
 git add -A
 git commit -m "<类型>: <说明>"
-git push -u origin HEAD                   # 推送后开 PR
+git push -u origin HEAD                   # 推送后开 PR，评审通过再合并
 ```
 
-需要发布版本时，在上述流程基础上依次完成：
+### 发布版本
 
-1. **更新 `CHANGELOG.md`**，写入新版本号与改动说明。
-2. **跑测试**，把结果与日期写入评估报告。
-3. **合并 PR 到 `main`**。合并后 GitHub Actions 会自动部署到 GitHub Pages（见 [DEPLOY.md](../DEPLOY.md)）。
+1. **在功能分支上更新 `CHANGELOG.md`**：写入新版本号与改动说明，随 PR 一起提交。
+2. **跑测试并记录**：把结果与日期写入评估报告，同样随 PR 提交。
+3. **合并 PR 到 `main`**：合并后 GitHub Actions 自动部署到 GitHub Pages（见 [DEPLOY.md](../DEPLOY.md)）。
 4. **在 `main` 的 HEAD 上打 tag 并推送**：
 
 ```bash
    git checkout main && git pull
-   git tag v1.0.0 && git push --tags
+   git tag v1.0.0
+   git push origin v1.0.0
 ```
 
 > 版本号需与 `CHANGELOG.md` 一致。tag 必须落在实际部署的那次提交（`main` 的 HEAD）上，以免"部署的代码"与"发布的 tag"错位。
