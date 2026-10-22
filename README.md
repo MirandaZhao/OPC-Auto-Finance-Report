@@ -1,77 +1,140 @@
-# 经营看板 · 小微企业财务分析与风险预警
+# 有数 Youshu · OPC Auto Finance Report
 
-一个打开就能用的网页，把小微企业每月的财务数字变成老板看得懂的经营结论：钱够不够、利润去哪了、哪个客户欠款该催、未来账上现金流还剩多少。
+**有数是一个开源财务看板原型，帮助一人运营及小微企业在同一页理解现金流、利润、应收和现金情景。**
 
-> An open-source, single-file web dashboard that turns a small business's monthly bookkeeping numbers into plain-language health scores, risk warnings and actionable advice. No server, no login, no data leaves the browser.
+**Youshu is an open-source financial dashboard prototype that helps owner-operated businesses read cash flow, profit, receivables, and cash scenarios in one place.**
 
-## 它解决什么问题
+[现有演示文件 / Existing demo](index.html) · [新版中英技术摘要 / New prototype summary](docs/TECHNICAL_SUMMARY.md) · [现有部署说明 / Existing deployment guide](DEPLOY.md) · [MIT 许可证 / License](LICENSE)
 
-小微企业老板通常没有财务总监，财务软件导出的报表又只有会计看得懂。这个看板把三张报表翻译成七个问题的答案：
+公开维护者：**Yuchen Zhao**。仓库：**MirandaZhao/OPC-Auto-Finance-Report**。
 
-| 页面 | 回答的问题 |
+Public maintainer: **Yuchen Zhao**. Repository: **MirandaZhao/OPC-Auto-Finance-Report**.
+
+## 当前发布状态 / Publication status
+
+**截至2026年10月23日，仓库正在分批更新。** 当前 `index.html` 仍是使用虚构机械加工企业数据的早期版本。新版 OPC AI 企业原型已在本地准备；仓库已发布其[技术摘要](docs/TECHNICAL_SUMMARY.md)，对应的新版应用、数据、截图和自动化校验文件尚未上传。本次更新只替换 README，不改变演示程序。
+
+**As of October 23, 2026, the repository is being updated in stages.** The current `index.html` is an earlier version using a fictional manufacturing business. A new OPC AI business prototype has been prepared locally; its [technical summary](docs/TECHNICAL_SUMMARY.md) is published, while the matching application, data, screenshots, and automated evaluation files are still pending upload. This update replaces only the README; it does not change the demo application.
+
+| 内容 / Item | 状态 / Status |
 |---|---|
-| 财务总览 | 现在最该关心什么？赚到的钱和账上多出来的钱为什么不一样？ |
-| 收入分析 | 靠什么挣钱，每 100 元收入一路扣下来还剩几元？ |
-| 现金流 | 每月钱进钱出，未来 6 个月账上还剩多少？（可拖滑块推演） |
-| 应收账款 | 卖出去的货，钱收回来了吗？哪个客户该催？ |
-| 财务报表 | 利润表、资产负债表、现金流量表（按所选期间汇总） |
-| 分析建议 | 五个维度打分，风险按轻重排序，每条建议都带影响估算 |
-| 数据管理 | 数据从哪来、质量如何、每个指标怎么算 |
+| `index.html` | 已发布：早期制造业示例 / Published: earlier manufacturing example |
+| `docs/TECHNICAL_SUMMARY.md` | 已发布：描述新版 OPC AI 原型 / Published: describes the new OPC AI prototype |
+| 新版 OPC AI 应用及配套材料 / New OPC AI application and supporting materials | 本地已准备，待上传 / Prepared locally; pending upload |
 
-## 功能
+## 它帮助谁，解决什么问题 / Who it helps and why
 
-- **健康评分**：盈利能力、现金安全、回款效率、成本控制、成长性五维加权（25/25/20/15/15），≥70 健康、50–69 关注、<50 风险。
-- **风险预警**：规则引擎自动识别利润没变成现金、应收涨得比收入快、毛利盖不住固定开支等情形，并用白话解释。
-- **可执行建议**：每条建议给出具体动作（找谁、做什么）和预计影响（现金增加多少、可支撑月数提高到多少）。
-- **沙盘推演**：调整收入变化、客户付款快慢、弹性支出削减三个滑块，看未来 6 个月现金曲线与 3 个月安全线。
-- **数据导入**：按模板整理 CSV 后导入，看板重新计算全部分析；内置 24 个月虚构样例数据用于演示。
-- **月份筛选**：单选、多选、最近 12 个月、按年、全部。
-- **零依赖部署**：一个 HTML 文件，仅从 CDN 加载 Chart.js；支持深色模式与手机屏幕。
+面向没有专职财务负责人的一人运营及小微企业经营者。看板围绕四个问题组织信息：账上还有多少钱、经营是否盈利、哪些款项需要催收，以及收入或支出变化后现金还能支撑多久。现金结余与会计利润分别说明，避免把“收到的钱”直接当成“赚到的钱”。
 
-## 进阶
-- **一句话结论**：综合评分 + 健康/关注/风险分级，配一段人话解释"现在最该关心什么"。
-- **五维健康评分**：盈利能力、现金安全、回款效率、成本控制、成长性，每一维给出可解释的评分依据。
-- **现金去哪了**：净利润 vs 现金变动对比，拆解应收账款、存货占用了多少利润。
-- **应收账款管理**：账龄分布、主要客户回款情况、逾期风险提示。
-- **标准三张表**：利润表、资产负债表、现金流量表，按所选月份区间自动汇总，含同比/环比对比列。
-- **数据沙盘**：可视化推演调价、控成本、缩短账期等动作对利润和现金的影响。
-- **数据导入**：内置演示数据（虚构企业 2024/09–2026/08），也支持按模板导入自己的 CSV。
+“OPC”在本项目中表示一人运营模式，不代表某种法律主体或税务分类。新版示例聚焦提供 AI 智能体、工作流实施和订阅维护服务的企业；AI 企业是报告的展示对象，看板本身不调用 AI 模型。
 
+The intended users are owner-operated and micro businesses without a dedicated finance lead. The dashboard organizes information around four questions: how much cash is available, whether operations are profitable, which receivables need attention, and how long cash could last if receipts or spending change. Cash surplus and accounting profit are explained separately so owners do not mistake money collected for profit earned.
 
-## 快速开始
+“OPC” describes a one-person operating model in this project, not a legal or tax entity classification. The new example focuses on AI agents, workflow implementation, and subscription/maintenance services. An AI business is the subject of the report; the dashboard itself does not call an AI model.
 
-```bash
+## 现在如何试用 / Try the currently published demo
 
+1. 在仓库首页选择 **Code → Download ZIP**，解压后用现代桌面浏览器打开 `index.html`。
+2. 先使用内置虚构数据，查看财务总览、收入分析、现金流、应收账款、财务报表和分析建议。
+3. 当前旧版通过 CDN 加载 Chart.js，因此图表首次加载需要网络。无需注册账号或配置 API 密钥。
+
+如果使用 Git，下面的命令会进入正确的仓库目录；随后打开其中的 `index.html`。现阶段仓库没有新版 `package.json`，不应运行新版材料包中的 `npm start` 或 `npm test`。
+
+1. On the repository page, select **Code → Download ZIP**, extract it, and open `index.html` in a modern desktop browser.
+2. Start with the built-in fictional data to explore the overview, income analysis, cash flow, receivables, financial statements, and recommendations.
+3. The earlier version loads Chart.js from a CDN, so the first chart load requires a network connection. No account or API key is required.
+
+For Git users, these commands enter the correct repository folder; then open its `index.html`. The repository does not yet contain the new package's `package.json`, so its `npm start` and `npm test` commands are not available here yet.
+
+```sh
 git clone https://github.com/MirandaZhao/OPC-Auto-Finance-Report.git
-cd sme-finance-dashboard
-# 直接双击 index.html，或起一个本地静态服务器：
-python3 -m http.server 8000
-# 浏览器打开 http://localhost:8000
+cd OPC-Auto-Finance-Report
 ```
 
-导入自己的数据：进入「数据管理」→「复制模板列名」→ 按 [data/template.csv](data/template.csv) 的格式整理近 12–24 个月数据（金额单位：万元）→「选择 CSV 文件」。
+当前旧版包含 CSV 导入入口，模板在 [`docs/template.csv`](docs/template.csv)，金额单位为万元。导入处理使用简化的解析与估算规则，例如应收账龄使用固定比例，不能将输出视为逐笔核验结果。建议先用合成或脱敏数据评估，现有[部署说明](DEPLOY.md)、[测试说明](TEST.md)和[设计说明](docs/design.md)均对应旧版。
 
+The earlier version includes a CSV import entry point. Its template is [`docs/template.csv`](docs/template.csv), with monetary values in units of CNY 10,000. Import uses simplified parsing and estimation rules, including fixed proportions for receivables aging; its output is not transaction-level verification. Evaluate it first with synthetic or anonymized data. The existing [deployment](DEPLOY.md), [testing](TEST.md), and [design](docs/design.md) documents describe this earlier version.
 
-## 技术说明
+## 新版 OPC AI 原型已准备的功能 / Features prepared for the new OPC AI prototype
 
-- 纯前端：HTML + CSS + 原生 JavaScript。
-- 计算引擎（`ENGINE`）与渲染层分离，引擎不依赖 DOM，可单独测试。
-- 数据只在浏览器内存中处理，刷新页面即恢复样例数据；不上传、不存储。
-- 设计细节以及指标定义见 [docs/design.md](docs/design.md)。
+**以下功能对应本地新版，待匹配的应用上传后才能在本仓库试用。**
 
-## 局限与声明
+- 六项总览指标：账户现金、经营收款、经营付款、现金结余、账务净利润率和现金可支撑月数。
+- 最近12、6或3个月的月度图表；净利润率数字平时隐藏，鼠标移到折线时显示，悬停单点时突出该月。
+- 应收与逾期、客户集中度，以及模型 API、云资源、AI 工具、创始人薪酬和外部协作支出。
+- 六个月现金沙盘：调整收款增长、客户付款延迟、弹性支出削减及税费支付情景，对照三个月管理安全线。
+- 收入与成本分配、三张示例财务报表，以及可查看依据的管理评分和行动建议。
+- 点击图表或报告行打开明细表，并在本地下载对应 CSV。
 
-- 看板是只读分析工具，不替代会计核算；评分阈值是经验值，适合制造、贸易类小微企业，其他行业需调整（见 `docs/metrics.md`）。
-- 样例数据为虚构的小型机械配件加工企业 2024 年 9 月—2026 年 8 月的经营数据，仅用于演示。
-- 单文件架构是有意为之（方便非技术用户保存和转发），但不适合多人协作开发；若要扩展建议先拆出计算引擎
-- 现金推演假设成本率、账期结构维持现状，未建模大额一次性支出
-- CSV 导入后的账龄分布按固定比例估算（样例数据为逐笔回款模拟），导入数据越多此项越粗
-- 仅做分析展示，不替代会计核算与报税
+**The following features belong to the locally prepared version and will become available in this repository after the matching application is uploaded.**
 
-## 参与
+- Six overview metrics: account cash, cash receipts, cash payments, cash surplus, accrual net margin, and cash runway.
+- Twelve-, six-, or three-month charts. Net-margin labels are hidden by default, appear when the line is hovered, and emphasize the hovered month.
+- Receivables, overdue balances, customer concentration, and costs for model APIs, cloud resources, AI tools, founder compensation, and outside collaboration.
+- A six-month cash scenario with receipt growth, customer payment delay, adjustable costs, and a tax-payment toggle, compared with a three-month management safety line.
+- Income-to-cost allocation, three illustrative financial statements, and management scores and actions with inspectable reasoning.
+- Detail tables opened from charts or report rows, with local CSV downloads.
 
-欢迎提 Issue 和 Pull Request。提交前请运行测试，提交信息请说明"改了什么、为了谁"（示例见 [docs/workflow.md](docs/workflow.md#提交规范)）。
+## 理解新版的示例数据 / Understand the new example
 
-## 许可证
+新版以一名创始人运营、按需采购项目支持的 AI 服务企业为例。企业、客户、财务金额和经营结果全部为合成数据，不代表真实客户表现。下面数值用于理解新版技术摘要，与当前仓库旧版 `index.html` 的示例不同。
 
-[MIT](LICENSE) © 2026 <Miranda Zhao>
+The new example follows one founder operating an AI services business and purchasing project support as needed. All companies, clients, financial amounts, and business outcomes are synthetic, not evidence of actual customer performance. These figures explain the new technical summary and differ from the earlier `index.html` currently in this repository.
+
+| 2026年9月合成指标 / September 2026 synthetic metric | 数值 / Value |
+|---|---:|
+| 经营收款 / Cash receipts | CNY 120,000 |
+| 经营付款，含创始人薪酬 / Cash payments, including founder compensation | CNY 72,000 |
+| 现金结余 / Cash surplus | CNY 48,000 |
+| 期末账户现金 / Ending account cash | CNY 434,000 |
+| 权责发生制营业收入 / Accrual revenue | CNY 144,000 |
+| 账务净利润 / Accrual net profit | CNY 59,674 |
+| 净利润率 / Net profit margin | 41.4% |
+| 静态现金可支撑 / Static cash runway | 6.03个月 / months |
+
+现金结余等于收款减付款；净利润率等于账务净利润除以已确认营业收入。此处现金可支撑为账户现金除以最近一个月的全部经营现金付款，假定没有新收款、支出不变。净利润已经扣除创始人薪酬。口径与推演假设见[技术摘要](docs/TECHNICAL_SUMMARY.md)。
+
+Cash surplus is receipts minus payments; net margin is accrual net profit divided by recognized revenue. Cash runway here is account cash divided by the latest month's total operating cash payments, assuming no new receipts and unchanged spending. Net profit already includes founder compensation. See the [technical summary](docs/TECHNICAL_SUMMARY.md) for definitions and scenario assumptions.
+
+## 当前边界与验证状态 / Boundaries and verification status
+
+新版是中文界面、人民币示例，使用中国税务参考材料；英文界面、美元场景及美国会计口径复核尚未实现。三个月安全线与管理评分是产品设计假设，未验证为行业标准；税务提示用于指出需核对的资料，不构成欠税认定或报税结果。
+
+新版文件选择器目前只显示文件名，不解析、不上传、不替换数据；它与旧版的简化 CSV 导入不同。银行连接、登录、后端和报税引擎均未实现。新版应用采用内置 CSS、JavaScript 和 SVG 图表，不依赖旧版的 Chart.js CDN。
+
+新版自动化校验已在本地运行，匹配的测试代码、带日期记录和输入文件校验值尚待上传。校验使用简化 DOM，不能据此认定真实浏览器显示、无障碍、税务合规、生产可用性、用户采用或经营收益已得到验证。当前仓库的 `TEST.md` 不是该新版自动化运行记录。
+
+The new prototype has a Chinese interface, a CNY example, and China-oriented tax references. An English interface, USD scenario, and U.S.-specific accounting review are not implemented. The three-month safety line and management scores are product assumptions, not validated industry standards. Tax prompts identify information to check; they do not establish tax arrears or filing results.
+
+The new file picker displays a filename only; it does not parse, upload, or replace data. This differs from the earlier version's simplified CSV import. Bank connections, authentication, a backend, and a tax-filing engine are not implemented. The new application embeds CSS, JavaScript, and SVG charts without relying on the earlier Chart.js CDN.
+
+Automated checks for the new prototype have been run locally; the matching test code, dated records, and input hashes are pending upload. The checks use a simplified DOM and do not establish real-browser rendering, accessibility conformance, tax compliance, production readiness, user adoption, or business gains. The repository's current `TEST.md` is not the new automated run record.
+
+## 已发布文件与后续材料 / Published files and pending materials
+
+| 已发布文件 / Published file | 用途 / Purpose |
+|---|---|
+| [`index.html`](index.html) | 早期制造业演示 / Earlier manufacturing demo |
+| [`docs/TECHNICAL_SUMMARY.md`](docs/TECHNICAL_SUMMARY.md) | 新版 OPC AI 技术摘要，中英对照 / Bilingual technical summary of the new OPC AI prototype |
+| [`docs/template.csv`](docs/template.csv) | 旧版 CSV 模板 / Earlier CSV template |
+| [`DEPLOY.md`](DEPLOY.md)、[`TEST.md`](TEST.md)、[`docs/design.md`](docs/design.md) | 旧版部署、测试与设计说明 / Earlier deployment, testing, and design documentation |
+| [`docs/workflow.md`](docs/workflow.md) | 现有协作流程 / Existing collaboration workflow |
+| [`LICENSE`](LICENSE) | MIT 许可正文 / MIT license text |
+
+新版待上传材料包括：匹配的 `index.html`、`data/`、`schemas/`、`tests/`、`scripts/`、`package.json`、使用与方法说明、截图与图示、`evidence/` 校验记录，以及英文独立阅读版和技术摘要 PDF。这里仅列出待上传路径，不提供尚不存在的附件链接。材料包准备版本为0.1.0，不改写既有仓库的版本历史。
+
+Pending materials for the new prototype include the matching `index.html`, `data/`, `schemas/`, `tests/`, `scripts/`, `package.json`, user and methodology guides, screenshots and figures, `evidence/` records, English-only reading copies, and the technical summary PDF. Pending paths are listed as text rather than links to unavailable attachments. The prepared package is labeled 0.1.0; this does not revise the repository's existing version history.
+
+## 参与和复用 / Contribute and reuse
+
+欢迎通过 Issue 或 Pull Request 提出改进。请注明针对旧版演示还是新版技术摘要，提供复现步骤；不要在公开讨论中放入真实客户财务记录。提交说明应写清实际动作及对用户的影响，例如“修正 CSV 模板链接，帮助使用者找到正确的导入格式”。仅更新文档时，应如实描述文档变化。
+
+本 README 采用每节中文在上、完整英文在下的形式。新版原型经过 Codex 辅助迭代，产品决策、生成代码、验证和人工复核需要分别记录。本项目不声称已经获得客户采用、商业收益或独立技术创新验证。
+
+项目按现有 [MIT 许可证](LICENSE)开放，当前许可文件保留 `Copyright (c) 2026 MirandaZhao`。公开维护者署名不改变许可文件中的版权声明。
+
+Issues and pull requests are welcome. Identify whether feedback concerns the earlier demo or the new technical summary and include reproduction steps. Do not post actual customer financial records in public discussions. Commit messages should describe the action and its user impact, such as “Fix the CSV template link so users can find the import format.” Documentation-only changes should describe the documentation actually changed.
+
+This README places Chinese above the corresponding complete English text in each section. The new prototype was iteratively developed with Codex assistance; product decisions, generated code, validation, and human review should be recorded separately. The project does not claim established customer adoption, business gains, or independently validated technical novelty.
+
+The project uses the existing [MIT license](LICENSE), which currently retains `Copyright (c) 2026 MirandaZhao`. The public maintainer credit does not alter the copyright notice in that file.
