@@ -1,183 +1,71 @@
-# 测试与评估报告
+# 原型评估报告 / Prototype evaluation report
 
-| 项 | 内容 |
+本报告于 **2026-10-21（Asia/Shanghai）** 为 0.1.0 仓库材料包编制。
+
+Prepared on **2026-10-21 (Asia/Shanghai)** for the 0.1.0 repository package.
+
+## 复现并识别测试结果 / Reproduce and identify the result
+
+在仓库根目录运行 `npm test`。[机器可读记录](../evidence/records/automated-evaluation.json)包含本次运行的真实 UTC 时间戳、Node 版本、方法、局限、源文件 SHA-256、场景文件 SHA-256、逐项检查详情和失败信息。该记录是所测试版本的结果依据；重新运行测试会刷新记录。
+
+Run `npm test` from the repository root. The [machine-readable record](../evidence/records/automated-evaluation.json) contains the run's actual UTC timestamps, Node version, method, limitations, source SHA-256, scenario SHA-256, per-check details, and failures. It is the authoritative result for that tested revision; rerunning the suite refreshes it.
+
+便携测试套件通过了 **28 项检查中的全部 28 项**。本地运行在 Node.js 24 和 Node.js 23 下均通过；所附记录注明最近一次运行的环境和时间戳。Node.js 22/24 的 GitHub Actions 矩阵已提供，供以后执行；材料包不声称远程持续集成已经运行。
+
+The portable suite passed **28 of 28 checks**. Local runs passed under Node.js 24 and Node.js 23; the attached record identifies the runtime and timestamp of its latest run. The Node.js 22/24 GitHub Actions matrix is supplied for future execution; this package does not claim that remote CI has already run.
+
+## 已检查的内容 / What was checked
+
+| 范围 | 已观察的检查内容 |
 |---|---|
-| 被测对象 | `index.html`（单文件财务看板，计算引擎模块 ENGINE） |
-| 报告日期 | 2026-09-22 |
-| 环境 | Node.js v22.22.2，Linux |
-| 总体状态 | 自动化测试 14/14 通过；界面层与导入链路依赖人工验证 |
+| 场景结构 | 核心字段、金额、单位、期间，以及明确的合成数据来源标记 |
+| 历史现金 | 十二个月的收款、付款、期初现金和期末现金 |
+| 权责与现金衔接 | 月度利润到现金的对应关系，以及 1—9 月累计数 |
+| 财务报表 | 资产负债表的两列数据、现金流算术，以及示例比较年度的衔接 |
+| 预测 | 基准、税费开关、延迟、支出削减、账户拆分，以及 48 组边界组合；每组检查第 0—6 月 |
+| 明细 | 120 种不同明细类型；在模拟 DOM 中填充对话框内容与表格行 |
+| CSV | 在内存中检查生成的 120 份明细 CSV 的表头、行、引号与 CRLF 换行 |
+| 交互 | 期间与页签的事件连接、文件选择占位行为，以及监听器是否累积 |
+| 源码与 CSS 结构 | 六张卡片、评分规则、桑基图守恒、净利润率标签结构与悬停规则 |
 
-> 本报告合并了两个阶段的记录：①早期「引擎级手工验证」（`node docs/engine.test.js index.html`）；②后续「固化为自动化测试套件」（`tests/engine.test.js`）。同一口径只保留一次，历史过程不再重复列出。
-
-## 0. 结论速览
-
-- 计算逻辑（勾稽、评分、推演、建议）在自动化测试下可靠。
-- 界面渲染与 CSV 文件选择的浏览器交互**未做自动化**，见第 6 节人工检查清单。
-- 模型为**演示级**：存货、应付账款按比例估算而非滚动记账，**不能替代会计核算**；推演结果用于方向判断，不是精确预测。
-
-## 1. 自动化测试
-
-**命令：** `node --test tests/engine.test.js`
-**结果：** 14 项测试，14 项通过，0 项失败。
-
-| # | 测试项 | 结果 |
-|---|---|---|
-| 1 | 样例数据：24 个月，月份连续 | 通过 |
-| 2 | 勾稽：收入明细合计 = 收入总额（逐月） | 通过 |
-| 3 | 勾稽：成本明细合计 = 成本总额，稳定 + 弹性 = 总成本 | 通过 |
-| 4 | 勾稽：应收期末 = 期初 + 收入 − 回款 | 通过 |
-| 5 | 勾稽：账龄四档合计 = 期末应收 | 通过 |
-| 6 | 指标：12 个月汇总与逐月相加一致 | 通过 |
-| 7 | 指标：单月 / 单年 / 全部期间无 NaN | 通过 |
-| 8 | 评分：五维各 0–100，加权与等级一致 | 通过 |
-| 9 | 评分：极端输入不越界 | 通过 |
-| 10 | 建议：每条含等级、标题、正文、影响 | 通过 |
-| 11 | 推演：6 个月、月份顺延、现金逐月连续 | 通过 |
-| 12 | 推演：收入增加 / 削减支出 ⇒ 现金不低于基准 | 通过 |
-| 13 | 推演：回款延后 30 天 ⇒ 首月回款减少 | 通过 |
-| 14 | 数据模板：18 列与导入要求一致 | 通过 |
-
-**稳定性：** 计算引擎使用固定随机种子（`20260920`），同一版本多次运行结果完全一致，无浮动；压力情景与基线的现金差恒定（171.2 万）。
-
-### 修订记录
-
-- 2026-09-22：第 14 项首次编写时把模板列数误写为 17（实际 18：月份 + 4 收入 + 10 成本 + 3 现金项），修正测试后通过。代码无改动。
-
-## 2. 静态检查
-
-| 检查项 | 方法 | 结果 |
-|---|---|---|
-| 内联 JS 语法 | 提取 2 段 `<script>` 用 `node --check` | 2/2 通过（计算引擎 14,284 字符；界面逻辑 31,907 字符） |
-| 计算引擎可执行性 | 在 Node 中直接运行引擎模块 | 通过：24 个月数据（2024-09 至 2026-08）正常生成 |
-| 依赖可用性 | HTTP 请求 CDN 资源 | Chart.js → 200；Google Fonts → 200 |
-| 文件完整性 | 单文件 66,839 字符 / 814 行，无外部本地依赖 | 通过 |
-
-## 3. 验证明细
-
-### 3.1 现金流勾稽（24 个月全量核对）
-
-逐月核对：`期末现金 = 上期期末现金 + 客户回款 − 经营性现金支出 − 还贷本金 − 购置设备 − 分红 + 新增贷款`。
-
-**结果：24/24 个月全部吻合**（误差 < 0.05 万元，视为四舍五入误差）。样例数据的现金流生成逻辑内部自洽。
-
-### 3.2 CSV 导入校验（8 个用例）
-
-| 用例 | 预期 | 实际结果 |
-|---|---|---|
-| 合法的 2 个月数据 | 通过 | 通过 |
-| 只有 1 个月数据 | 报错"至少需要 2 个月的数据" | 按预期报错 |
-| 表头列数不足 | 报错列数提示 | 按预期报错 |
-| 月份写成 `2025/01`（非 `2025-01`） | 报错格式提示 | 按预期报错 |
-| 某列填了非数字 | 报错并指出具体列名 | 按预期报错 |
-| 用全角逗号"，"分隔 | 兼容通过 | 通过 |
-| 数据行前后有空格、夹杂空行 | 兼容通过 | 通过 |
-| 某行列数少于模板 | 报错并指出具体行号 | 按预期报错 |
-
-**结果：8/8 用例符合预期。** 报错信息能定位到具体行号与列名。
-
-**未覆盖但值得注意的边界：** 表头校验只判断"列数不小于模板"（`hdr.length < need`）。若用户表头列数刚好够但**顺序被打乱**（例如把"客户回款"与"期末应收账款"两列调换），程序不报错，而是把数值算到错误位置——目前只校验列数与逐格数值类型，不校验列名是否与模板一一对应。
-
-### 3.3 边界月份选择（5 个场景）
-
-分别用「仅选最后 1 个月」「仅选头 2 个月（无可比同期/环比）」「全部 24 个月」「跳选 3 个不连续月份」「最近 12 个月」跑 `metrics()` + `score()`。
-
-**结果：5/5 场景均正常返回评分，无 `NaN` 或崩溃。** 头 2 个月因往前找不到第 3 个月，`回款周期（DSO）` 按设计返回 `null`；页面上这种情况下卡片显示是否友好（不是 `NaN 天`）未做界面层验证。
-
-### 3.4 资产负债表勾稽 —— 一个需要知道的建模简化
-
-页面「数据质量检查」中"资产 = 负债 + 所有者权益"一项**恒为"通过"**：所有者权益在代码里是按 `资产合计 − 负债合计` 直接算出的**差额**，不是独立滚动记账的留存收益，因此该勾稽关系在数学上必然成立，不代表真实的复式记账验证。
-
-进一步核对"权益变动 = 净利润 − 分红"（真实资产负债表应满足的关系）：24 个月里**只有 1 个月完全吻合，其余月份存在 0.8–11.7 万元差额**，2026 年 3 月（购置新设备并新增贷款当月）差额最大。根因是「存货」「应付账款」按当月原材料采购额的固定比例（分别为 1.25 倍、0.55 倍）直接算出，而非按期初期末真实滚动的存量，其逐月变动不满足现金流勾稽关系。
-
-**结论：** 这套报表适合说明"大致结构"与做演示，**不能当作真实的复式记账系统**。若接入真实企业数据做审计级报表，存货与应付账款需改为真实滚动记账。
-
-## 4. 样例数据评估
-
-数据为虚构企业数据，由固定随机种子生成，结果可复现，**不代表任何真实经营情况**。
-
-### 4.1 最近 12 个月（2025-09 至 2026-08）
-
-| 指标 | 数值 | 等级 |
-|---|---|---|
-| 收入 | 1392.5 万 | — |
-| 净利润 | 154.8 万 | — |
-| 净利率 | 11.1% | 盈利能力 82 分，健康 |
-| 现金可支撑月数 | 1.4 个月 | 现金安全 31 分，风险 |
-| 回款周期 | 74 天 | 回款效率 33 分，关注 |
-| 毛利覆盖倍数 | 1.9 倍 | 成本控制 61 分，健康 |
-| 收入同比 | +16.2% | 成长性 100 分，健康 |
-| **健康评分** | **59** | **关注** |
-
-### 4.2 全部 24 个月（2024-09 至 2026-08）
-
-| 指标 | 数值 |
+| Area | Observed scope |
 |---|---|
-| 收入 | 2,590.4 万 |
-| 净利润 | 303.9 万 |
-| 健康评分 | 54（关注） |
-| 回款周期 | 74 天 |
-| 现金可支撑月数 | 1.5 个月 |
+| Scenario shape | Core fields, amounts, units, periods, and explicit synthetic provenance |
+| Cash history | Twelve months of receipts, payments, opening and closing cash |
+| Accrual bridge | Monthly profit-to-cash relationships and January-September totals |
+| Statements | Both balance-sheet columns, cash-flow arithmetic, and the illustrative comparative-year bridge |
+| Forecast | Baseline, tax toggle, delay, cuts, account split, and 48 boundary combinations, each checked across months 0-6 |
+| Details | 120 distinct detail types; dialog content and rows populated in the mock DOM |
+| CSV | 120 generated detail CSVs checked in memory for headers, rows, quoting, and CRLF |
+| Interactions | Period/tab wiring, file-picker placeholder behavior, and listener accumulation |
+| Source/CSS structure | Six cards, score rules, Sankey conservation, margin-label markup, and hover rules |
 
-> 口径说明：54 分为全部 24 个月窗口，59 分为最近 12 个月窗口，两者不同期，不矛盾。
+启用 18,000 元税费支付情景时，基准情景的六个月期末现金为人民币 704,000 元。支持范围内最不利的滑块边界组合得到人民币 272,000 元，高于人民币 216,000 元的管理安全线。这些是确定性的合成数据计算，不是已用真实结果验证的企业预测。
 
-结论与样例数据的设计意图一致——"账面赚钱、现金紧张、钱压在客户手里"；看板给出的第一条建议是**催收超 90 天应收**。
+The baseline six-month ending cash is CNY 704,000 with the CNY 18,000 tax-payment scenario enabled. The worst supported slider boundary produces CNY 272,000, above the CNY 216,000 management safety line. These are deterministic synthetic calculations, not business forecasts validated against actual outcomes.
 
-### 4.3 默认沙盘推演（三滑块均不调）
+## 人工视觉检查记录 / Manual visual observations
 
-2026-09 至 2027-02 期末现金 142.9 → 216.5 万，安全线 323.8 万；6 个月内未回到安全线以上，与"回款效率关注"的判断一致。
+现有演示在 2026-10-20/21（Asia/Shanghai）期间，通过本地应用内浏览器进行了检查。观察到的行为包括：桌面端六张卡片等高、四组非等宽行的纵向分区一致、窄屏切换为单列、收入明细可点击，以及净利润率标签在悬停折线时显示、移出时隐藏。
 
-压力情景（收入 −30%、回款延后 60 天）期末现金 45.3 万 vs 基线 216.5 万，正确跌破安全线并触发风险提示；削减弹性支出 30% 时现金优于基线。
+The existing demonstration was inspected locally in an in-app browser during 2026-10-20/21 (Asia/Shanghai). Observed behavior included six equal-height desktop cards, matching vertical divisions across four asymmetric rows, a narrow-screen single-column switch, clickable income details, and net-margin labels showing on line hover and hiding on exit.
 
-## 5. 已知局限
+[总览截图](images/overview.png)和[收入明细截图](images/income-detail.png)展示的都是合成内容。这些观察仅构成有限的人工检查，不是设备／浏览器兼容性矩阵或无障碍认证。自动化测试环境不会复现这些视觉观察。
 
-### 5.1 未自动化的层
+The [overview capture](images/overview.png) and [income-detail capture](images/income-detail.png) show synthetic content. These observations are a limited manual check, not a device/browser compatibility matrix or accessibility certification. The automated harness does not reproduce those visual observations.
 
-- 自动化测试只覆盖计算引擎，不覆盖图表渲染、CSV 导入的 DOM 交互；这部分靠第 6 节人工清单。
-- 尚无跨浏览器自动化测试（Safari、Firefox 仅人工抽查）。
+## 方法与局限 / Method and limits
 
-### 5.2 建模简化
+自动化套件在自定义、隔离的 DOM 测试环境中执行实际嵌入的应用脚本，模拟尺寸、事件、对话框、文件选择、计时和对象 URL。CSS 规则按文本检查；真实计算布局和指针渲染不在其范围内。CSV Blob 文本在内存中检查，不经过浏览器下载或电子表格软件。核心字段检查不等于完整的 JSON Schema 符合性测试。
 
-- 推演模型假设成本结构不变：原材料占收入比例、稳定支出按当前值外推，未建模未来可能的一次性大额支出（如再购设备）。
-- CSV 导入后的账龄是**估算值**：样例数据按逐笔回款计划精确模拟账龄；导入数据缺少回款明细，账龄按固定比例（60/20/12/8%）分桶，仅够示意。
-- 导入模式不校验现金勾稽：CSV 中的「期末账上现金」是用户自报值，引擎不强制「期初 + 回款 − 付款 = 期末」成立（样例数据满足）。
-- 导入模式下固定资产与贷款为 0。
+The automated suite executes the actual embedded application scripts inside a custom isolated DOM harness. It uses mocked dimensions, events, dialogs, file selection, timing, and object URLs. CSS rules are checked as text; real computed layout and pointer rendering are outside its scope. CSV Blob text is inspected in memory, not through a browser download or spreadsheet application. Core field validation is not full JSON Schema conformance testing.
 
-### 5.3 未验证项（部署前需自行确认）
+本次没有测试真实银行账户、生产账簿、纳税申报表、客户部署、外部贡献者群体、财务节省、可用性收益、安全认证或美国会计合规性。所有财务数值均来自合成样例。当前证据用于说明原型的可复现性，不是对实际应用效果的研究。
 
-- **真实浏览器渲染**：本轮验证在无 GUI 环境完成，图表绘制、深色模式配色、移动端断点（640px）均未做视觉验证。
-- **跨浏览器兼容性**（Chrome / Safari / 移动端浏览器）未测试。
-- **大数据量性能**（导入 60+ 个月、表格行数很多时的渲染速度）未测试。
-- **CSV 表头顺序错乱但列数不变**的场景未拦截（见 3.2）。
-- **无障碍可用性**（屏幕阅读器、键盘导航）未评估。
-- CSV 导入异常路径（列数不足、格式错误）经代码审查确认有错误提示，未逐一实测。
-- 「财务软件接口」「手工录入」为演示版未开放功能，不在本轮范围。
+No actual bank account, production ledger, tax return, customer deployment, external contributor population, financial saving, usability benefit, security certification, or U.S. accounting compliance was tested. All finance values originate in the synthetic fixture. Current evidence is reproducibility evidence for this prototype, not a study of its real-world effect.
 
-### 5.4 评分阈值
+## 下一阶段评估 / Next evaluation stage
 
-样例数据由固定随机种子生成，结果可复现；评分阈值未在真实企业数据上验证。
+按照[路线图](ROADMAP.md)，先记录真实浏览器的覆盖情况，再取得同意，以去标识或合成任务开展小规模可用性研究。将明确的任务与已说明的基准方法进行比较，记录时间、正确性、失败、参与者选择和局限。使用[证据模板](../evidence/README.md)，分别报告计划、观察和验证后的结果。
 
-## 6. 人工检查清单
-
-- [ ] Chrome 桌面版：七个页面均正常渲染，图表有数据
-- [ ] 手机宽度（约 375px）：顶栏、表格可横向滚动，滑块可拖动
-- [ ] 深色模式：无白底，文字可读
-- [ ] 月份筛选：单选、多选、最近 12 个月、按年、全部
-- [ ] 导入 `data/template.csv`：结果与样例一致；导入错误文件时提示清楚
-- [ ] 沙盘推演：拖动三个滑块曲线即时变化
-
-## 附：复现方式
-
-```bash
-# 1. 语法检查：提取 <script> 内容后
-node --check script.js
-
-# 2. 引擎运行：把页面第一段 <script>（ENGINE 模块）存为 engine.js，末尾追加 ";ENGINE" 后
-node -e "const fs=require('fs');const E=eval(fs.readFileSync('engine.js','utf8')+';ENGINE');console.log(E.rows.length, E.metrics([...Array(24).keys()]).rev)"
-
-# 3. 依赖检查
-curl -s -o /dev/null -w "%{http_code}" https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js
-```
-
-## 免责声明
-
-本报告仅为开发期验证记录。样例数据为虚构企业数据，不代表任何真实经营情况；沙盘推演基于简化假设（季节系数、固定账期分布），是情景演示，**不构成财务预测**，也不替代会计核算。
+Follow the [roadmap](ROADMAP.md). Record real-browser coverage, then obtain consent for a small usability study using de-identified or synthetic tasks. Compare defined tasks with a stated baseline and record time, correctness, failures, participant selection, and limitations. Use the [evidence templates](../evidence/README.md); report planned, observed, and verified results separately.
