@@ -1,0 +1,29 @@
+中文许可导读
+
+中文导读：本文件为 Mozilla 组件的 Apache 2.0 许可声明，并链接完整条款。该许可规定再分发时附带许可证、保留适用版权和声明、标明修改，以及专利授权和无担保等条件；请同时阅读完整条款。
+
+说明：以上只是简要导读，不是完整许可的翻译或替代条款。下方原始许可及声明逐字节保留，适用条件请以原文为准。
+
+============================================================
+
+English license guide
+
+English guide: This file is an Apache 2.0 notice for a Mozilla component and links to the full terms. Those terms address supplying the license, retaining applicable copyright and notices, marking changes, patent grants and disclaimers of warranty. Read the full terms as well.
+
+Note: The guide above is a brief aid, not a full translation or a replacement for the license terms. The original license and notices below are preserved byte for byte; consult those originals for the applicable conditions.
+
+----- Original license and notices -----
+
+Copyright 2026 Mozilla Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

@@ -1,0 +1,74 @@
+/* Quiet, optional supplementation drawer. Kept separate from report snapshots. */
+#ys-app dialog.ys-sup-dialog{position:fixed;inset:0 0 0 auto;margin:0;width:min(440px,100vw);height:100%;max-height:100dvh;border:0;border-left:1px solid #dce5d8;border-radius:16px 0 0 16px;padding:0;background:#fff;color:#283f34;box-shadow:-8px 0 40px #263d3314;overflow:auto;overscroll-behavior:contain}
+#ys-app dialog.ys-sup-dialog::backdrop{background:#203d2f2e}
+#ys-app .ys-sup-content{padding:25px 26px 24px;min-width:0;overflow-wrap:anywhere}
+#ys-app .ys-sup-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px}
+#ys-app .ys-sup-head h2{margin-top:5px;font-size:22px;font-weight:600}
+#ys-app .ys-sup-eyebrow{font-size:11px;letter-spacing:.4px;color:#708376}
+#ys-app .ys-sup-close{font-size:12px;font-weight:400;padding:6px 10px;flex-shrink:0}
+#ys-app .ys-sup-intro{font-size:13px;color:#667d6c;margin:0 0 23px}
+#ys-app .ys-sup-field{display:flex;flex-direction:column;gap:5px;margin:0 0 17px;min-width:0;color:#314e3b;font-size:13px}
+#ys-app .ys-sup-field>span{font-weight:500}
+#ys-app .ys-sup-field input,#ys-app .ys-sup-field select{margin-top:0;min-width:0;min-height:44px;font-weight:400;font-size:14px}
+#ys-app .ys-sup-field small,#ys-app .ys-sup-note{font-size:12px;color:#6a7d70;line-height:1.65}
+#ys-app .ys-sup-note{margin:5px 0 14px}
+#ys-app .ys-sup-more{border-top:1px solid #e2e9dd;margin:20px 0;padding-top:14px}
+#ys-app .ys-sup-more summary{display:flex;align-items:center;justify-content:space-between;gap:12px;box-sizing:border-box;width:100%;min-height:48px;padding:12px 14px;border:1px solid #c9d9ca;border-radius:8px;background:#f3f7f0;color:#386448;font-size:14px;font-weight:600;line-height:1.5;list-style:none;cursor:pointer}
+#ys-app .ys-sup-more summary::-webkit-details-marker{display:none}
+#ys-app .ys-sup-more summary::after{content:"⌄";font-size:21px;line-height:1;flex-shrink:0}
+#ys-app .ys-sup-more[open] summary::after{content:"⌃"}
+#ys-app .ys-sup-more summary:hover{background:#eaf2e6;border-color:#91af95}
+#ys-app .ys-sup-more summary:focus-visible{outline:2px solid #54876b;outline-offset:3px}
+#ys-app .ys-sup-more[open] summary{margin-bottom:17px}
+#ys-app .ys-sup-label{font-size:13px;font-weight:500}
+#ys-app .ys-sup-check{display:flex;align-items:flex-start;gap:9px;color:#61796a;font-size:12px;line-height:1.65;margin:16px 0}
+#ys-app .ys-sup-check input{margin:2px 0 0;flex-shrink:0}
+#ys-app .ys-sup-result{padding:15px 16px;border-radius:9px;background:#edf3e9;margin:19px 0;color:#376047}
+#ys-app .ys-sup-result>span{display:block;font-size:12px;color:#5e7666}
+#ys-app .ys-sup-result>strong{display:block;font-size:25px;line-height:1.4;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+#ys-app .ys-sup-result>small{display:block;font-size:12px;color:#5e7666;margin-top:4px}
+#ys-app .ys-sup-footer{border-top:1px solid #e2e9dd;margin-top:23px;padding-top:15px}
+#ys-app .ys-sup-actions{display:flex;gap:9px;margin:14px 0 9px}
+#ys-app .ys-sup-actions button{font-size:13px;font-weight:500;min-height:42px}
+#ys-app .ys-sup-actions .ys-primary{flex:1}
+#ys-app .ys-sup-local{font-size:11px;text-align:center;color:#7a8b7e;margin-top:11px}
+#ys-app .ys-sup-error{padding:11px 12px;color:#a34c41;background:#fcf1ee;border-radius:7px;font-size:12px;margin:12px 0}
+#ys-app .ys-sup-none{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:22px;font-size:12px;color:#77897b}
+#ys-app .ys-sup-link{font-size:12px;font-weight:400;text-decoration:underline;text-underline-offset:3px;background:transparent;border:0;padding:6px 0;color:#54735e}
+#ys-app .ys-sup-account+.ys-sup-account{padding-top:4px}
+#ys-app .ys-sup-account .ys-sup-field{margin-bottom:5px}
+#ys-app .ys-sup-source{margin:0 0 19px;font-size:11px;color:#77877c;line-height:1.6}
+#ys-app .ys-sup-source.is-known{color:#507a61}
+#ys-app .ys-sup-field input[readonly]{background:#f1f5ef;color:#3d614b;border-color:#e0e8dc;cursor:default}
+#ys-app .ys-sup-receipt{display:flex;gap:9px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #e8ede4;font-size:12px}
+#ys-app .ys-sup-receipt>input{margin:3px 0 0;flex-shrink:0}
+#ys-app .ys-sup-receipt>span{min-width:0;flex:1}
+#ys-app .ys-sup-receipt-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+#ys-app .ys-sup-receipt strong{font-weight:500;color:#3f5f4a;overflow-wrap:anywhere}
+#ys-app .ys-sup-receipt b{font-weight:500;white-space:nowrap;color:#344e3e;font-variant-numeric:tabular-nums}
+#ys-app .ys-sup-receipt small{display:block;margin-top:4px;color:#758779;font-size:11px;overflow-wrap:anywhere}
+#ys-app .ys-sup-missing{display:flex;align-items:center;gap:8px;justify-content:space-between;font-size:12px;color:#a16c35;margin:10px 0}
+#ys-app .ys-sup-missing button{padding:5px 8px;font-size:11px}
+#ys-app .ys-sup-new{display:flex;align-items:flex-end;gap:10px;margin:20px 0}
+#ys-app .ys-sup-new .ys-sup-field{flex:1;margin:0}
+#ys-app .ys-sup-new>button{font-weight:500;font-size:13px;min-height:44px}
+#ys-app .ys-sup-record{border-bottom:1px solid #e0e8dc;padding:18px 0}
+#ys-app .ys-sup-record-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px}
+#ys-app .ys-sup-record-top strong{font-size:14px;font-weight:500}
+#ys-app .ys-sup-badge{font-size:11px;color:#5e7b64;background:#eff4ea;border-radius:5px;padding:2px 7px;white-space:nowrap}
+#ys-app .ys-sup-record p{font-size:12px;color:#6a8070;margin-top:8px;overflow-wrap:anywhere}
+#ys-app .ys-sup-record-actions{display:flex;gap:8px;margin-top:12px}
+#ys-app .ys-sup-record-actions button{font-size:12px;padding:5px 11px;font-weight:400;border-radius:7px}
+#ys-app .ys-sup-record-actions .ys-sup-delete{color:#aa4b41;background:#fbefec;border-color:#f1d9d3}
+#ys-app .ys-sup-record-actions .ys-sup-delete:hover{background:#f7e2dc}
+#ys-app .ys-sup-empty{text-align:center;padding:38px 12px;color:#6c8371}
+#ys-app .ys-sup-empty strong{font-size:14px;font-weight:500}
+#ys-app .ys-sup-empty p{margin-top:9px;font-size:12px}
+#ys-app .ys-sup-undo{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;background:#edf4e9;border-radius:8px;font-size:12px;color:#496b53}
+#ys-app .ys-sup-undo button{font-size:12px;padding:5px 8px;font-weight:500;white-space:nowrap}
+@media(max-width:480px){#ys-app dialog.ys-sup-dialog{border-radius:0;border-left:0;width:100vw}#ys-app .ys-sup-content{padding:21px 19px}#ys-app .ys-sup-head h2{font-size:21px}}
+@media(pointer:coarse){#ys-app .ys-sup-content input,#ys-app .ys-sup-content select{font-size:16px}#ys-app .ys-sup-content button{min-height:44px}#ys-app .ys-sup-check,#ys-app .ys-sup-receipt{min-height:44px}}
+@media print{#ys-app #ys-supplement-dialog{display:none!important}}
+
+#ys-app .ys-sup-aggregate{margin:0 0 18px;padding:12px 14px;border:1px solid #dce5d8;border-radius:8px;background:#f7f9f5;color:#4b6653;font-size:12px;line-height:1.7}
+#ys-app .ys-sup-result>.ys-sup-aggregate-change{color:#6d5b37;font-weight:500}

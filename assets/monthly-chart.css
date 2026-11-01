@@ -1,0 +1,23 @@
+/* Shared monthly chart labels. Explicit interaction state wins over the older
+   chart-specific :hover rules, so money and percentages never compete. */
+.ym-scroll{overflow-x:auto;overflow-y:hidden;min-width:0;max-width:100%;overscroll-behavior-x:contain;scrollbar-width:thin}
+.ym-scroll .ym-chart{display:block;width:100%;max-width:none;overflow:visible;flex-shrink:0;font-variant-numeric:tabular-nums}
+.ym-scroll.ym-fit{overflow-x:hidden}
+.ym-scroll.ym-fit .ym-chart{min-width:0;max-width:100%}
+.ym-chart .ym-bar-label,.ym-chart .ym-margin-label{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .12s ease}
+.ym-chart[data-monthly-mode="bars"] .ym-bar-label,.ym-chart[data-monthly-mode="margin"] .ym-margin-label{opacity:1!important;visibility:visible!important}
+/* A single month has no trend line. Keep its point value readable at rest,
+   then let the existing hover mode choose money or percentages. */
+.ym-chart[data-monthly-count="1"][data-monthly-mode=""] .ym-margin-label{opacity:1!important;visibility:visible!important}
+.ym-chart .ym-bar-label rect{fill:#fff;stroke:#dce5dd;stroke-width:.7}
+.ym-chart .ym-bar-label text{fill:#375f49!important;font-size:11px!important;font-weight:600;font-variant-numeric:tabular-nums;paint-order:stroke;stroke:#fff;stroke-width:1px;stroke-linejoin:round}
+.ym-chart .ym-bar-label.ym-out-label text{fill:#695a87!important}
+.ym-chart .ym-bar-label.ym-active text,.ym-chart .ym-active .ym-bar-label text{font-weight:800}
+.ym-chart .ym-bar-label.ym-active rect,.ym-chart .ym-active .ym-bar-label rect{stroke:#527b64;stroke-width:1.2;fill:#f3f8f3}
+.ym-chart .ym-bar-label.ym-out-label.ym-active rect,.ym-chart .ym-active .ym-bar-label.ym-out-label rect{stroke:#83739d;fill:#f6f3fa}
+.ym-chart rect.ym-active,.ym-chart .ym-active .ym-bar-shape{stroke:#294b39;stroke-width:1.5;filter:brightness(.92)}
+.ym-chart [data-monthly-bar]{cursor:pointer;outline:none}
+.ym-chart [data-monthly-bar]:focus-visible{outline:2px solid #356b53;outline-offset:3px}
+.ym-readout{min-height:24px;line-height:24px;font-size:12px;color:#345542;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;padding-top:2px}
+@media(prefers-reduced-motion:reduce){.ym-chart .ym-bar-label,.ym-chart .ym-margin-label{transition:none}}
+@media print{.ym-scroll{overflow:visible}.ym-chart .ym-bar-label{opacity:1!important;visibility:visible!important}.ym-chart .ym-margin-label,.ym-chart[data-monthly-count="1"][data-monthly-mode=""] .ym-margin-label{opacity:0!important;visibility:hidden!important}.ym-readout{display:none}}

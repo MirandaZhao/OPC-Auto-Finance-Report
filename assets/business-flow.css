@@ -1,0 +1,312 @@
+/* Example operating cash flow. Keep the existing transaction dialog untouched. */
+#qingzhang-v4 .q-business-flow.q-panel {
+  --q-flow-source: #82a996;
+  --q-flow-expense: #a49bbb;
+  --q-flow-hub: #8da9b0;
+  --q-flow-surplus: #54866b;
+  --q-flow-soft: #f1f6f0;
+  padding: 22px;
+  border-radius: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+#qingzhang-v4 .q-business-flow .q-chart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+}
+
+#qingzhang-v4 .q-business-flow .q-chart-head h3 {
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-period {
+  color: var(--q-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 21px 0 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--q-line);
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-summary > div > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--q-muted);
+  font-size: 12px;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-summary strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 25px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: -.4px;
+  white-space: nowrap;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-summary .q-flow-surplus strong {
+  color: var(--q-flow-surplus);
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-summary em {
+  color: var(--q-flow-surplus);
+  font-size: 12px;
+  font-style: normal;
+}
+
+#qingzhang-v4 .q-business-flow #q2-sankey {
+  display: block;
+  width: 100%;
+  height: 458px;
+  margin-top: 0;
+  overflow: visible;
+}
+
+#qingzhang-v4 .q-business-flow #q2-sankey-mobile {
+  display: none;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-heading {
+  fill: var(--q-ink);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-label {
+  fill: var(--q-ink);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-value,
+#qingzhang-v4 .q-business-flow .q-flow-amount,
+#qingzhang-v4 .q-business-flow .q-flow-percent {
+  font-size: 11px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-amount {
+  fill: var(--q-ink);
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-percent {
+  fill: var(--q-muted);
+}
+
+#qingzhang-v4 .q-business-flow [data-kind="surplus"] .q-flow-label,
+#qingzhang-v4 .q-business-flow [data-kind="surplus"] .q-flow-amount {
+  fill: var(--q-flow-surplus);
+  font-weight: 500;
+}
+
+/* Only the ribbons fade. Labels and node marks stay readable during hover. */
+#qingzhang-v4 .q-business-flow .q-flow-part,
+#qingzhang-v4 .q-business-flow .q-flow-active .q-flow-part {
+  opacity: 1;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-band {
+  fill-opacity: .32;
+  transition: fill-opacity .15s ease;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-active .q-flow-band {
+  fill-opacity: .10;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-active .q-flow-band.q-flow-match {
+  fill-opacity: .68;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-active .q-flow-node.q-flow-match .q-flow-label {
+  font-weight: 500;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-active .q-flow-node.q-flow-match .q-flow-hit,
+#qingzhang-v4 .q-business-flow .q-flow-node:hover .q-flow-hit,
+#qingzhang-v4 .q-business-flow .q-flow-node:focus-visible .q-flow-hit {
+  fill: var(--q-flow-soft);
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  color: var(--q-muted);
+  font-size: 11px;
+}
+
+#qingzhang-v4 .q-business-flow .q-flow-note > span {
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  #qingzhang-v4 .q-business-flow.q-panel {
+    padding: 18px 14px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-chart-head {
+    gap: 7px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-summary {
+    gap: 9px;
+    margin-top: 18px;
+    padding-bottom: 16px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-summary strong {
+    font-size: 19px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-summary > div > span {
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-summary em {
+    font-size: 11px;
+  }
+
+  #qingzhang-v4 .q-business-flow #q2-sankey {
+    display: none;
+  }
+
+  #qingzhang-v4 .q-business-flow #q2-sankey-mobile {
+    display: block;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-block {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-block + .q-branch-block {
+    margin-top: 22px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-heading h4 {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-heading > span {
+    color: var(--q-muted);
+    font-size: 11px;
+  }
+
+  #qingzhang-v4 .q-business-flow button.q-branch-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 4px 12px;
+    width: 100%;
+    min-height: 48px;
+    padding: 7px 4px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    text-align: left;
+  }
+
+  #qingzhang-v4 .q-business-flow button.q-branch-row:hover {
+    background: var(--q-flow-soft);
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-mobile-name {
+    min-width: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-mobile-values {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-mobile-values b {
+    color: var(--q-ink);
+    font-weight: 400;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-mobile-values small {
+    min-width: 0;
+    margin: 0;
+    color: var(--q-muted);
+    font-size: 11px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-mobile-track {
+    display: block;
+    grid-column: 1 / -1;
+    height: 3px;
+    overflow: hidden;
+    border-radius: 2px;
+    background: #f0f3ee;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-flow-mobile-track i {
+    display: block;
+    height: 100%;
+    background: var(--q-flow-source);
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-row[data-kind="expense"] .q-flow-mobile-track i {
+    background: var(--q-flow-expense);
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-row[data-kind="surplus"] {
+    margin-top: 9px;
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-row[data-kind="surplus"] .q-flow-mobile-track i {
+    background: var(--q-flow-surplus);
+  }
+
+  #qingzhang-v4 .q-business-flow .q-branch-row[data-kind="surplus"] .q-flow-mobile-name,
+  #qingzhang-v4 .q-business-flow .q-branch-row[data-kind="surplus"] .q-flow-mobile-values b {
+    color: var(--q-flow-surplus);
+    font-weight: 500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #qingzhang-v4 .q-business-flow .q-flow-part {
+    transition: none;
+  }
+}

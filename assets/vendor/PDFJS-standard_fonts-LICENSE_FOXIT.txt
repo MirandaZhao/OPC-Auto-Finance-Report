@@ -1,0 +1,43 @@
+中文许可导读
+
+中文导读：本文件是 PDFium 的三条款式再分发许可。源码或二进制再分发须按规定保留或重现版权、条件及免责声明；未经事先书面许可，不得以 Google 或贡献者名义背书或推广衍生产品。软件按原样提供，不作担保。
+
+说明：以上只是简要导读，不是完整许可的翻译或替代条款。下方原始许可及声明逐字节保留，适用条件请以原文为准。
+
+============================================================
+
+English license guide
+
+English guide: This file contains PDFium three-clause-style redistribution terms. Source or binary redistribution must retain or reproduce the copyright, conditions and disclaimer as specified. Google or contributor names must not endorse or promote derived products without prior written permission. The software is provided as is, without warranty.
+
+Note: The guide above is a brief aid, not a full translation or a replacement for the license terms. The original license and notices below are preserved byte for byte; consult those originals for the applicable conditions.
+
+----- Original license and notices -----
+
+// Copyright 2014 PDFium Authors. All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met:
+//
+//    * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above
+// copyright notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+//    * Neither the name of Google Inc. nor the names of its
+// contributors may be used to endorse or promote products derived from
+// this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

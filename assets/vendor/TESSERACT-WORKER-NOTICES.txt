@@ -1,0 +1,28 @@
+中文许可导读
+
+中文导读：本文件保留多个依赖的版权和许可出处：buffer、regenerator-runtime、zlib.js 为 MIT，ieee754 为 BSD 三条款。使用和再分发须遵守各自完整条款并保留所需版权和许可声明；BSD 另限制未经许可借名背书。这些许可含无担保条款；本文件是声明汇集，并非完整条款合集。
+
+说明：以上只是简要导读，不是完整许可的翻译或替代条款。下方原始许可及声明逐字节保留，适用条件请以原文为准。
+
+============================================================
+
+English license guide
+
+English guide: This file preserves copyright and license references for multiple dependencies: buffer, regenerator-runtime and zlib.js use MIT, while ieee754 uses BSD-3-Clause. Use and redistribution must follow each full license and retain required copyright and license notices; BSD also restricts endorsement using names without permission. These licenses include warranty disclaimers. This file collects notices, not all full license texts.
+
+Note: The guide above is a brief aid, not a full translation or a replacement for the license terms. The original license and notices below are preserved byte for byte; consult those originals for the applicable conditions.
+
+----- Original license and notices -----
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+
+/** @license zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License */
