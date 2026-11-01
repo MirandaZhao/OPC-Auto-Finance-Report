@@ -1,8 +1,13 @@
-# 有数
+<img width="1265" height="712" alt="youshu-navigation-home" src="https://github.com/user-attachments/assets/53b16ace-152f-4143-8d48-595a93ff819e" /># 有数
 
-**把微信、支付宝和银行账单，变成个性化财务报告，专业还能看得懂！小微企业及OPC个人最佳搭子！**
+**把微信、支付宝和银行账单，变成个性化财务报告。专业还能看得懂！小微企业及OPC个人最佳搭子！**
 
 版本 **0.3.1** · 中文界面 · 人民币
+
+<img width="1265" height="712" alt="youshu-navigation-home" src="https://github.com/user-attachments/assets/f0906334-49c3-46ac-90e0-d562e825f81e" />
+<img width="1320" height="518" alt="youshu-own-report-hover" src="https://github.com/user-attachments/assets/50459107-4589-4aab-87f2-ed9959defd68" />
+<img width="1173" height="809" alt="youshu-sandbox-centered" src="https://github.com/user-attachments/assets/389f3300-f79d-43e8-9827-5ab2a48875ec" />
+
 
 ## 使用
 
@@ -67,3 +72,5 @@ Cash surplus is not net profit. Accounting statements require supporting records
 [Workflow](docs/WORKFLOW.md) · [Evaluation](docs/EVALUATION.md) · [Deployment](DEPLOY.md) · [Commit history](Commit%20History.md) · [License](LICENSE)
 
 Maintainer: **Yuchen Zhao**. Licensed under MIT, preserving the MirandaZhao and Yuchen Zhao copyright notices. Bundled third-party components are distributed under [their respective licenses](assets/vendor/NOTICE.md).
+
+
