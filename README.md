@@ -5,6 +5,8 @@
 <img width="1265" height="712" alt="youshu-navigation-home" src="https://github.com/user-attachments/assets/f0906334-49c3-46ac-90e0-d562e825f81e" />
 <img width="1320" height="518" alt="youshu-own-report-hover" src="https://github.com/user-attachments/assets/50459107-4589-4aab-87f2-ed9959defd68" />
 <img width="1173" height="809" alt="youshu-sandbox-centered" src="https://github.com/user-attachments/assets/389f3300-f79d-43e8-9827-5ab2a48875ec" />
+<img width="912" height="878" alt="screenshot-20261101-203430" src="https://github.com/user-attachments/assets/57f5cfb2-afb1-4fdd-b24a-88eba49871e5" />
+<img width="910" height="665" alt="screenshot-20261101-203447" src="https://github.com/user-attachments/assets/82498ffb-0483-49f0-919a-c1fb03191bb9" />
 
 ## 使用
 
