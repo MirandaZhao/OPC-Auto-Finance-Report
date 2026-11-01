@@ -1,14 +1,16 @@
 # 有数
 
-**把微信、支付宝和银行账单变成自己的财务报告。小微企业及OPC个人最佳搭子。**
+**把微信、支付宝和银行账单变成看的懂的个性化财务报告。小微企业及OPC个人最佳搭子。**
 
 版本 **0.3.1** · 中文界面 · 人民币
 
 ## 使用
 
-下载压缩包。完整解压后，直接打开 **[index.html](index.html)**。首页展示虚构的星辰AI应用工作室报告，无需安装或注册。数据仅存留你的本地，无收集上传。
+下载[压缩包](youshu-github-v0.3.1-bilingual.zip)。
+完整解压后，直接打开 **[index.html](index.html)**。
+首页展示模拟的星辰AI应用工作室报告，无需安装或注册。数据仅存留你的本地，无收集上传。
 
-- **随机体验**：点击“再来一个”，查看不同公司的虚构报告。
+- **随机体验**：点击“再来一个”，查看不同公司的模拟报告。
 - **我的报告**：添加自己的账单，核对后生成报告。可以一次添加多份，也可以继续追加；在“管理账单”中管理导入记录和备份。
 
 支持 CSV、Excel 和 PDF。银行 PDF 的版式和扫描质量不同，识别后需要核对全部页面、日期、方向和金额；无法正确读取时，可使用银行导出的 Excel 或 CSV。
@@ -41,7 +43,7 @@ Version **0.3.1** · Chinese interface · CNY
 
 ## Getting started
 
-Fully extract the package and open **[index.html](index.html)** directly. The homepage displays the fictional 星辰AI应用工作室 (Xingchen AI Applications Studio) report. No installation or registration is required. No data is collected.
+Download **[zip file](youshu-github-v0.3.1-bilingual.zip)**. Fully extract the package and open **[index.html](index.html)** directly. The homepage displays the fictional 星辰AI应用工作室 (Xingchen AI Applications Studio) report. No installation or registration is required. No data is collected.
 
 - **Random experience:** select “再来一个” (Another one) to explore fictional reports for different companies.
 - **My report:** add your statements, review them, and generate a report. Add multiple files at once or append more later. Use “管理账单” (Manage statements) to manage imports and backups.
