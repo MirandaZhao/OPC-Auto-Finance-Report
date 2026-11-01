@@ -1,63 +1,55 @@
 # 工作流程
 
-## 一、数据链路与使用方式
+有数 0.3.1 使用同一套报告界面展示虚构示例和用户自己的账本，两类数据相互独立。
 
-全链路在同一页面内完成，无后端、无网络请求；刷新页面即回到样例数据。
+## 数据如何生成报告
 
-```text
-财务软件 / Excel
-│  按模板整理（每月一行，18 列，金额万元）
-▼
-data/template.csv 格式的 CSV
-│  「数据管理」→ 选择 CSV 文件
-▼
-importCSV()    校验列数、月份格式、数字有效性 → ENGINE.setRows()
-▼
-quality()      勾稽检查：收入明细 = 收入总额、成本明细 = 成本总额 …
-▼
-筛选月份 → metrics(sel) → score(m) → narrative() / advice() → 七个页面渲染
-▼
-forecast()     沙盘推演，拖滑块即时重算
-```
+1. **选择数据**：随机体验使用内置合成场景；我的报告接收 CSV、Excel、PDF 和补录资料。
+2. **读取与核对**：在浏览器中解析文件，识别账户、日期、交易对象、收支方向、金额和余额。需要审核的文件经过用户核对后导入；PDF 需检查记录完整性。
+3. **加入账本**：多份账单持续追加，保留导入来源并检查可识别的重复记录。跨平台同一笔付款仍可能需要人工核对。
+4. **选择期间**：按全部月份或最近有数据的月份汇总，联动各模块。余额、应收等时点信息按各自日期展示。
+5. **计算与展示**：生成收支、余额、收入成本结构、现金预测、应收、分析建议及有资料支持的财务报表；点击图表可查看对应明细。
+6. **本机保存**：账本保存在当前浏览器中。下载账本备份可以恢复工作，导出报告用于阅读。
 
-用户按以下顺序使用：
+## 计算口径
 
-1. **看结论**：打开页面，先看「财务总览」顶部的健康评分和"现在最该关心的"一句话（`score()` / `narrative()`）。
-2. **选范围**：用月份筛选切换到本月、最近 12 个月或某一年（`metrics(sel)`）。
-3. **读建议**：在「分析建议」中按轻重排序往下看。每条建议都说明做什么、找谁、预计效果（`advice()`）。
-4. **做推演**：在「现金流」中拖动滑块，回答"如果……会怎样"（`forecast()`）。
-5. **换数据**：在「数据管理」中导入自己的 CSV（`importCSV()` → `quality()`）。
+- 看板收支排除已识别的投资理财、信用还款、他人代付、本人资金互转；退款入账计入收入。原始交易保留，实际资金变动和账务报表按各自口径计算。
+- 账户余额优先使用已识别或用户确认的数据。缺失余额暂按 0 估算并标注，用户可在余额弹窗修改。
+- 现金流沙盘保留历史和未来六个月预测；推算历史与预测均不代表银行已确认余额。
+- 应收款、计划收付款、账务利润和资产负债可按需补录。缺失日期不作为判断逾期的依据。
+- 评分、雷达图和建议依据已有资料生成，并提示样本局限。
 
-## 二、开发与发布
+**现金结余不等于账务利润。**只有流水时，可以分析收支与现金；完整利润表和资产负债表需要相应账务资料，不用虚构数据补齐。
 
-### 日常开发
+## 发布范围
 
-```bash
-git clone …
-git checkout -b feat/<改动主题>           # 不直接改 main
+软件仅附带虚构示例和空白模板，不附带个人账本。个人记录保存在浏览器中，不会随源码复制；个人备份和导出报告应放在发布目录之外。
 
-# 修改 index.html
+---
 
-node --test tests/engine.test.js          # 引擎改动必须过测试
-python3 -m http.server 8000               # 打开 http://localhost:8000/index.html
-                                          # 人工检查：七个页面 + 深色模式 + 375px 手机宽度
+# Workflow
 
-git add -A
-git commit -m "<类型>: <说明>"
-git push -u origin HEAD                   # 推送后开 PR，评审通过再合并
-```
+Youshu 0.3.1 uses the same report interface for fictional examples and users' own ledgers. The two datasets remain separate.
 
-### 发布版本
+## From data to reports
 
-1. **在功能分支上更新 `CHANGELOG.md`**：写入新版本号与改动说明，随 PR 一起提交。
-2. **跑测试并记录**：把结果与日期写入评估报告，同样随 PR 提交。
-3. **合并 PR 到 `main`**：合并后 GitHub Actions 自动部署到 GitHub Pages（见 [DEPLOY.md](../DEPLOY.md)）。
-4. **在 `main` 的 HEAD 上打 tag 并推送**：
+1. **Select data:** Random experience uses built-in synthetic scenarios. My report accepts CSV, Excel, PDF, and supplementary records.
+2. **Read and review:** files are parsed in the browser to identify accounts, dates, counterparties, cash directions, amounts, and balances. Files requiring review are imported after user confirmation. Check PDFs for complete transaction extraction.
+3. **Add to the ledger:** append multiple statements while retaining import sources and checking identifiable duplicates. The same payment appearing across platforms may still require manual review.
+4. **Choose the period:** summarize all months or the latest months containing data, updating the report modules together. Balances, receivables, and other point-in-time information retain their respective dates.
+5. **Calculate and display:** generate cash activity, balances, income/cost breakdowns, cash projections, receivables, insights, and financial statements supported by the supplied records. Click charts to view the corresponding details.
+6. **Save locally:** the ledger stays in the current browser. Downloaded ledger backups restore editable work; exported reports are reading copies.
 
-```bash
-   git checkout main && git pull
-   git tag v1.0.0
-   git push origin v1.0.0
-```
+## Calculation definitions
 
-> 版本号需与 `CHANGELOG.md` 一致。tag 必须落在实际部署的那次提交（`main` 的 HEAD）上，以免"部署的代码"与"发布的 tag"错位。
+- Dashboard income and spending exclude recognized investing, credit repayments, payments made by others, and transfers between your own accounts. Incoming refunds count as income. Original transactions are retained; actual cash movements and accounting statements use their respective definitions.
+- Account balances prioritize recognized or user-confirmed values. Missing balances temporarily use a marked zero estimate, which users can edit in the balance dialog.
+- Cash scenarios retain historical data and a six-month forecast. Inferred history and projections do not represent bank-confirmed balances.
+- Receivables, planned receipts/payments, accounting profit, and balance-sheet information can be supplemented as needed. Missing dates are not evidence of overdue status.
+- Scores, radar charts, and suggestions use available records and indicate sample limitations.
+
+**Cash surplus is not accounting profit.** Transactions alone support cash activity analysis. Complete income statements and balance sheets require supporting accounting records and are not filled with invented data.
+
+## Release contents
+
+The software includes fictional examples and blank templates, not a personal ledger. Personal records stay in the browser and are not copied with the source files. Keep personal backups and exported reports outside the release folder.
