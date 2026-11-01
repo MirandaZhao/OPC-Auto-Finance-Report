@@ -1,0 +1,1331 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>有数 · 我的企业经营报告</title>
+<link rel="stylesheet" href="assets/workspace.css?v=clean-release-031">
+<link rel="stylesheet" href="assets/supplement-ui.css?v=cash-history-20261101">
+<link rel="stylesheet" href="assets/monthly-chart.css?v=monthly-one-month-1">
+<script src="assets/monthly-chart.js?v=monthly-one-month-1"></script>
+<link rel="stylesheet" href="assets/demo-breakdown.css?v=donut-fit-1">
+<link rel="stylesheet" href="assets/cash-sandbox.css?v=compact-cash-1">
+<link rel="stylesheet" href="assets/business-flow.css?v=business-flow-1">
+<script src="assets/vendor/xlsx.full.min.js"></script>
+<script src="assets/demo-breakdown.js?v=donut-fit-1"></script>
+<style>
+:root{color-scheme:light}body{margin:0;padding:24px;background:light-dark(#e8ece7,#101813);font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:1120px;margin:auto}.cursor-interaction{cursor:pointer}:focus-visible{outline:2px solid light-dark(#54876b,#8bbca0);outline-offset:3px}@media(max-width:620px){body{padding:0}}@media print{body{padding:0;background:white}#qingzhang-v4 .q-rank-scroll{height:auto;overflow:visible}#qingzhang-v4 .q-report-tabs{display:none}#qingzhang-v4 [role=tabpanel][hidden]{display:block!important}#qingzhang-v4 [role=tabpanel]{break-before:page}#qingzhang-v4 .q-panel{break-inside:avoid}}
+</style>
+<style id="ys-report-template-css">
+#ys-report{color-scheme:light;--rt-line:#e0e7dc;--rt-muted:#69796e;--rt-ink:#253a30;--rt-green:#54876b;background:#f3f5f2;color:var(--rt-ink);font:14px/1.55 Arial,"PingFang SC","Microsoft YaHei",sans-serif;padding:0;border-radius:0;margin:20px 0}
+#ys-report *{box-sizing:border-box}
+#ys-report [hidden]{display:none!important}
+#ys-report .rt-nav,#ys-report .rt-header,#ys-report .rt-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+#ys-report .rt-nav{padding:0 90px 22px 0;border-bottom:1px solid var(--rt-line);margin-bottom:22px}
+#ys-report .rt-brand{font-size:22px;font-weight:600;white-space:nowrap}
+#ys-report .rt-brand small{font-size:11px;font-weight:400;color:var(--rt-muted);margin-left:8px}
+#ys-report .rt-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#ys-report .rt-button,#ys-report .rt-nav button,#ys-report .rt-filter,#ys-report .rt-tab{font:inherit;font-size:12px;color:var(--rt-ink);background:#fff;border:1px solid var(--rt-line);border-radius:8px;padding:9px 13px}
+#ys-report .rt-nav button{background:transparent;border-color:transparent}
+#ys-report .rt-nav button[aria-current=page]{color:#375f49;background:#e4eddf;border-color:#d3e0cc;font-weight:600}
+#ys-report .rt-primary{background:#477b60;color:white;border-color:#477b60}
+#ys-report .rt-delete{color:#ad4a3e;background:#fff3ef;border-color:#edd4cc}
+#ys-report .rt-header{margin-bottom:12px}
+#ys-report .rt-header h1{font-size:25px;line-height:1.4;margin:5px 0 7px}
+#ys-report .rt-eyebrow,#ys-report .rt-note{font-size:12px;color:var(--rt-muted)}
+#ys-report .rt-source{font-size:12px;color:#41644b;border:1px solid #dce6d5;background:#eaf1e6;border-radius:8px;padding:10px 14px;margin:12px 0 24px}
+#ys-report #qingzhang-v4{padding:0;background:transparent;border-radius:0}
+#ys-report .rt-heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:32px 0 12px}
+#ys-report .rt-heading:first-child{margin-top:0}
+#ys-report .rt-no{display:grid;place-items:center;background:#e5ece2;color:var(--rt-muted);font-size:11px;width:22px;height:22px;border-radius:5px;flex:none}
+#ys-report .rt-heading h2{font-size:18px;font-weight:600;margin:0}
+#ys-report .rt-intro{color:#607467;font-size:12px}
+#ys-report .rt-meta{margin-left:auto;color:var(--rt-muted);font-size:11px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+#ys-report .rt-meta strong{font-size:19px;color:var(--rt-ink);font-weight:500}
+#ys-report .rt-panel{background:#fff;border:1px solid var(--rt-line);border-radius:12px;padding:20px;min-width:0}
+#ys-report .rt-panel h3,#ys-report .rt-chart-title{margin:0;font-size:14px;font-weight:600}
+#ys-report .rt-panel p{margin:5px 0 0}
+#ys-report .rt-gap{margin-top:16px}
+#ys-report .rt-split{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:20px}
+#ys-report .rt-split>:nth-child(2){border-left:1px solid var(--rt-line);padding-left:18px;min-width:0}
+#ys-report .rt-narrow{display:grid;grid-template-columns:244px minmax(0,1fr);gap:20px}
+#ys-report .rt-narrow>:nth-child(2){border-left:1px solid var(--rt-line);padding-left:20px;min-width:0}
+#ys-report .rt-hero{display:grid;grid-template-columns:170px minmax(0,1fr) 230px;gap:24px;background:#e7efe2;padding:24px;border:1px solid #d9e4d2;border-radius:12px;align-items:center}
+#ys-report .rt-hero>div+div{border-left:1px solid #d1deca;padding-left:24px}
+#ys-report .rt-hero strong{display:block;font-size:30px;font-weight:500;letter-spacing:-.5px;overflow-wrap:anywhere}
+#ys-report .rt-hero h3{font-size:18px;font-weight:500;margin:0 0 8px}
+#ys-report .rt-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}
+#ys-report .rt-kpi{background:#fff;border:1px solid var(--rt-line);border-radius:12px;padding:18px}
+#ys-report .rt-kpi strong{display:block;font-size:25px;font-weight:500;margin:7px 0;overflow-wrap:anywhere}
+#ys-report .rt-summary{display:flex;flex-direction:column;justify-content:space-evenly;gap:24px;padding:14px 0}
+#ys-report .rt-summary strong{display:block;font-size:26px;font-weight:500;margin-top:6px;overflow-wrap:anywhere}
+#ys-report .rt-green{color:#54876b}
+#ys-report .rt-purple{color:#8f85ad}
+#ys-report .rt-legend{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--rt-muted);margin:16px 0 8px}
+#ys-report .rt-legend i{display:inline-block;width:11px;height:8px;border-radius:2px;margin-right:5px}
+#ys-report .rt-empty{min-height:185px;padding:28px 15px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;color:var(--rt-muted);font-size:12px;gap:10px}
+#ys-report .rt-empty strong{font-size:15px;font-weight:500;color:var(--rt-ink)}
+#ys-report .rt-rank{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:12px 10px;margin:4px 0 7px;font:inherit;color:var(--rt-ink)}
+#ys-report .rt-rank[aria-pressed=true]{background:#edf3e9;box-shadow:inset 3px 0 #54876b}
+#ys-report .rt-cost .rt-rank[aria-pressed=true]{background:#f1eef6;box-shadow:inset 3px 0 #a39dbf}
+#ys-report .rt-rank-top{display:grid;grid-template-columns:minmax(0,1fr) auto 42px;gap:10px;align-items:center;font-size:12px}
+#ys-report .rt-rank-top>span:first-child{overflow-wrap:anywhere}
+#ys-report .rt-rank-top>span:last-child{color:var(--rt-muted);text-align:right}
+#ys-report .rt-track{display:block;height:6px;background:#edf1e9;border-radius:4px;margin-top:11px;overflow:hidden}
+#ys-report .rt-fill{display:block;height:100%;background:#83a78f;border-radius:4px}
+#ys-report .rt-cost .rt-fill{background:#a39dbf}
+#ys-report .rt-ledger{margin:20px -20px -20px;border-top:1px solid var(--rt-line);padding:20px}
+#ys-report .rt-ledger-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+#ys-report .rt-ledger-toolbar h3{margin:0;font-size:15px}
+#ys-report .rt-tags{display:flex;gap:6px;flex-wrap:wrap}
+#ys-report .rt-tag{font:inherit;font-size:11px;padding:5px 12px;border:1px solid transparent;color:#496e55;background:#edf3e9;border-radius:16px}
+#ys-report .rt-tag[aria-pressed=true]{border-color:#54876b;background:#dae8d4}
+#ys-report .rt-cost .rt-tag{background:#f1eef6;color:#75698b}
+#ys-report .rt-cost .rt-tag[aria-pressed=true]{border-color:#a39dbf;background:#e7e0f0}
+#ys-report .rt-ledger-toolbar>.rt-actions{margin-left:auto}
+#ys-report .rt-table-scroll{overflow-x:auto;max-width:100%}
+#ys-report .rt-table{width:100%;border-collapse:collapse;font-size:12px}
+#ys-report .rt-table th{font-size:11px;font-weight:400;color:var(--rt-muted);text-align:left;background:#f8faf6}
+#ys-report .rt-table td,#ys-report .rt-table th{padding:12px 11px;border-bottom:1px solid var(--rt-line);vertical-align:top;overflow-wrap:anywhere}
+#ys-report .rt-table .rt-amount{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+#ys-report .rt-table th button{display:flex;align-items:center;gap:8px;border:0;background:transparent;font:inherit;color:inherit;padding:2px 0;min-height:25px;text-align:left}
+#ys-report .rt-table th:last-child button{margin-left:auto}
+#ys-report .rt-table .rt-sub{display:block;color:var(--rt-muted);font-size:11px;margin-top:4px}
+#ys-report .rt-ledger-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--rt-muted)}
+#ys-report .rt-control{margin:21px 0 25px}
+#ys-report .rt-control label{display:flex;justify-content:space-between;font-size:12px;font-weight:500;margin-bottom:12px;gap:12px}
+#ys-report .rt-control output{color:#477b60;white-space:nowrap}
+#ys-report .rt-control input{width:100%;margin:0;accent-color:#54876b}
+#ys-report .rt-scale{display:flex;justify-content:space-between;font-size:11px;color:var(--rt-muted);margin-top:9px}
+#ys-report .rt-sim-value{border-top:1px solid var(--rt-line);margin-top:18px;padding-top:16px;font-size:12px}
+#ys-report .rt-sim-value strong{display:block;font-size:26px;font-weight:500}
+#ys-report .rt-tabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--rt-line);padding-bottom:12px;margin-bottom:18px}
+#ys-report .rt-tab{border:0;background:transparent;color:var(--rt-muted)}
+#ys-report .rt-tab[aria-selected=true]{background:#e7efe3;color:#375f49}
+#ys-report .rt-list-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid var(--rt-line);font-size:12px}
+#ys-report .rt-list-row strong{font-weight:500;text-align:right}
+#ys-report .rt-dialog{width:min(880px,calc(100% - 32px));max-height:85%;overflow:auto;background:#fff;border:1px solid var(--rt-line);border-radius:14px;padding:24px;color:var(--rt-ink)}
+#ys-report .rt-dialog::backdrop{background:#13271c55}
+#ys-report .rt-dialog h2{font-size:19px;margin:0}
+#ys-report .rt-source small{display:block;margin-top:4px;color:var(--rt-muted)}
+@media(max-width:900px){#ys-report .rt-brand small{display:none}#ys-report .rt-split{grid-template-columns:1fr}#ys-report .rt-split>:nth-child(2){border-left:0;border-top:1px solid var(--rt-line);padding:20px 0 0}#ys-report .rt-hero{grid-template-columns:150px minmax(0,1fr)}#ys-report .rt-hero>div:last-child{grid-column:1/-1;border-left:0;border-top:1px solid #d1deca;padding:12px 0 0;display:flex;gap:22px}#ys-report .rt-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){#ys-report{padding:18px 12px}#ys-report .rt-nav{padding:34px 0 15px}#ys-report .rt-nav .rt-actions{width:100%}#ys-report .rt-nav button{flex:1}#ys-report .rt-narrow{grid-template-columns:1fr}#ys-report .rt-narrow>:nth-child(2){border-left:0;border-top:1px solid var(--rt-line);padding:16px 0 0}#ys-report .rt-summary{flex-direction:row;flex-wrap:wrap}#ys-report .rt-summary strong{font-size:21px}#ys-report .rt-hero{grid-template-columns:1fr}#ys-report .rt-hero>div+div{border-left:0;border-top:1px solid #d1deca;padding:14px 0 0}#ys-report .rt-intro{flex-basis:calc(100% - 32px);margin-left:32px}#ys-report .rt-meta{margin-left:32px}#ys-report .rt-kpi{padding:15px 12px}#ys-report .rt-kpi strong{font-size:21px}#ys-report .rt-ledger-toolbar>.rt-actions{margin-left:0}}
+
+#ys-report svg{display:block;width:100%;max-width:100%;height:auto}
+#ys-report .rt-hero b{display:block;font-weight:500;margin-top:3px}
+#ys-report .rt-hero>div:last-child>div+div{margin-top:14px}
+#ys-report button{cursor:pointer;letter-spacing:0}
+#ys-report button:disabled,#ys-report input:disabled{cursor:default;opacity:.5}
+#ys-report button:focus-visible,#ys-report select:focus-visible,#ys-report [tabindex]:focus-visible{outline:2px solid #477b60;outline-offset:3px}
+#ys-report .rt-record-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+#ys-report button.rt-kpi{text-align:left;color:var(--rt-ink);font:inherit}
+#ys-report button.rt-kpi:hover{border-color:#83a78f}
+#ys-report .q-threebar{display:flex;gap:4px;min-width:0;flex-wrap:wrap}
+#ys-report .q-threebar>div,#ys-report .q-threebar>.rt-cash-segment{padding:16px 18px;min-width:130px;border-radius:6px;color:#263d33}
+#ys-report .q-threebar>.rt-cash-segment{border:0;text-align:left;font:inherit;line-height:1.6;transition:filter .15s ease}
+#ys-report .q-threebar>.rt-cash-segment:hover{filter:brightness(.97)}
+#ys-report .q-threebar span{display:block;font-size:12px}
+#ys-report .q-threebar strong{display:block;font-size:20px;font-weight:500;margin-top:6px;overflow-wrap:anywhere}
+#ys-report .q-stable{background:#dce7d6}#ys-report .q-flex{background:#e7e1ef}#ys-report .q-surplus{background:#d9e9df}
+#ys-report .rt-reconciliation{font-size:12px;border-top:1px solid var(--rt-line);padding-top:14px}
+#ys-report .rt-reconciliation summary{cursor:pointer;color:var(--rt-muted)}
+#ys-report .rt-table th{white-space:nowrap}#ys-report .rt-table th button{min-height:30px;padding:3px 5px}
+#ys-report .rt-table th button span{font-size:13px;color:#477b60}
+#ys-report .rt-ledger .rt-table th:last-child{text-align:right}
+#ys-report .rt-control input[type=range]{height:22px;padding:0;border:0;background:transparent}
+#ys-report .rt-narrow>:first-child{min-width:0}
+#ys-report .rt-forecast-note{margin-top:12px}
+@media(max-width:680px){#ys-report .rt-record-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{#ys-report{padding:0;background:white}#ys-report .rt-panel,#ys-report .rt-hero,#ys-report .rt-kpi{break-inside:avoid}#ys-report dialog,#ys-report .ys-no-print,#ys-report .rt-actions,#ys-report .rt-tags{display:none!important}#ys-report .rt-table-scroll{overflow:visible}#ys-report .rt-split{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}#ys-report .rt-narrow{grid-template-columns:200px minmax(0,1fr)}}
+
+#ys-report .rt-table td{white-space:normal}#ys-report .rt-table td.rt-amount{white-space:nowrap}#ys-report .rt-table th{position:static}#ys-report select.rt-filter{width:auto;min-width:135px;min-height:36px;display:inline-block;margin:0 0 0 6px}#ys-report .rt-control label{display:flex}#ys-report .rt-dialog label.rt-list-row{display:flex}#ys-report .rt-dialog input[type=checkbox]{width:17px;height:17px}
+
+/* Generated report details, followed by the shared overview and analysis template. */
+#ys-report.rt-template .rt-primary{background:#477b60!important;color:#fff!important;border-color:#477b60!important}
+#ys-report.rt-template .rn-score{border:0;padding:0;text-align:left;background:transparent;color:#263d33;font:inherit}
+#ys-report.rt-template .rn-score strong{font-size:44px;margin:5px 0;font-weight:500}
+#ys-report.rt-template .rn-score small{font-size:13px;margin-left:6px}
+#ys-report.rt-template .rn-score>span:last-child{font-size:12px;color:#477b60}
+#ys-report.rt-template .rt-hero{grid-template-columns:130px minmax(0,1fr) 180px}
+#ys-report.rt-template .rt-hero h3{font-size:18px;line-height:1.6}
+#ys-report.rt-template .rn-spaced{display:block;margin-top:14px}
+#ys-report.rt-template .rn-link{font:inherit;color:#365b45;border:0;padding:0;background:none;text-decoration:underline;text-underline-offset:3px;text-align:left}
+#ys-report.rt-template .rn-ar-table th,#ys-report.rt-template .rn-ar-table td{padding:11px 6px;font-size:11px}
+#ys-report.rt-template .rn-ar-table th{white-space:normal}
+#ys-report.rt-template .rn-ar-table td:nth-child(2),#ys-report.rt-template .rn-ar-table td:nth-child(6){font-variant-numeric:tabular-nums;white-space:nowrap}
+#ys-report.rt-template .rn-risk{color:#b66a59}
+#ys-report.rt-template .rn-profit-equation{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:center;padding:26px 0}
+#ys-report.rt-template .rn-profit-equation>span{font-size:21px;color:#8b9b8f}
+#ys-report.rt-template .rn-profit-term strong{display:block;font-size:23px;font-weight:500;margin-top:7px;overflow-wrap:anywhere}
+#ys-report.rt-template .rn-profit-rows{border-top:1px solid #e0e7dc;border-bottom:1px solid #e0e7dc;padding:8px 0}
+#ys-report.rt-template .rn-profit-rows>div{display:flex;justify-content:space-between;gap:15px;padding:8px 0;font-size:13px}
+#ys-report.rt-template .rn-profit-rows>div:nth-child(2){font-weight:600}
+#ys-report.rt-template .rn-profit-bottom{padding-bottom:15px}
+#ys-report.rt-template .rn-profit-result strong{color:#477b60}
+#ys-report.rt-template .rn-center{text-align:center}
+#ys-report.rt-template .rn-reading{display:block;width:100%;text-align:left;font:inherit;color:#263d33;background:transparent;border:0;border-bottom:1px solid #e0e7dc;padding:12px 0}
+#ys-report.rt-template .rn-reading-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:4px;font-size:13px}
+#ys-report.rt-template .rn-reading-head b{font-weight:500;color:#477b60}
+#ys-report.rt-template .rn-reading-metric{display:block;font-size:12px;margin-bottom:3px}
+#ys-report.rt-template .rn-reading .rt-note{display:block;font-size:12px}
+#ys-report.rt-template .rn-analysis-copy{padding:13px 0;border-bottom:1px solid #e0e7dc;font-size:13px}
+#ys-report.rt-template .rn-analysis-copy strong{font-weight:500}
+#ys-report.rt-template .rn-analysis-copy p{color:#52695d;line-height:1.8}
+#ys-report.rt-template .rn-action{display:block;width:100%;padding:14px 0;background:none;border:0;border-bottom:1px solid #e0e7dc;text-align:left;font:inherit;color:#263d33}
+#ys-report.rt-template .rn-action>span{display:block;margin-top:5px;font-size:12px}
+#ys-report.rt-template .rn-action .rn-action-title{display:flex;gap:9px;align-items:baseline;margin-bottom:7px;font-size:13px}
+#ys-report.rt-template .rn-order{font-size:12px;color:#69796e;flex:none}
+#ys-report.rt-template .rn-action-effect{color:#477b60}
+#ys-report.rt-template .rn-action strong{font-weight:500}
+#ys-report.rt-template .rn-reading:hover,#ys-report.rt-template .rn-action:hover{background:#f6f8f3}
+#ys-report.rt-template .rt-header h1{font-weight:500;font-size:25px}
+#ys-report.rt-template .rt-kpi strong{font-size:24px}
+#ys-report.rt-template .rt-table td{font-variant-numeric:tabular-nums}
+@media(max-width:900px){#ys-report.rt-template .rt-hero{grid-template-columns:120px minmax(0,1fr)}#ys-report.rt-template .rt-hero>div:last-child{grid-column:1/-1;display:block;border-left:0;border-top:1px solid #d1deca;padding:14px 0 0}#ys-report.rt-template .rn-ar-table th,#ys-report.rt-template .rn-ar-table td{font-size:12px}}
+@media(max-width:680px){#ys-report.rt-template .rt-hero{grid-template-columns:1fr}#ys-report.rt-template .rn-score{border-bottom:1px solid #d1deca;padding-bottom:14px}#ys-report.rt-template .rt-hero>div{border:0;padding:0}#ys-report.rt-template .rn-profit-equation{gap:7px;grid-template-columns:1fr}#ys-report.rt-template .rn-profit-equation>span{font-size:16px}#ys-report.rt-template .rn-profit-term{display:flex;align-items:center;justify-content:space-between;gap:14px}#ys-report.rt-template .rn-profit-term strong{font-size:20px;margin:0}#ys-report.rt-template .rn-ar-table{min-width:620px}#ys-report.rt-template .rt-header .rt-actions{width:100%;justify-content:flex-end}}
+@media(pointer:coarse){#ys-report.rt-template button{min-height:44px}}
+@media(prefers-reduced-motion:no-preference){#ys-report.rt-template .rt-fill{transition:width .25s ease}}
+
+#ys-report.rt-template .rn-profit-term strong.rn-negative{color:#b66a59}
+
+#ys-report.rt-template .rn-ar-scroll{max-height:390px;overflow:auto}
+#ys-report.rt-template .rn-ar-table th{position:sticky;top:0;background:#fff;z-index:1}
+
+@media print{#ys-report.rt-template .rn-ar-scroll{max-height:none;overflow:visible}#ys-report.rt-template .rn-ar-table th{position:static}}
+
+/* Donut labels have their own wrapping rows when there is insufficient room
+   for exterior callouts. Exact amounts and names stay available at every width. */
+#ys-report #rt-donut-income,#ys-report #rt-donut-cost{min-width:0;margin-top:8px}
+#ys-report .rt-composition-pages,#ys-report .rt-composition-list,#ys-report .rt-composition-snapshot{min-width:0;max-width:100%}
+#ys-report .rt-composition-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;width:100%;max-width:100%;min-width:0;padding:10px 6px;border:0;border-bottom:1px solid var(--rt-line);border-radius:5px;background:transparent;color:var(--rt-ink);font:12px/1.5 Arial,"PingFang SC","Microsoft YaHei",sans-serif;text-align:left}
+#ys-report .rt-composition-item[aria-pressed=true]{background:#edf3ea}
+#ys-report #rt-donut-cost .rt-composition-item[aria-pressed=true]{background:#f0edf5}
+#ys-report button.rt-composition-item:hover{background:#f4f6f1}
+#ys-report .rt-composition-name{display:flex;align-items:baseline;gap:8px;min-width:0}
+#ys-report .rt-composition-name>span:last-child{min-width:0;overflow-wrap:anywhere}
+#ys-report .rt-composition-swatch{display:inline-block;flex:0 0 8px;width:8px;height:8px;border-radius:2px}
+#ys-report .rt-composition-values{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:baseline;gap:3px 10px;min-width:0;font-variant-numeric:tabular-nums}
+#ys-report .rt-composition-money{overflow-wrap:anywhere}
+#ys-report .rt-composition-share{white-space:nowrap;color:var(--rt-muted)}
+#ys-report .rt-composition-stacked{grid-template-columns:minmax(0,1fr);gap:3px}
+#ys-report .rt-composition-stacked .rt-composition-values{justify-content:flex-start;margin-left:16px}
+#ys-report .rt-composition-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding-top:10px;color:var(--rt-muted);font-size:12px}
+#ys-report .rt-composition-footer:empty{display:none}
+#ys-report .rt-composition-page-actions{display:flex;gap:6px}
+#ys-report .rt-composition-page-actions .rt-button{padding:6px 10px}
+#ys-report .rt-composition-print{display:none}
+@media print{#ys-report .rt-composition-paginated .rt-composition-screen{display:none!important}#ys-report .rt-composition-print{display:block!important}#ys-report .rt-composition-footer{display:none!important}}
+
+/* Overview and analysis share the fixed example's card hierarchy and proportions. */
+#ys-report .rt-overview-hero{display:grid;grid-template-columns:220px minmax(0,1fr) 285px;align-items:center;gap:25px;padding:23px 25px;border:1px solid var(--rt-line);border-radius:12px;background:#eaf0e7}
+#ys-report .rt-overview-hero .rn-score{min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;align-items:stretch;border:0;padding:0;text-align:left;background:transparent;color:var(--rt-ink);font:inherit}
+#ys-report .rt-overview-score{display:flex;align-items:baseline;gap:7px;white-space:nowrap}
+#ys-report .rt-overview-hero .rn-score strong{font-size:52px;font-weight:650;letter-spacing:-2px;line-height:1.1;margin:0;color:var(--rt-ink)}
+#ys-report .rt-overview-score>span{color:var(--rt-muted);font-size:11px}
+#ys-report .rt-health-scale{display:flex;height:6px;border-radius:4px;margin-top:9px;position:relative;background:#dce4da}
+#ys-report .rt-health-scale>i:nth-child(1){width:60%;background:#c9867d;border-radius:4px 0 0 4px}
+#ys-report .rt-health-scale>i:nth-child(2){width:20%;background:#c5a261}
+#ys-report .rt-health-scale>i:nth-child(3){width:20%;background:#719b7e;border-radius:0 4px 4px 0}
+#ys-report .rt-health-scale>b{position:absolute;width:3px;height:15px;top:-4px;background:var(--rt-ink);border:1px solid #eaf0e7;border-radius:2px;transform:translateX(-50%)}
+#ys-report .rt-health-scale-labels{display:flex;justify-content:space-between;margin-top:5px;color:var(--rt-muted);font-size:9px;line-height:1.5}
+#ys-report .rt-overview-health>.rt-status-badge{align-self:flex-start;margin-top:8px}
+#ys-report .rt-overview-hero .rn-score>.rt-overview-method{font-size:9px;color:var(--rt-muted);margin-top:6px;line-height:1.6}
+#ys-report .rt-overview-conclusion{padding-left:23px;border-left:1px solid #d6e0d2;min-width:0}
+#ys-report .rt-overview-conclusion h3{font-size:19px;font-weight:650;line-height:1.6;letter-spacing:-.2px;margin:0;overflow-wrap:anywhere}
+#ys-report .rt-overview-conclusion p{margin:10px 0 0;font-size:11px;line-height:1.85;color:var(--rt-muted)}
+#ys-report .rt-overview-action{display:inline-block;margin-top:8px;color:#4c7f60;font:inherit;font-size:10px;background:none;border:0;padding:0;text-align:left}
+#ys-report .rt-overview-focus{min-width:0}
+#ys-report .rt-overview-focus>p{font-size:11px;color:var(--rt-muted);margin:0 0 8px}
+#ys-report .rt-focus-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:7px;width:100%;border:0;background:#f8faf6;border-left:3px solid #bc9a5c;padding:9px;margin-top:6px;font:inherit;font-size:10px;line-height:1.5;color:var(--rt-ink);text-align:left}
+#ys-report .rt-focus-item strong{font-weight:600}
+#ys-report .rt-focus-item>span{color:var(--rt-muted);overflow-wrap:anywhere}
+#ys-report .rt-focus-item em{font-size:9px;font-style:normal;color:#8d6b35;white-space:nowrap}
+#ys-report .rt-focus-item.risk{border-left-color:#bd6a61}
+#ys-report .rt-focus-item.good{border-left-color:#6c977d}
+#ys-report .rt-focus-item.unknown{border-left-color:#a294af}
+#ys-report .rt-overview-focus>.rt-focus-note{font-size:10px;margin:9px 0 0;line-height:1.6}
+#ys-report .rt-overview-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px;margin-top:13px}
+#ys-report .rt-overview-kpi.rt-kpi{display:block;min-width:0;border:1px solid #dce5d8;background:white;padding:15px 14px 13px;position:relative;border-radius:9px;text-align:left;font:inherit;color:var(--rt-ink)}
+#ys-report .rt-overview-kpi:first-child{background:#f1f6ee}
+#ys-report .rt-overview-kpi:before{content:'↗';position:absolute;top:12px;right:12px;color:#a7b8aa;font-size:11px}
+#ys-report .rt-overview-kpi:hover{border-color:#91af97;box-shadow:0 3px 12px #253a3009}
+#ys-report .rt-kpi-label{display:block;font-size:11px;color:var(--rt-muted);padding-right:9px;line-height:1.6}
+#ys-report .rt-kpi-value{display:block;font-size:30px;font-weight:650;letter-spacing:-.8px;line-height:1.35;margin-top:6px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+#ys-report .rt-kpi-value>small{font-size:11px;color:var(--rt-muted);font-weight:500;letter-spacing:0;margin-left:4px;white-space:nowrap}
+#ys-report .rt-kpi-value>span{font-size:19px;letter-spacing:0}
+#ys-report .rt-kpi-context{display:block;font-size:10px;color:var(--rt-muted);line-height:1.6;min-height:16px;margin-top:5px;overflow-wrap:anywhere}
+#ys-report .rt-kpi-description{display:block;padding-top:9px;margin-top:9px;border-top:1px dashed var(--rt-line);font-size:10px;color:var(--rt-muted);line-height:1.65}
+#ys-report .rt-review-top,#ys-report .rt-review-bottom{gap:20px;padding:22px 20px 18px;align-items:stretch}
+#ys-report .rt-review-top>:nth-child(2),#ys-report .rt-review-bottom>:nth-child(2){padding-left:18px}
+#ys-report .rt-review-bottom{margin-top:14px}
+#ys-report .rt-radar-card{min-width:0}
+#ys-report .rt-radar-card>.rt-note{font-size:11px}
+#ys-report .rt-radar-legend{display:flex;gap:15px;justify-content:center;color:var(--rt-muted);font-size:10px;margin-top:12px}
+#ys-report .rt-radar-legend i{display:inline-block;width:20px;height:9px;border:2px solid #6c95b0;background:#6c95b024;vertical-align:middle;margin-right:4px}
+#ys-report .rt-radar-legend i.target{border:1px dashed #68977a;background:transparent}
+#ys-report .rt-review-top .rt-overall-score{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;border:0;border-top:1px solid var(--rt-line);background:none;width:100%;padding:13px 0 0;margin-top:15px;color:var(--rt-ink);font:inherit;font-size:12px}
+#ys-report .rt-review-top .rt-overall-score strong{display:inline;font-size:23px;font-weight:600;color:#54876b;margin:0}
+#ys-report .rt-review-top .rt-overall-score small{font-size:10px;color:var(--rt-muted);margin:0}
+#ys-report .rt-status-badge,#ys-report .rt-review-top .rt-overall-score>.rt-status-badge{display:inline-block;border-radius:4px;font-size:10px;padding:2px 6px;line-height:1.5;font-weight:500;white-space:nowrap}
+#ys-report .rt-status-badge.good{color:#3e7e5c;background:#e7f1e7}
+#ys-report .rt-status-badge.watch{color:#986b27;background:#f8edd8}
+#ys-report .rt-status-badge.risk{color:#b55e55;background:#f8e7e2}
+#ys-report .rt-status-badge.unknown{color:#7e7393;background:#efebf4}
+#ys-report .rt-review-top .rt-dimension-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;width:100%;text-align:left;font:inherit;color:var(--rt-ink);background:transparent;border:0;border-bottom:1px solid var(--rt-line);padding:10px 0}
+#ys-report .rt-dimension-row:last-child{border:0;padding-bottom:0}
+#ys-report .rt-dimension-row:first-of-type{padding-top:12px}
+#ys-report .rt-dimension-label{display:flex;align-content:flex-start;align-items:center;flex-wrap:wrap;gap:3px 5px}
+#ys-report .rt-dimension-label b{flex-basis:100%;font-size:12px;font-weight:600}
+#ys-report .rt-dimension-label>span:not(.rt-status-badge){font-size:11px;color:var(--rt-muted)}
+#ys-report .rt-dimension-content{min-width:0}
+#ys-report .rt-dimension-content>strong{display:block;font-size:12px;font-weight:600;line-height:1.55}
+#ys-report .rt-dimension-content .rt-track{height:5px;margin:5px 0;background:#edf1eb}
+#ys-report .rt-dimension-content .rt-fill.good{background:#54876b}
+#ys-report .rt-dimension-content .rt-fill.watch{background:#b99558}
+#ys-report .rt-dimension-content .rt-fill.risk{background:#bd6a61}
+#ys-report .rt-review-top .rt-dimension-content>.rt-note{display:block;font-size:11px;color:var(--rt-muted);line-height:1.55}
+#ys-report .rt-review-top .rn-reading:hover{background:#fafcf9}
+#ys-report .rt-boss-takeaway{font-size:14px;color:var(--rt-ink);font-weight:500;line-height:1.7;padding:13px 14px;background:#eef3e9;border-radius:7px;margin-top:13px}
+#ys-report .rt-review-bottom .rn-analysis-copy{padding:0;border:0;font-size:12px;color:var(--rt-muted);line-height:1.85;margin-top:13px}
+#ys-report .rt-manager-summary b{font-weight:600;color:var(--rt-ink)}
+#ys-report .rt-priorities{display:grid;gap:10px;align-content:start}
+#ys-report .rt-review-bottom .rt-priority{display:block;width:100%;border:1px solid var(--rt-line);border-left:3px solid #ba965b;padding:15px 17px;background:white;border-radius:0 9px 9px 0;text-align:left;color:var(--rt-ink);font:inherit}
+#ys-report .rt-review-bottom .rt-priority.risk{border-left-color:#bd6a61}
+#ys-report .rt-review-bottom .rt-priority.good{border-left-color:#6c977d}
+#ys-report .rt-review-bottom .rt-priority.unknown{border-left-color:#a294af}
+#ys-report .rt-review-bottom .rt-priority-title{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0 0 7px}
+#ys-report .rt-priority-title b{font-size:13px;font-weight:600;line-height:1.55}
+#ys-report .rt-review-bottom .rt-priority-copy{display:block;font-size:11px;color:var(--rt-muted);line-height:1.8;margin:0}
+#ys-report .rt-review-bottom .rt-priority-effect{display:block;padding:7px 10px;border-radius:5px;background:#edf3f7;color:#577e98;font-size:11px;line-height:1.7;margin-top:9px}
+#ys-report .rt-analysis-bottom-note{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:7px;margin-top:13px;color:var(--rt-muted);font-size:10px}
+#ys-report .rt-analysis-bottom-note button{font-size:10px;padding:4px 8px;background:transparent}
+@media(max-width:1100px){#ys-report .rt-overview-hero{grid-template-columns:180px minmax(0,1fr) 245px;gap:18px;padding:20px}#ys-report .rt-overview-conclusion{padding-left:18px}#ys-report .rt-overview-conclusion h3{font-size:17px}#ys-report .rt-focus-item{gap:5px;padding:8px 7px;font-size:9px}#ys-report .rt-kpi-value{font-size:27px}#ys-report .rt-overview-kpi.rt-kpi{padding:14px 12px 12px}}
+@media(max-width:1039px){#ys-report .rt-overview-hero{grid-template-columns:175px minmax(0,1fr);gap:18px}#ys-report .rt-overview-focus{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);align-items:center;gap:10px;border-top:1px solid #d6e0d2;padding-top:13px}#ys-report .rt-overview-focus>p{margin-bottom:0}#ys-report .rt-focus-item{margin-top:0}#ys-report .rt-overview-focus>.rt-focus-note{display:none}#ys-report .rt-overview-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){#ys-report .rt-review-top>:nth-child(2),#ys-report .rt-review-bottom>:nth-child(2){padding:20px 0 0}}
+@media(max-width:680px){#ys-report .rt-overview-hero{grid-template-columns:105px minmax(0,1fr);padding:17px 14px;gap:17px 13px}#ys-report .rt-overview-score{display:block}#ys-report .rt-overview-hero .rn-score strong{font-size:43px}#ys-report .rt-overview-score>span{display:block;font-size:9px;margin-top:1px}#ys-report .rt-health-scale-labels{font-size:7px}#ys-report .rt-overview-health>.rt-status-badge{font-size:9px;padding:2px 5px;white-space:normal}#ys-report .rt-overview-hero .rn-score>.rt-overview-method{font-size:8px}#ys-report .rt-overview-conclusion{padding-left:13px}#ys-report .rt-overview-conclusion h3{font-size:15px;line-height:1.65}#ys-report .rt-overview-conclusion p{font-size:10px;margin-top:7px}#ys-report .rt-overview-action{font-size:9px}#ys-report .rt-overview-focus{grid-template-columns:1fr;gap:5px;padding-top:12px}#ys-report .rt-focus-item{font-size:10px;grid-template-columns:56px minmax(0,1fr) auto}#ys-report .rt-overview-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#ys-report .rt-kpi-value{font-size:28px}#ys-report .rt-kpi-context,#ys-report .rt-kpi-description{font-size:9px}}
+@media print{#ys-report .rt-overview-hero,#ys-report .rt-review-top,#ys-report .rt-review-bottom{break-inside:avoid}#ys-report .rt-overview-kpis{grid-template-columns:repeat(6,minmax(0,1fr))}#ys-report .rt-kpi-value{font-size:25px}}
+
+/* Keep the selected chart path next to the detail heading, like the sample. */
+#ys-report .rt-ledger-heading{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;min-width:0;max-width:100%}
+#ys-report .rt-ledger-heading h3{flex:none}
+#ys-report .rt-ledger-scope{font-size:12px;color:var(--rt-muted);min-width:0;overflow-wrap:anywhere}
+#ys-report .rt-ledger-scope:empty{display:none}
+
+/* The fixed example and generated experience use the same report presentation. */
+#ys-report .rt-report-brand{margin:0;gap:12px}
+#ys-report .rt-report-brand .rt-brand{font-size:20px;font-weight:600;letter-spacing:2px}
+#ys-report .rt-small{font-size:11px;color:var(--rt-muted)}
+#ys-report .rt-report-brand .rt-small{letter-spacing:0;font-weight:400}
+#ys-report .rt-pill{display:inline-block;font-size:11px;color:var(--rt-muted);padding:4px 9px;border:1px solid var(--rt-line);border-radius:20px;font-weight:400}
+#ys-report .rt-header{margin:24px 0 16px;gap:12px}
+#ys-report .rt-header h1,#ys-report.rt-template .rt-header h1{font-size:27px;font-weight:600;letter-spacing:-.6px;line-height:1.4;margin:0}
+#ys-report .rt-header p{margin:5px 0 0;line-height:1.6}
+#ys-report .rt-header .rt-actions{margin-left:auto}
+#ys-report .rt-heading{min-height:30px;gap:8px 10px}
+#ys-report .rt-meta strong{font-size:18px}
+#ys-report .rt-tag{border-radius:6px;min-height:32px;padding:5px 10px;font-size:12px;color:var(--rt-muted)}
+#ys-report .rt-tag[aria-pressed=true]{background:#54866b;border-color:transparent;color:white;font-weight:500}
+#ys-report .rt-cost .rt-tag[aria-pressed=true]{background:#87799f;border-color:transparent;color:white}
+#ys-report .q-threebar{min-height:67px;gap:4px;margin:14px 0 8px;border-radius:9px;overflow:hidden}
+#ys-report .q-threebar>.rt-cash-segment,#ys-report .q-threebar>div{display:flex;flex-direction:column;justify-content:center;min-width:110px;padding:12px 13px;border-radius:0}
+#ys-report .q-threebar span{font-size:11px;line-height:1.5}
+#ys-report .q-threebar strong{font-size:16px;margin-top:3px;line-height:1.5}
+#ys-report .rt-statements .rt-tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--rt-line);padding-bottom:14px;margin-bottom:18px}
+#ys-report .rt-statements .rt-tab{background:transparent;border:1px solid transparent;padding:9px 16px;font-size:13px;color:var(--rt-ink)}
+#ys-report .rt-statements .rt-tab[aria-selected=true]{background:#eaf0e7;color:var(--rt-ink);border-color:var(--rt-line);font-weight:500}
+#ys-report .rt-report-title{text-align:center;margin-bottom:16px}
+#ys-report .rt-report-title h3{font-size:20px;font-weight:600;letter-spacing:4px;margin-bottom:5px}
+#ys-report .rt-report-title p{font-size:12px;color:var(--rt-muted);margin:0;letter-spacing:0}
+#ys-report .rt-statement-wrap{overflow-x:auto;max-width:100%}
+#ys-report .rt-statement{width:100%;min-width:470px;border-collapse:collapse;font-size:12px;color:var(--rt-ink)}
+#ys-report .rt-statement td,#ys-report .rt-statement th{padding:11px 12px;border-bottom:1px solid var(--rt-line);text-align:left;line-height:1.55;vertical-align:middle}
+#ys-report .rt-statement th{background:#f3f5f2;font-size:12px;font-weight:400;color:var(--rt-muted)}
+#ys-report .rt-statement .rt-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+#ys-report .rt-statement tr.rt-statement-group td{font-weight:500;background:#f3f5f2;padding-top:13px}
+#ys-report .rt-statement tr.rt-statement-sub td:first-child,#ys-report .rt-statement tr.rt-statement-child td:first-child{padding-left:30px;color:var(--rt-muted)}
+#ys-report .rt-statement tr.rt-statement-total td{font-weight:500;border-top:1px solid var(--rt-line)}
+#ys-report .rt-statement tr.rt-statement-final td{font-weight:600;background:#eaf0e7;border-block:1px solid var(--rt-line)}
+#ys-report .rt-statement [data-statement-row]{cursor:pointer}
+#ys-report .rt-statement [data-statement-row]:hover td{background:#f5f8f1}
+#ys-report .rt-statement [data-statement-row]:focus-visible{outline:2px solid #54876b;outline-offset:-2px}
+#ys-report .rt-statement-source{margin-top:16px;font-size:11px;line-height:1.7}
+@media(max-width:680px){#ys-report .rt-header .rt-actions{justify-content:flex-start;margin-left:0}#ys-report .rt-header h1,#ys-report.rt-template .rt-header h1{font-size:24px}#ys-report .q-threebar>.rt-cash-segment,#ys-report .q-threebar>div{min-width:90px;padding:10px 7px}#ys-report .q-threebar strong{font-size:13px}#ys-report .rt-report-brand .rt-brand .rt-small{display:none}}
+@media(max-width:420px){#ys-report .rt-statements .rt-tab{padding:9px 8px}}
+@media print{#ys-report .rt-statements .rt-tabs{display:none}#ys-report .rt-statements [role=tabpanel][hidden]{display:block!important}#ys-report .rt-statements [role=tabpanel]{break-before:page}#ys-report .rt-statement-wrap{overflow:visible}#ys-report .rt-statement{min-width:0}}
+#ys-report .rt-verification{border:1px solid var(--rt-line);border-radius:9px;background:white;margin-top:13px;padding:0 16px}
+#ys-report .rt-verification summary{cursor:pointer;padding:12px 0;font-size:11px;color:var(--rt-muted)}
+#ys-report .rt-verification summary b{font-weight:500;color:#8b713f}
+#ys-report .rt-verification-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 13px}
+#ys-report .rt-verification-links button{text-align:left;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;font-size:11px;background:#f8faf6;border-color:var(--rt-line)}
+#ys-report .rt-verification-links button span{font-size:10px;color:#9e7b45;white-space:nowrap}
+#ys-report .rt-verification>.rt-small{margin:0 0 13px;line-height:1.7}
+#ys-report .rt-footer{text-align:center;margin:28px 0 0;font-size:11px;color:var(--rt-muted);line-height:1.7}
+@media(max-width:680px){#ys-report .rt-verification-links{grid-template-columns:1fr}}
+#ys-report .rt-statement-note{margin-top:10px;font-size:11px;color:var(--rt-muted);line-height:1.7}
+#qingzhang-v4 #ys-example-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto}
+#qingzhang-v4 #ys-example-tools button{font:12px/1.55 Arial,"PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:0;color:#253a30;background:white;border:1px solid #e0e7dc;border-radius:8px;padding:9px 13px;cursor:pointer}
+#qingzhang-v4 #ys-example-tools #ys-example-random{background:#477b60;border-color:#477b60;color:white}
+#qingzhang-v4 #ys-example-tools button:focus-visible{outline:2px solid #477b60;outline-offset:3px}
+@media(max-width:680px){#qingzhang-v4 #ys-example-tools{margin-left:0;justify-content:flex-start}}
+@media print{#qingzhang-v4 #ys-example-tools{display:none!important}}
+
+/* Report identity and its primary action; the global brand appears only in navigation. */
+#ys-report .rt-report-context{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+#ys-report .rt-report-context .rt-pill{padding:3px 9px;font-size:11px;color:#667a6d;background:#f7f9f5;border-color:#dfe7dc}
+#ys-report .rt-experience-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px;margin:24px 0 22px}
+#ys-report .rt-experience-heading .rt-report-identity{min-width:0}
+#ys-report .rt-experience-heading h1.rt-company{margin:0;color:#263f33;font-size:34px;line-height:1.3;font-weight:650;letter-spacing:.01em;overflow-wrap:anywhere}
+#ys-report .rt-experience-heading .rt-note{margin:10px 0 0;font-size:13px;line-height:1.6}
+#ys-report .rt-experience-heading>.rt-actions{margin-left:0;align-items:center;justify-content:flex-end}
+#ys-report .rt-report-utilities{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#ys-report .rt-period-toolbar .rt-report-utilities .rt-button{padding:8px 12px;min-height:36px;font-size:12px;font-weight:400;color:#617467;background:white;border-color:#dce5d8;box-shadow:none}
+#ys-report .rt-period-toolbar .rt-report-utilities .rt-button:hover{background:#edf3e9;color:#315a42;border-color:#a8bfae}
+#ys-report .rt-random-button,#qingzhang-v4 #ys-example-tools #ys-example-random.rt-random-button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:118px;min-height:92px;padding:12px 22px;border:1px solid #37674e;border-radius:14px;background:#477b60;color:#fff;font-size:17px;font-weight:600;line-height:1.4;box-shadow:0 4px 10px #2b50351a;transition:background .15s,transform .15s,box-shadow .15s}
+#ys-report .rt-dice,#qingzhang-v4 .rt-dice{display:block;width:32px;height:32px;flex-shrink:0;transform:rotate(-10deg);transition:transform .2s}
+#ys-report .rt-random-button:hover{background:#38664f;box-shadow:0 5px 14px #2b503526;transform:translateY(-1px)}
+#ys-report .rt-random-button:hover .rt-dice{transform:rotate(8deg)}
+#ys-report .rt-random-button:active{transform:translateY(0);box-shadow:none}
+#ys-report .rt-period-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px 24px;flex-wrap:wrap;padding:15px 18px;margin:0 0 26px;border:1px solid #dbe5d9;border-radius:12px;background:#f8faf6}
+#ys-report .rt-period-control{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-width:0}
+#ys-report .rt-period-control label{font-size:14px;font-weight:600;color:#263f33}
+#ys-report .rt-period-control .rt-filter{min-width:148px;margin:0;padding:9px 28px 9px 12px;border-color:#a7beac;background-color:white;color:#263f33;font-size:14px;font-weight:500;cursor:pointer}
+#ys-report .rt-period-dates{color:var(--rt-muted);font-size:13px;font-variant-numeric:tabular-nums}
+#ys-report .rt-period-hint{color:var(--rt-muted);font-size:11px;white-space:nowrap}
+@media(max-width:900px){#ys-report .rt-experience-heading{gap:22px}#ys-report .rt-experience-heading h1.rt-company{font-size:30px}#ys-report .rt-period-hint{display:none}}
+@media(max-width:600px){#ys-report .rt-experience-heading{gap:16px;margin:20px 0 18px}#ys-report .rt-experience-heading h1.rt-company{font-size:26px}#ys-report .rt-experience-heading .rt-note{font-size:12px}#ys-report .rt-experience-heading>.rt-actions{width:auto;justify-content:flex-end}#ys-report .rt-random-button{min-width:88px;min-height:82px;padding:10px 14px;font-size:15px}#ys-report .rt-dice{width:28px;height:28px}#ys-report .rt-period-toolbar{padding:13px 14px;gap:12px}#ys-report .rt-period-control{gap:9px}#ys-report .rt-period-dates{flex-basis:100%;font-size:12px}#ys-report .rt-period-toolbar .rt-report-utilities{justify-content:flex-end;width:100%;border-top:1px solid #e3eade;padding-top:10px}}
+@media(prefers-reduced-motion:reduce){#ys-report .rt-random-button,#ys-report .rt-dice{transition:none}}
+@media print{#ys-report .rt-experience-heading{display:block;margin:12px 0}#ys-report .rt-period-toolbar{padding:10px 0;background:transparent;border-width:0 0 1px;border-radius:0}#ys-report .rt-period-control .rt-filter{border:0;padding:0;min-width:0;appearance:none}#ys-report .rt-period-hint{display:none}}
+
+/* The user's report shares the report identity, period, and action hierarchy. */
+#ys-report .rt-own-add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:118px;min-height:92px;padding:12px 22px;border:1px solid #37674e;border-radius:14px;background:#477b60;color:white;font-size:17px;font-weight:600;line-height:1.4;box-shadow:0 4px 10px #2b50351a}
+#ys-report .rt-own-add>span:first-child{font-size:29px;line-height:1.05;font-weight:400}
+#ys-report .rt-own-add:hover{background:#38664f;border-color:#38664f}
+#ys-report .rt-period-toolbar #rt-account-tools{flex-basis:100%;width:100%;min-width:0}
+#ys-report #rt-account-tools:empty{display:none}
+#ys-report #rt-account-tools #ys-view-tools{margin:0;padding-top:13px;border-top:1px solid #e0e7dc;gap:10px 18px;align-items:center}
+#ys-report #rt-account-tools #ys-view-tools label{display:flex;align-items:center;gap:12px;color:#263f33;font-size:14px;font-weight:500}
+#ys-report #rt-account-tools #ys-view-tools select{margin:0;background:white;min-width:148px;padding:9px 28px 9px 12px;font-size:13px;border-color:#c8d8c8}
+#ys-report #rt-account-tools #ys-view-tools>.ys-muted{font-size:11px;line-height:1.6}
+#ys-report .rt-period-coverage{flex-basis:100%;margin:0;padding-top:10px;border-top:1px solid #e3eade;font-size:12px}
+@media(max-width:600px){#ys-report .rt-own-add{min-width:88px;min-height:82px;padding:10px 14px;font-size:15px}#ys-report .rt-own-add>span:first-child{font-size:26px}#ys-report #rt-account-tools #ys-view-tools{justify-content:flex-start}#ys-report #rt-account-tools #ys-view-tools>.ys-muted{flex-basis:100%}}
+
+/* Own-report periods follow uploaded months, including nonconsecutive selections. */
+#ys-report .rt-period-observed{white-space:normal}
+@media(max-width:900px){#ys-report .rt-period-hint.rt-period-observed{display:block;flex-basis:100%;line-height:1.5}}
+
+/* Optional supplementation stays next to the missing item, never as a checklist. */
+#ys-report .rt-supplement-note{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding:12px 0;margin-top:10px;border-top:1px solid #e0e7dc}
+#ys-report .rt-statements .rt-supplement-note{margin:0 0 10px;border-top:0;border-bottom:1px solid #e0e7dc}
+#ys-report .rt-supplement-note .rt-actions{flex-shrink:0;flex-wrap:wrap}
+#ys-report .rt-supplement-button{font-size:12px;padding:7px 11px;min-height:34px;background:white;border:1px solid #cbd9cd;border-radius:7px;color:#376b50;white-space:normal}
+#ys-report .rt-supplement-button:hover{background:#eff5ed;border-color:#95b29c}
+#ys-report .rt-supplement-empty{min-height:180px;gap:10px;padding:24px 18px}
+#ys-report .rt-supplement-empty>.rt-actions{justify-content:center;margin-top:6px;flex-wrap:wrap}
+#ys-report .rt-supplement-empty>.rt-button{margin-top:6px}
+#ys-report .rt-supplement-empty>span{max-width:36em;line-height:1.65}
+#ys-report .rt-supplement-known{display:flex;justify-content:space-between;align-items:baseline;gap:20px;width:100%;max-width:410px;padding:11px 0;border-bottom:1px solid #e3eade}
+#ys-report .rt-supplement-known>span{font-size:12px;text-align:left;color:#667a6c}
+#ys-report .rt-supplement-known>strong{font-size:20px;color:#2f5541;font-weight:600;font-variant-numeric:tabular-nums}
+#ys-report .rt-supplement-inline{font-size:12px;color:#386f50;margin-top:8px;display:block;text-decoration:underline;text-underline-offset:3px}
+#ys-report .rt-supplement-drafts{margin-top:12px;border-radius:8px;background:#f4f7f1;padding:13px 15px}
+#ys-report .rt-supplement-drafts>.rt-row{gap:9px;flex-wrap:wrap;padding:5px 0}
+#ys-report .rt-supplement-drafts .rt-small{margin:8px 0 0}
+@media(max-width:600px){#ys-report .rt-supplement-empty{padding:20px 12px}#ys-report .rt-supplement-note .rt-actions{width:100%;justify-content:flex-start}#ys-report .rt-supplement-known{flex-wrap:wrap;gap:6px 14px}#ys-report .rt-supplement-known>strong{font-size:18px}}
+@media(pointer:coarse){#ys-report .rt-supplement-button{min-height:44px}}
+@media print{#ys-report .rt-supplement-inline{display:none}}
+
+/* Own-ledger estimates use the same compact white report surface. */
+#ys-report .rt-forecast-basis{line-height:1.65;margin:10px 0 0}
+#ys-report #rt-own-forecast-mode{font-size:12px;min-width:138px}
+#ys-report .rt-sim-value>.rt-actions{justify-content:flex-start;gap:8px;flex-wrap:wrap}
+#ys-report .rt-sim-value>.rt-actions .rt-button{padding:7px 10px}
+#ys-report.rt-own .rt-health-scale>i:nth-child(1){width:33.333%;background:#dce5df}
+#ys-report.rt-own .rt-health-scale>i:nth-child(2){width:33.333%;background:#bdd0c6}
+#ys-report.rt-own .rt-health-scale>i:nth-child(3){width:33.333%;background:#8cac9c}
+
+</style>
+</head>
+<body><main>
+<section id="ys-app"><p>正在打开有数。若长时间停留，请完整解压下载包，保留 assets 文件夹。</p></section>
+<noscript>请启用浏览器的 JavaScript 后使用本地导入及报告功能。</noscript>
+<div id="qingzhang-v4">
+<style>
+#qingzhang-v4{--q-bg:light-dark(#f3f5f2,#121b17);--q-paper:light-dark(#fff,#1b2821);--q-ink:light-dark(#253a30,#edf3ef);--q-muted:light-dark(#69796e,#a8b8ac);--q-line:light-dark(#e2e8e0,#35463b);--q-green:light-dark(#54876b,#8bbca0);--q-soft:light-dark(#e7efe5,#2c4233);--q-purple:light-dark(#a39dbf,#aaa2cb);--q-blue:light-dark(#6c95b0,#91b7cf);--q-amber:light-dark(#bb914d,#dbb371);--q-red:light-dark(#be6960,#e49a8e);font:14px/1.55 Inter,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--q-ink);background:var(--q-bg);padding:24px;border-radius:14px;font-variant-numeric:tabular-nums}
+#qingzhang-v4 *{box-sizing:border-box}#qingzhang-v4 h1,#qingzhang-v4 h2,#qingzhang-v4 h3,#qingzhang-v4 p{margin:0}#qingzhang-v4 h1{font-size:27px;letter-spacing:-.6px;font-weight:600}#qingzhang-v4 h2{font-size:17px;font-weight:600}#qingzhang-v4 h3{font-size:14px;font-weight:600}#qingzhang-v4 .q-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}#qingzhang-v4 .q-brand{font-size:20px;font-weight:600;letter-spacing:2px}#qingzhang-v4 .q-pill{font-size:11px;color:var(--q-muted);padding:4px 9px;border:1px solid var(--q-line);border-radius:20px}#qingzhang-v4 .q-muted{color:var(--q-muted);font-size:12px}#qingzhang-v4 .q-small{font-size:11px;color:var(--q-muted)}#qingzhang-v4 .q-head{margin:24px 0 16px}#qingzhang-v4 .q-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}#qingzhang-v4 .q-kpi{background:var(--q-paper);border:1px solid var(--q-line);border-radius:10px;padding:15px}#qingzhang-v4 .q-kpi:first-child{background:var(--q-soft)}#qingzhang-v4 .q-big{font-size:26px;font-weight:600;letter-spacing:-.7px;white-space:nowrap}#qingzhang-v4 .q-score{display:flex;gap:12px;align-items:center;background:var(--q-soft);border-radius:10px;padding:8px 14px}#qingzhang-v4 .q-score b{font-size:30px;font-weight:600}#qingzhang-v4 .q-insights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;font-size:12px}#qingzhang-v4 .q-insights b{font-weight:500;display:block;margin-bottom:4px}#qingzhang-v4 .q-insights p{color:var(--q-muted)}#qingzhang-v4 .q-section{margin-top:28px}#qingzhang-v4 .q-section-title{display:flex;align-items:center;gap:9px;margin-bottom:12px}#qingzhang-v4 .q-no{font-size:11px;color:var(--q-muted);font-weight:500}#qingzhang-v4 .q-panel{background:var(--q-paper);border:1px solid var(--q-line);border-radius:12px;padding:20px;min-width:0}#qingzhang-v4 .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}#qingzhang-v4 .q-ar-layout{display:grid;gap:16px}#qingzhang-v4 .q-gap{margin-top:16px}#qingzhang-v4 .q-chart-head{margin-bottom:12px}#qingzhang-v4 .q-chart-head p{font-size:12px;color:var(--q-muted);margin-top:3px}#qingzhang-v4 .q-threebar{display:flex;height:67px;gap:4px;margin:14px 0 8px;border-radius:9px;overflow:hidden}#qingzhang-v4 .q-threebar>div{display:flex;flex-direction:column;justify-content:center;padding:0 13px;min-width:0}#qingzhang-v4 .q-threebar strong{font-size:16px;font-weight:500;white-space:nowrap}#qingzhang-v4 .q-threebar span{font-size:11px;white-space:nowrap}#qingzhang-v4 .q-stable{background:color-mix(in srgb,var(--q-purple) 23%,var(--q-paper))}#qingzhang-v4 .q-flex{background:color-mix(in srgb,var(--q-blue) 21%,var(--q-paper))}#qingzhang-v4 .q-surplus{background:var(--q-soft)}#qingzhang-v4 .q-chart-summary{display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:20px}#qingzhang-v4 .q-summary{border-left:1px solid var(--q-line);padding-left:20px;display:flex;flex-direction:column;justify-content:space-around}#qingzhang-v4 .q-summary strong{display:block;font-size:23px;font-weight:500}#qingzhang-v4 .q-green{color:var(--q-green)}#qingzhang-v4 .q-svg{display:block;width:100%;height:210px}#qingzhang-v4 .q-svg text{font-family:inherit;font-size:11px;fill:var(--q-muted)}#qingzhang-v4 .q-svg .q-plot-label{fill:var(--q-ink);font-size:12px}#qingzhang-v4 .q-legend{display:flex;align-items:center;flex-wrap:wrap;gap:13px;font-size:11px;color:var(--q-muted)}#qingzhang-v4 .q-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}#qingzhang-v4 select,#qingzhang-v4 button{font:inherit;font-size:12px;border:1px solid var(--q-line);border-radius:7px;background:var(--q-paper);color:var(--q-ink);padding:7px 10px}#qingzhang-v4 .q-select-label{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--q-muted)}#qingzhang-v4 .q-sliders{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:16px 0}#qingzhang-v4 .q-sliders label{font-size:12px;min-width:0}#qingzhang-v4 .q-slider-top{display:flex;justify-content:space-between;gap:8px}#qingzhang-v4 input[type=range]{display:block;width:100%;margin:12px 0;accent-color:var(--q-green)}#qingzhang-v4 .q-sim-result{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 15px;background:var(--q-soft);border-radius:9px;font-size:12px}#qingzhang-v4 .q-sim-result strong{font-size:17px;font-weight:500;display:block}#qingzhang-v4 table{width:100%;border-collapse:collapse;font-size:12px}#qingzhang-v4 th{text-align:left;color:var(--q-muted);font-weight:400;font-size:11px}#qingzhang-v4 td,#qingzhang-v4 th{padding:9px 5px;border-bottom:1px solid var(--q-line);vertical-align:top}#qingzhang-v4 tr:last-child td{border-bottom:0}#qingzhang-v4 .q-num{text-align:right;white-space:nowrap}#qingzhang-v4 .q-ar-table{font-size:11px}#qingzhang-v4 .q-ar-table th{white-space:nowrap}#qingzhang-v4 .q-warn{color:var(--q-red)}#qingzhang-v4 .q-rank{margin-bottom:15px}#qingzhang-v4 .q-rank-head{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:6px}#qingzhang-v4 .q-rank-head em{font-style:normal;color:var(--q-muted);display:inline-block;width:46px;text-align:right}#qingzhang-v4 .q-track{height:6px;border-radius:4px;background:var(--q-bg);overflow:hidden}#qingzhang-v4 .q-track>div{height:100%;border-radius:4px;background:var(--q-green)}#qingzhang-v4 .q-cost-track>div{background:var(--q-purple)}#qingzhang-v4 .q-list{margin-top:22px}#qingzhang-v4 .q-calc-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--q-line);font-size:13px}#qingzhang-v4 .q-calc-row:last-child{border-bottom:0}#qingzhang-v4 .q-calc-total{background:var(--q-soft);border-radius:8px;padding:12px;margin-top:12px}#qingzhang-v4 .q-calc-total strong{font-size:25px;font-weight:500}#qingzhang-v4 .q-reading{padding:10px 0;border-bottom:1px solid var(--q-line)}#qingzhang-v4 .q-reading:last-child{border-bottom:0}#qingzhang-v4 .q-reading .q-row{font-size:12px;gap:5px}#qingzhang-v4 .q-reading b{font-weight:500}#qingzhang-v4 .q-reading p{font-size:11px;color:var(--q-muted);margin-top:5px}#qingzhang-v4 .q-reading .q-track{height:4px;margin-top:7px}#qingzhang-v4 .q-radar{height:300px}#qingzhang-v4 .q-tax{border-top:1px solid var(--q-line);margin-top:14px;padding-top:12px;font-size:12px;color:var(--q-muted)}#qingzhang-v4 .q-upload{border:1px dashed var(--q-line);border-radius:10px;padding:20px;background:var(--q-bg);display:flex;gap:14px;justify-content:space-between;align-items:center;flex-wrap:wrap}#qingzhang-v4 input[type=file]{font:inherit;font-size:12px;max-width:100%;width:240px}#qingzhang-v4 .q-footer{margin-top:20px;font-size:11px;color:var(--q-muted);text-align:center}#qingzhang-v4 .q-details-caption{margin-bottom:8px;font-size:12px;font-weight:500}
+@media(max-width:850px){#qingzhang-v4 .q-ar-layout{}#qingzhang-v4 .q-big{font-size:22px}}
+@media(max-width:620px){#qingzhang-v4{padding:16px 12px}#qingzhang-v4 .q-grid{grid-template-columns:1fr}#qingzhang-v4 .q-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#qingzhang-v4 .q-insights{grid-template-columns:1fr;gap:10px}#qingzhang-v4 .q-panel{padding:16px}#qingzhang-v4 .q-chart-summary{grid-template-columns:1fr;gap:10px}#qingzhang-v4 .q-summary{border-left:0;border-top:1px solid var(--q-line);padding:12px 0 0;flex-direction:row;gap:8px}#qingzhang-v4 .q-summary strong{font-size:18px}#qingzhang-v4 .q-sliders{grid-template-columns:1fr;gap:4px}#qingzhang-v4 .q-threebar>div{padding:0 7px}#qingzhang-v4 .q-threebar strong{font-size:13px}#qingzhang-v4 .q-threebar span{font-size:11px}#qingzhang-v4 .q-ar-table thead{display:none}#qingzhang-v4 .q-ar-table tbody{display:block}#qingzhang-v4 .q-ar-table tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-bottom:1px solid var(--q-line);padding:10px 0}#qingzhang-v4 .q-ar-table td{border:0;padding:4px 0}#qingzhang-v4 .q-ar-table td:before{content:attr(data-label) ' ';color:var(--q-muted);display:block}#qingzhang-v4 h1{font-size:24px}}
+@media(pointer:coarse){#qingzhang-v4 select,#qingzhang-v4 button{min-height:44px}#qingzhang-v4 input[type=range]{min-height:30px}}
+#qingzhang-v4 [hidden]{display:none!important}
+#qingzhang-v4 .q-section-title{flex-wrap:wrap}
+#qingzhang-v4 .q-rank-scroll{height:232px;overflow-y:scroll;overscroll-behavior:contain;scrollbar-gutter:stable;padding:2px 13px 2px 0;scrollbar-width:thin;scrollbar-color:var(--q-green) var(--q-bg)}
+#qingzhang-v4 .q-rank-scroll::-webkit-scrollbar{width:7px}
+#qingzhang-v4 .q-rank-scroll::-webkit-scrollbar-track{background:var(--q-bg);border-radius:6px}
+#qingzhang-v4 .q-rank-scroll::-webkit-scrollbar-thumb{background:var(--q-green);border-radius:6px}
+#qingzhang-v4 .q-rank-scroll .q-rank{min-height:50px;margin-bottom:13px}
+#qingzhang-v4 .q-rank-scroll .q-track{height:10px}
+#qingzhang-v4 .q-rank-scroll .q-rank-head{flex-wrap:wrap}
+#qingzhang-v4 .q-rank-scroll .q-rank-head em{color:var(--q-ink);font-weight:500}
+#qingzhang-v4 .q-sankey-top{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-block:1px solid var(--q-line);font-size:12px}
+#qingzhang-v4 .q-sankey-top strong{display:block;font-size:20px;font-weight:500}
+#qingzhang-v4 .q-sankey-top>div:last-child{text-align:right}
+#qingzhang-v4 .q-sankey-desktop{height:515px}
+#qingzhang-v4 .q-sankey-mobile{display:none}
+#qingzhang-v4 .q-branch-block{margin-top:15px;padding-bottom:10px;border-bottom:1px solid var(--q-line)}
+#qingzhang-v4 .q-branch-block h4{margin:0 0 8px;font-size:13px;font-weight:500}
+#qingzhang-v4 .q-branch-row{display:flex;justify-content:space-between;gap:8px;padding:4px 0 4px 12px;font-size:12px}
+#qingzhang-v4 .q-profit-equation{display:grid;grid-template-columns:1fr 22px 1fr 22px 1fr;gap:12px;align-items:center;padding:17px 0 20px;border-bottom:1px solid var(--q-line)}
+#qingzhang-v4 .q-profit-term span{display:block;font-size:12px;color:var(--q-muted)}
+#qingzhang-v4 .q-profit-term strong{display:block;font-size:26px;font-weight:500;margin-top:5px}
+#qingzhang-v4 .q-math-sign{font-size:22px;color:var(--q-muted);text-align:center}
+#qingzhang-v4 .q-profit-steps{max-width:100%;margin:4px 0 18px}
+#qingzhang-v4 .q-calc-row.q-subtotal{font-weight:500;background:var(--q-bg);padding-inline:12px}
+#qingzhang-v4 .q-retained-equation{display:grid;grid-template-columns:1fr 20px 1fr 20px 1.15fr;gap:12px;align-items:center;background:var(--q-soft);padding:20px;border-radius:9px}
+#qingzhang-v4 .q-retained-equation .q-profit-term strong{font-size:25px}
+#qingzhang-v4 .q-retained-equation .q-profit-term:last-child{border-left:1px solid var(--q-line);padding-left:14px}
+#qingzhang-v4 .q-report-tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--q-line);padding-bottom:14px;margin-bottom:18px}
+#qingzhang-v4 .q-report-tabs button{background:transparent;border-color:transparent;padding:9px 16px;font-size:13px}
+#qingzhang-v4 .q-report-tabs button[aria-selected=true]{background:var(--q-soft);color:var(--q-ink);border-color:var(--q-line);font-weight:500}
+#qingzhang-v4 .q-report-title{text-align:center;margin-bottom:16px}
+#qingzhang-v4 .q-report-title h3{font-size:20px;letter-spacing:4px;margin-bottom:5px}
+#qingzhang-v4 .q-report-title p{font-size:12px;color:var(--q-muted)}
+#qingzhang-v4 .q-statement-wrap{overflow-x:auto}
+#qingzhang-v4 .q-statement{min-width:470px}
+#qingzhang-v4 .q-statement td,#qingzhang-v4 .q-statement th{padding:11px 12px}
+#qingzhang-v4 .q-statement th{background:var(--q-bg);font-size:12px}
+#qingzhang-v4 .q-statement tr.q-statement-group td{font-weight:500;background:var(--q-bg);padding-top:13px}
+#qingzhang-v4 .q-statement tr.q-statement-child td:first-child{padding-left:30px;color:var(--q-muted)}
+#qingzhang-v4 .q-statement tr.q-statement-total td{font-weight:500;border-top:1px solid var(--q-line)}
+#qingzhang-v4 .q-statement tr.q-statement-final td{font-weight:600;background:var(--q-soft);border-block:1px solid var(--q-line)}
+@media(max-width:680px){#qingzhang-v4 .q-sankey-desktop{display:none}#qingzhang-v4 .q-sankey-mobile{display:block}#qingzhang-v4 .q-profit-equation{gap:6px}#qingzhang-v4 .q-profit-term strong{font-size:20px}#qingzhang-v4 .q-retained-equation{grid-template-columns:1fr;gap:10px;padding:16px}#qingzhang-v4 .q-retained-equation .q-profit-term{display:flex;justify-content:space-between;gap:10px;align-items:center}#qingzhang-v4 .q-retained-equation .q-math-sign{text-align:left}#qingzhang-v4 .q-retained-equation .q-profit-term:last-child{border-left:0;border-top:1px solid var(--q-line);padding:12px 0 0}#qingzhang-v4 .q-sankey-top strong{font-size:17px}}
+@media(max-width:420px){#qingzhang-v4 .q-profit-equation{grid-template-columns:1fr}#qingzhang-v4 .q-profit-equation .q-profit-term{display:flex;align-items:center;justify-content:space-between}#qingzhang-v4 .q-profit-equation .q-math-sign{text-align:left}#qingzhang-v4 .q-report-tabs button{padding:9px 8px}}
+/* Interactive report: local, self-contained, no external requests. */
+#qingzhang-v4{--q-bg:#f3f5f2;--q-paper:#fff;--q-ink:#253a30;--q-muted:#69796e;--q-line:#e2e8e0;--q-green:#54876b;--q-soft:#e7efe5;--q-purple:#a39dbf;--q-blue:#6c95b0;--q-amber:#bb914d;--q-red:#be6960}
+body{background:#e8ece7}main{max-width:1240px}#qingzhang-v4{padding:28px 30px;border-radius:18px}#qingzhang-v4 .q-head{margin:28px 0 22px}#qingzhang-v4 .q-kpi{position:relative;transition:border-color .15s,transform .15s}#qingzhang-v4 .q-kpi:after{content:'查看明细 ↗';display:block;margin-top:8px;font-size:10px;color:var(--q-muted)}
+#qingzhang-v4 [data-detail]{cursor:pointer}#qingzhang-v4 [data-detail]:focus-visible{outline:2px solid var(--q-green);outline-offset:3px}#qingzhang-v4 .q-kpi:hover{border-color:var(--q-green);transform:translateY(-2px)}#qingzhang-v4 .q-rank{border-radius:6px;padding:5px 7px}#qingzhang-v4 .q-rank:hover,#qingzhang-v4 tr[data-detail]:hover{background:var(--q-bg)}#qingzhang-v4 .q-threebar>div:hover{filter:brightness(.96)}#qingzhang-v4 .q-svg text{pointer-events:none}#qingzhang-v4 .q-svg [data-detail]:hover{filter:brightness(.92)}
+#qingzhang-v4 .q-insights{gap:12px}#qingzhang-v4 .q-insights>div{padding:18px;background:var(--q-paper);border:1px solid var(--q-line);border-radius:10px;border-top:3px solid #789e8a}#qingzhang-v4 .q-insights b{font-size:14px;font-weight:600;margin-bottom:8px}#qingzhang-v4 .q-insights p{font-size:12px;line-height:1.8}#qingzhang-v4 .q-insights a,#qingzhang-v4 .q-text-link{display:inline-block;font-size:11px;color:var(--q-green);margin-top:8px}#qingzhang-v4 .q-insights>div:nth-child(2){border-top-color:#c09861}#qingzhang-v4 .q-insights>div:nth-child(3){border-top-color:#7f9db7}
+#qingzhang-v4 .q-section{margin-top:32px}#qingzhang-v4 .q-section-title h2{font-size:18px}#qingzhang-v4 .q-section-title .q-no{width:22px;height:22px;display:grid;place-items:center;background:#e4eae2;border-radius:5px;font-size:10px}#qingzhang-v4 .q-sankey-top{padding:14px 8px;margin-bottom:6px;font-size:11px;gap:12px}#qingzhang-v4 .q-sankey-top strong{font-size:15px;margin-top:3px}#qingzhang-v4 .q-sankey-top>div:last-child{text-align:right}
+#qingzhang-v4 .q-sandbox{display:grid;gap:14px;color:#edf3f8}#qingzhang-v4 .q-sim-controls,#qingzhang-v4 .q-sim-chart{border:1px solid #2d424e;background:#17232d;border-radius:12px;padding:21px;min-width:0}#qingzhang-v4 .q-sandbox h3{font-size:15px;color:#f1f5f9}#qingzhang-v4 .q-sim-sub,#qingzhang-v4 .q-sim-chart .q-chart-head p{font-size:11px;color:#b1c0cc;line-height:1.6;margin-top:4px}#qingzhang-v4 .q-sandbox button,#qingzhang-v4 .q-sandbox select{background:#1d2e3a;border-color:#3b4b58;color:#c8d8e5;padding:5px 8px;font-size:11px}#qingzhang-v4 .q-sandbox .q-select-label{color:#aebdca;font-size:11px}#qingzhang-v4 .q-sandbox .q-sliders{display:grid;grid-template-columns:1fr;gap:21px;margin:24px 0 17px}#qingzhang-v4 .q-slider-top{font-weight:600;font-size:12px;color:#e8eef4}#qingzhang-v4 .q-slider-top output{color:#8ebaf1}#qingzhang-v4 .q-sim-hint{font-size:10px;color:#acbdcc;line-height:1.65}#qingzhang-v4 .q-sandbox input[type=range]{appearance:none;height:6px;min-height:6px;margin:14px 0 11px;border:1px solid #7d8791;border-radius:8px;background:linear-gradient(to right,#84b2eb 0 var(--fill,0%),#505960 var(--fill,0%) 100%)}#qingzhang-v4 .q-sandbox input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;background:#86b5ed;border-radius:50%;cursor:ew-resize;border:2px solid #86b5ed}#qingzhang-v4 .q-sandbox input[type=range]::-moz-range-thumb{width:13px;height:13px;background:#86b5ed;border:0;border-radius:50%}#qingzhang-v4 .q-tax-toggle{display:flex;gap:8px;padding:11px 0 14px;border-top:1px solid #31424e;font-size:11px;line-height:1.6;align-items:flex-start}#qingzhang-v4 .q-tax-toggle input{accent-color:#88b7ed;margin:4px 0}#qingzhang-v4 .q-tax-toggle small{display:block;color:#acbdcc;font-size:10px}#qingzhang-v4 .q-sim-verdict{padding:16px;background:#223b5a;border-radius:8px;color:#eaf2fb;line-height:1.7;font-size:12px;min-height:125px}#qingzhang-v4 .q-sim-verdict strong{font-size:27px;font-weight:700;letter-spacing:-.7px}#qingzhang-v4 .q-sim-verdict small{display:block;font-size:10px;color:#b7cbe0;margin-top:6px}#qingzhang-v4 .q-sim-risk{display:inline-block;padding:3px 8px;border-radius:4px;font-size:10px;margin-top:7px}.q-sim-risk.safe{background:#254a44;color:#b3e1d4}.q-sim-risk.warning{background:#5b4938;color:#f5d39e}.q-sim-risk.danger{background:#5e3840;color:#ffc3bf}#qingzhang-v4 .q-sim-legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:10px;color:#c0cbd5;margin:14px 0 3px}#qingzhang-v4 .q-sim-legend i{display:inline-block;width:18px;height:0;border-top:3px solid #85b1e8;vertical-align:middle;margin-right:5px}#qingzhang-v4 .q-sim-legend .baseline{border-color:#8493a7;border-top-style:dotted;border-width:2px}#qingzhang-v4 .q-sim-legend .scenario{border-color:#f17e75;border-top-style:dashed}#qingzhang-v4 .q-sim-legend .safety{border-color:#65bca8;border-top-style:dotted;border-width:2px}#qingzhang-v4 #q2-balance{height:320px;overflow:visible}#qingzhang-v4 #q2-balance text{fill:#adbecb;font-size:10px}#qingzhang-v4 #q2-balance [data-detail]:focus-visible{outline-color:#b4d2ff}#qingzhang-v4 .q-sandbox .q-sim-result{background:transparent;border-top:1px solid #304451;border-radius:0;padding:12px 0 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:10px;color:#aebfcd}#qingzhang-v4 .q-sandbox .q-sim-result strong{font-size:16px;color:#e5edf5;margin-top:3px}#qingzhang-v4 .q-sandbox #q2-sim-end{color:#f3998d}#qingzhang-v4 .q-sim-method{margin-top:10px;font-size:10px;line-height:1.7}
+#qingzhang-v4 .q-analysis-note{border:1px solid #e7d3b2;background:#fbf6ed;border-radius:8px;padding:12px 16px;font-size:12px;line-height:1.8;margin-bottom:18px;color:#786043}#qingzhang-v4 .q-tax-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}#qingzhang-v4 .q-tax-card{border:1px solid var(--q-line);border-radius:9px;padding:16px;background:#fafbf9}#qingzhang-v4 .q-tax-card h3{font-size:13px;margin:7px 0}#qingzhang-v4 .q-tax-card p{font-size:11px;color:var(--q-muted);line-height:1.8}#qingzhang-v4 .q-tax-badge{display:inline-block;color:#9c7138;background:#f2e6d2;border-radius:4px;font-size:10px;padding:3px 6px}#qingzhang-v4 .q-tax-card .q-text-link{font-size:11px}#qingzhang-v4 .q-action-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}#qingzhang-v4 .q-action{padding:16px;border-left:3px solid #91a998;background:#f4f7f2;border-radius:0 6px 6px 0}#qingzhang-v4 .q-action span{font-size:10px;color:#748b7b}#qingzhang-v4 .q-action h3{margin:6px 0;font-size:13px}#qingzhang-v4 .q-action p{font-size:11px;line-height:1.8;color:var(--q-muted)}#qingzhang-v4 .q-source-note{font-size:10px;color:var(--q-muted);line-height:1.8;margin-top:14px}#qingzhang-v4 .q-source-note a{color:var(--q-green);text-decoration:underline;text-underline-offset:3px}#qingzhang-v4 .q-reading p{font-size:12px;line-height:1.7}#qingzhang-v4 .q-reading{padding:12px 0}
+body.q-modal-open{overflow:hidden}#qingzhang-v4 dialog{border:1px solid #d6e1d8;border-radius:15px;padding:26px;width:min(810px,92vw);max-height:88vh;overflow:auto;color:var(--q-ink);background:white;box-shadow:0 20px 100px #142d3250}#qingzhang-v4 dialog::backdrop{background:#11241ed0;backdrop-filter:blur(3px)}#qingzhang-v4 .q-detail-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}#qingzhang-v4 .q-detail-eyebrow{letter-spacing:1px;text-transform:uppercase;color:#76937e;font-size:10px}#qingzhang-v4 #q2-detail-title{font-size:23px;line-height:1.4}#qingzhang-v4 .q-detail-sub{font-size:11px;color:var(--q-muted);margin-top:7px}#qingzhang-v4 .q-detail-intro{font-size:13px;line-height:1.85;margin:20px 0;background:#f3f6f1;border-radius:8px;padding:14px 16px}#qingzhang-v4 .q-detail-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}#qingzhang-v4 .q-detail-metrics>div{border:1px solid var(--q-line);border-radius:8px;padding:14px}#qingzhang-v4 .q-detail-metrics span{display:block;font-size:11px;color:var(--q-muted)}#qingzhang-v4 .q-detail-metrics strong{font-size:21px;display:block;margin-top:5px;font-weight:600}#qingzhang-v4 .q-detail-table-wrap{overflow:auto}#qingzhang-v4 dialog table{min-width:460px;margin-top:12px}#qingzhang-v4 dialog th{background:#edf2ea;padding:10px;font-size:11px}#qingzhang-v4 dialog td{padding:12px 10px;font-size:12px}#qingzhang-v4 .q-detail-action{background:#f9f4ea;border-left:3px solid #bd9558;padding:13px 16px;margin-top:18px;font-size:12px;line-height:1.8}#qingzhang-v4 .q-detail-action p{margin-top:3px}#qingzhang-v4 .q-detail-foot{color:var(--q-muted);font-size:10px;line-height:1.8;margin-top:18px}#qingzhang-v4 .q-detail-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:20px;border-top:1px solid var(--q-line);padding-top:16px;font-size:10px;color:var(--q-muted)}#qingzhang-v4 #q2-detail-close{background:#f1f5ee;font-size:11px}#qingzhang-v4 #q2-detail-close span{font-size:16px;margin-left:10px}
+@media(max-width:1000px){#qingzhang-v4{padding:22px}#qingzhang-v4 .q-sandbox{}#qingzhang-v4 .q-sim-controls,#qingzhang-v4 .q-sim-chart{padding:17px}#qingzhang-v4 .q-sim-chart .q-chart-head{display:block}#qingzhang-v4 .q-sim-chart .q-select-label{margin-top:8px}}
+@media(max-width:800px){#qingzhang-v4 .q-sandbox{}#qingzhang-v4 .q-sandbox .q-sliders{grid-template-columns:repeat(3,1fr);gap:18px}#qingzhang-v4 .q-sim-verdict{min-height:auto}#qingzhang-v4 .q-tax-grid,#qingzhang-v4 .q-action-list{grid-template-columns:1fr}#qingzhang-v4 .q-sankey-top strong{font-size:12px}#qingzhang-v4 .q-sankey-top{font-size:10px}#qingzhang-v4 .q-sankey-top>div{flex:1}}
+@media(max-width:620px){#qingzhang-v4{padding:18px 12px;border-radius:0}#qingzhang-v4 .q-sandbox .q-sliders{grid-template-columns:1fr;gap:20px}#qingzhang-v4 .q-sandbox .q-sim-result{grid-template-columns:repeat(2,1fr);gap:12px}#qingzhang-v4 .q-insights>div{padding:15px}#qingzhang-v4 dialog{width:94vw;padding:18px 14px;max-height:90vh}#qingzhang-v4 .q-detail-metrics{gap:5px}#qingzhang-v4 .q-detail-metrics>div{padding:10px 7px}#qingzhang-v4 .q-detail-metrics strong{font-size:15px}#qingzhang-v4 #q2-detail-title{font-size:20px}#qingzhang-v4 .q-detail-intro{padding:12px}#qingzhang-v4 .q-sim-chart .q-sim-legend{gap:8px 12px}#qingzhang-v4 .q-sankey-top>div:nth-child(2){display:none}}
+@media print{#qingzhang-v4 dialog{display:none!important}#qingzhang-v4 .q-sandbox{print-color-adjust:exact}#qingzhang-v4 [data-detail]{outline:0}.q-tax-grid,.q-action-list{break-inside:avoid}}
+
+/* Append after existing Sankey styles. */
+#qingzhang-v4 .q-sankey-desktop{height:450px;overflow:visible;margin-top:5px}
+#qingzhang-v4 .q-sankey-top{border-top:0;margin-top:2px;padding:12px 0 14px}
+#qingzhang-v4 .q-sankey-top strong{font-size:21px;font-weight:600;margin-top:2px}
+#qingzhang-v4 .q-flow-heading{font-size:11px;fill:var(--q-muted);font-weight:500}
+#qingzhang-v4 .q-flow-total{font-size:15px;fill:var(--q-ink);font-weight:600;letter-spacing:-.3px}
+#qingzhang-v4 .q-flow-label{font-size:12px;fill:var(--q-ink);font-weight:500}
+#qingzhang-v4 .q-flow-value{font-size:10px;fill:var(--q-muted)}
+#qingzhang-v4 .q-flow-footnote{font-size:10px;fill:var(--q-muted)}
+#qingzhang-v4 .q-flow-part{transition:opacity .16s ease,fill-opacity .16s ease}
+#qingzhang-v4 .q-flow-interactive{cursor:pointer;outline:none}
+#qingzhang-v4 .q-flow-band{fill-opacity:.3;stroke:transparent;stroke-width:7}
+#qingzhang-v4 .q-flow-active .q-flow-part{opacity:.18}
+#qingzhang-v4 .q-flow-active .q-flow-match{opacity:1}
+#qingzhang-v4 .q-flow-active .q-flow-band.q-flow-match{fill-opacity:.55}
+#qingzhang-v4 .q-flow-interactive:focus-visible{outline:none;filter:drop-shadow(0 0 2px var(--q-green))}
+#qingzhang-v4 .q-flow-node:focus-visible .q-flow-hit,#qingzhang-v4 .q-flow-node:hover .q-flow-hit{fill:color-mix(in srgb,var(--q-soft) 55%,transparent)}
+#qingzhang-v4 .q-branch-block{padding-bottom:14px;border-color:var(--q-line)}
+#qingzhang-v4 .q-branch-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+#qingzhang-v4 .q-branch-heading h4{margin:0}
+#qingzhang-v4 .q-branch-heading strong{font-size:15px;font-weight:600}
+#qingzhang-v4 button.q-branch-row{width:100%;border:0;border-radius:6px;background:transparent;text-align:left;align-items:center;padding:9px 8px;min-height:43px}
+#qingzhang-v4 button.q-branch-row:hover{background:var(--q-bg)}
+#qingzhang-v4 .q-branch-row b{font-weight:500}
+#qingzhang-v4 .q-branch-row small{display:inline-block;min-width:47px;margin-left:10px;text-align:right;color:var(--q-muted);font-size:10px}
+#qingzhang-v4 button.q-flow-mobile-total,#qingzhang-v4 button.q-flow-mobile-surplus{display:flex;width:100%;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;border:0;border-radius:9px;padding:14px;background:var(--q-soft);margin-top:13px;text-align:left}
+#qingzhang-v4 .q-flow-mobile-total strong,#qingzhang-v4 .q-flow-mobile-surplus strong{font-size:18px;font-weight:600}
+#qingzhang-v4 .q-flow-mobile-total small{display:block;width:100%;font-size:11px;color:var(--q-muted)}
+@media(prefers-reduced-motion:reduce){#qingzhang-v4 .q-flow-part{transition:none}}
+
+#qingzhang-v4 .q-tax-grid{grid-template-columns:repeat(2,1fr)}#qingzhang-v4 .q-tax-heading{margin-top:26px;padding-top:23px;border-top:1px solid var(--q-line)}#qingzhang-v4 .q-tax-heading .q-muted{margin-top:5px;font-size:11px}#qingzhang-v4 .q-sankey-top strong{font-size:15px}#qingzhang-v4 .q-status-dot{width:9px;height:9px;border-radius:50%;background:#ba965b;box-shadow:0 0 0 5px #ba965b17}#qingzhang-v4 .q-score{padding:12px 18px;font-size:12px}#qingzhang-v4 .q-reading .q-row{font-size:12px}#qingzhang-v4 .q-reading .q-row b{font-weight:600}#qingzhang-v4 .q-reading:last-of-type{border-bottom:0}#qingzhang-v4 .q-reading{cursor:pointer}#qingzhang-v4 .q-reading:hover{background:#f8faf6}#qingzhang-v4 .q-sankey-desktop{margin-top:15px}@media(max-width:620px){#qingzhang-v4 .q-tax-grid{grid-template-columns:1fr}#qingzhang-v4 .q-score{width:100%}}
+/* Append after the original sandbox rules. Layout and interactions are preserved. */
+#qingzhang-v4 .q-sandbox {
+  color: var(--q-ink);
+  color-scheme: light;
+}
+#qingzhang-v4 .q-sim-controls,
+#qingzhang-v4 .q-sim-chart {
+  background: var(--q-paper);
+  border-color: var(--q-line);
+}
+#qingzhang-v4 .q-sandbox h3,
+#qingzhang-v4 .q-sandbox .q-slider-top {
+  color: var(--q-ink);
+}
+#qingzhang-v4 .q-sim-sub,
+#qingzhang-v4 .q-sim-chart .q-chart-head p,
+#qingzhang-v4 .q-sandbox .q-select-label,
+#qingzhang-v4 .q-sim-hint,
+#qingzhang-v4 .q-tax-toggle small,
+#qingzhang-v4 .q-sim-method {
+  color: var(--q-muted);
+}
+#qingzhang-v4 .q-sandbox button,
+#qingzhang-v4 .q-sandbox select {
+  background: var(--q-paper);
+  border-color: #d4dfd5;
+  color: var(--q-ink);
+}
+#qingzhang-v4 .q-sandbox button:hover,
+#qingzhang-v4 .q-sandbox select:hover {
+  background: #f3f7f1;
+  border-color: #a6bba9;
+}
+#qingzhang-v4 .q-sandbox button:focus-visible,
+#qingzhang-v4 .q-sandbox select:focus-visible,
+#qingzhang-v4 .q-sandbox input:focus-visible {
+  outline-color: var(--q-green);
+}
+#qingzhang-v4 .q-sandbox .q-slider-top output {
+  color: #47745a;
+}
+#qingzhang-v4 .q-sandbox input[type=range] {
+  accent-color: var(--q-green);
+  border-color: #b8c8bb;
+  background: linear-gradient(to right, #7ba18a 0 var(--fill,0%), #e3e9e0 var(--fill,0%) 100%);
+}
+#qingzhang-v4 .q-sandbox input[type=range]::-webkit-slider-thumb {
+  background: #54876b;
+  border-color: #54876b;
+}
+#qingzhang-v4 .q-sandbox input[type=range]::-moz-range-thumb {
+  background: #54876b;
+}
+#qingzhang-v4 .q-tax-toggle {
+  color: var(--q-ink);
+  border-top-color: var(--q-line);
+}
+#qingzhang-v4 .q-tax-toggle input {
+  accent-color: var(--q-green);
+}
+#qingzhang-v4 .q-sim-verdict {
+  background: var(--q-soft);
+  color: var(--q-ink);
+}
+#qingzhang-v4 .q-sim-verdict strong {
+  color: #345e46;
+}
+#qingzhang-v4 .q-sim-verdict small {
+  color: #586b60;
+}
+#qingzhang-v4 .q-sim-risk.safe {
+  background: #d9e9dc;
+  color: #365f46;
+}
+#qingzhang-v4 .q-sim-risk.warning {
+  background: #f5ead6;
+  color: #875c1f;
+}
+#qingzhang-v4 .q-sim-risk.danger {
+  background: #f5dfda;
+  color: #a2473c;
+}
+#qingzhang-v4 .q-sim-legend {
+  color: var(--q-muted);
+}
+#qingzhang-v4 .q-sim-legend i,
+#qingzhang-v4 .q-sim-legend .history {
+  border-top-color: #6c95b0;
+}
+#qingzhang-v4 .q-sim-legend .baseline {
+  border-top-color: #98a59c;
+}
+#qingzhang-v4 .q-sim-legend .scenario {
+  border-top-color: #c87859;
+}
+#qingzhang-v4 .q-sim-legend .safety {
+  border-top-color: #54876b;
+}
+#qingzhang-v4 #q2-balance text {
+  fill: var(--q-muted);
+}
+/* The safety caption has an explicit fill attribute; presentation attributes alone
+   cannot override the generic SVG text rule above. */
+#qingzhang-v4 #q2-balance text[fill] {
+  fill: #49715b;
+}
+#qingzhang-v4 #q2-balance [data-detail]:focus-visible {
+  outline-color: var(--q-green);
+}
+#qingzhang-v4 .q-sandbox .q-sim-result {
+  background: var(--q-paper);
+  border-top-color: var(--q-line);
+  color: var(--q-muted);
+}
+#qingzhang-v4 .q-sandbox .q-sim-result strong {
+  color: var(--q-ink);
+}
+#qingzhang-v4 .q-sandbox #q2-sim-end {
+  color: #a55c40;
+}
+
+#qingzhang-v4 .q-review-top{display:grid;gap:14px;align-items:stretch}#qingzhang-v4 .q-review-bottom{display:grid;gap:14px;align-items:start;margin-top:14px}#qingzhang-v4 .q-review-top .q-panel,#qingzhang-v4 .q-review-bottom .q-panel{padding:20px}#qingzhang-v4 .q-review-top h3,#qingzhang-v4 .q-review-bottom h3{font-size:14px}#qingzhang-v4 .q-radar-card .q-chart-head{margin-bottom:6px}#qingzhang-v4 .q-radar-card .q-chart-head p{font-size:11px}#qingzhang-v4 #q2-radar{height:272px}#qingzhang-v4 .q-radar-legend{display:flex;gap:15px;justify-content:center;color:var(--q-muted);font-size:10px}#qingzhang-v4 .q-radar-legend i{display:inline-block;width:20px;height:9px;border:2px solid #6c95b0;background:#6c95b024;vertical-align:middle;margin-right:4px}#qingzhang-v4 .q-radar-legend i.target{border:1px dashed #68977a;background:transparent}#qingzhang-v4 .q-overall-score{display:flex;align-items:center;justify-content:center;gap:9px;border-top:1px solid var(--q-line);padding-top:13px;margin-top:15px;font-size:12px}#qingzhang-v4 .q-overall-score strong{font-size:23px;font-weight:600;color:var(--q-green)}#qingzhang-v4 .q-overall-score small{font-size:10px;color:var(--q-muted)}#qingzhang-v4 .q-dimension-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;padding:13px 0;border-bottom:1px solid var(--q-line)}#qingzhang-v4 .q-dimension-row:last-child{border:0;padding-bottom:0}#qingzhang-v4 .q-dimension-row:first-child{padding-top:12px}#qingzhang-v4 .q-dimension-label b{display:block;font-size:12px;font-weight:600}#qingzhang-v4 .q-dimension-score{display:block;font-size:11px;color:var(--q-muted);margin-top:2px}#qingzhang-v4 .q-status-badge{display:inline-block;border-radius:4px;font-size:10px;padding:2px 6px;line-height:1.5;font-weight:500}#qingzhang-v4 .q-status-badge.good{color:#3e7e5c;background:#e7f1e7}#qingzhang-v4 .q-status-badge.watch{color:#986b27;background:#f8edd8}#qingzhang-v4 .q-status-badge.risk{color:#b55e55;background:#f8e7e2}#qingzhang-v4 .q-status-badge.unknown{color:#7e7393;background:#efebf4}#qingzhang-v4 .q-dimension-label .q-status-badge{margin-top:4px}#qingzhang-v4 .q-dimension-content strong{display:block;font-size:12px;font-weight:600;line-height:1.55}#qingzhang-v4 .q-dimension-content .q-track{height:5px;margin:6px 0;background:#edf1eb}#qingzhang-v4 .q-dimension-content p{font-size:11px;color:var(--q-muted);line-height:1.65}#qingzhang-v4 .q-dimension-row:hover{background:#fafcf9}#qingzhang-v4 .q-manager-summary p{font-size:12px;color:var(--q-muted);line-height:1.85;margin-top:13px}#qingzhang-v4 .q-manager-summary p b{font-weight:600;color:var(--q-ink)}#qingzhang-v4 .q-boss-takeaway{font-size:14px;color:var(--q-ink);font-weight:500;line-height:1.7;padding:13px 14px;background:var(--q-soft);border-radius:7px;margin-top:13px}#qingzhang-v4 .q-priorities{display:grid;gap:10px}#qingzhang-v4 .q-priority{border:1px solid var(--q-line);border-left:3px solid #ba965b;padding:15px 17px;background:var(--q-paper);border-radius:0 9px 9px 0}#qingzhang-v4 .q-priority.risk{border-left-color:#bd6a61}#qingzhang-v4 .q-priority.good{border-left-color:#6c977d}#qingzhang-v4 .q-priority-title{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:7px}#qingzhang-v4 .q-priority-title b{font-size:13px;font-weight:600}#qingzhang-v4 .q-priority p{font-size:11px;color:var(--q-muted);line-height:1.8}#qingzhang-v4 .q-priority-effect{padding:7px 10px;border-radius:5px;background:#edf3f7;color:#577e98;font-size:11px;line-height:1.7;margin-top:9px}#qingzhang-v4 .q-analysis-bottom-note{display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px;margin-top:13px;color:var(--q-muted);font-size:10px}#qingzhang-v4 .q-analysis-bottom-note button{font-size:10px;padding:4px 8px;background:transparent}#qingzhang-v4 .q-tax-details{border:1px solid var(--q-line);border-radius:9px;background:#fff;margin-top:13px;padding:0 16px}#qingzhang-v4 .q-tax-details summary{cursor:pointer;padding:12px 0;font-size:11px;color:var(--q-muted)}#qingzhang-v4 .q-tax-details summary b{font-weight:500;color:#8b713f}#qingzhang-v4 .q-tax-detail-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 13px}#qingzhang-v4 .q-tax-detail-links button{text-align:left;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;font-size:11px;background:#f8faf6;border-color:var(--q-line)}#qingzhang-v4 .q-tax-detail-links button span{font-size:10px;color:#9e7b45;white-space:nowrap}#qingzhang-v4 .q-tax-details .q-source-note{margin:0 0 13px}#qingzhang-v4 .q-review-top [data-detail]:focus-visible,#qingzhang-v4 .q-review-bottom [data-detail]:focus-visible{outline:2px solid var(--q-green);outline-offset:2px}
+@media(max-width:850px){#qingzhang-v4 .q-review-top{}#qingzhang-v4 .q-dimension-row{grid-template-columns:60px minmax(0,1fr);gap:7px}#qingzhang-v4 .q-review-top .q-panel{padding:16px}#qingzhang-v4 .q-dimension-content p{font-size:10px}}
+@media(max-width:680px){#qingzhang-v4 .q-review-top,#qingzhang-v4 .q-review-bottom{}#qingzhang-v4 .q-dimension-row{grid-template-columns:70px minmax(0,1fr)}#qingzhang-v4 .q-review-bottom{margin-top:12px}#qingzhang-v4 .q-tax-detail-links{grid-template-columns:1fr}#qingzhang-v4 .q-dimension-content p{font-size:11px}#qingzhang-v4 .q-radar-card{max-height:none}}
+@media print{#qingzhang-v4 .q-profit-label{opacity:0;visibility:hidden}#qingzhang-v4 .q-review-top,#qingzhang-v4 .q-review-bottom{break-inside:avoid}#qingzhang-v4 .q-tax-details{display:none}}
+#qingzhang-v4 .q-dimension-row{padding:10px 0}#qingzhang-v4 .q-dimension-label{display:flex;align-content:flex-start;align-items:center;flex-wrap:wrap;gap:3px 5px}#qingzhang-v4 .q-dimension-label b{flex-basis:100%}#qingzhang-v4 .q-dimension-score,#qingzhang-v4 .q-dimension-label .q-status-badge{margin-top:0}#qingzhang-v4 .q-dimension-content .q-track{margin:5px 0}#qingzhang-v4 .q-dimension-content p{line-height:1.55}
+
+#qingzhang-v4 .q-profit-label{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .12s}#qingzhang-v4 .q-profit-series:hover .q-profit-label,#qingzhang-v4 .q-profit-series:focus-within .q-profit-label{opacity:1;visibility:visible}#qingzhang-v4 .q-svg .q-profit-value{fill:#3d6d85;font-size:10px;font-weight:600}#qingzhang-v4 .q-profit-series #q2-margin-hit{cursor:crosshair}
+#qingzhang-v4 .q3-overview-title{margin-bottom:13px}
+#qingzhang-v4 .q3-overview-hero{display:grid;grid-template-columns:220px minmax(0,1fr) 285px;align-items:center;gap:25px;padding:23px 25px;border:1px solid var(--q-line);border-radius:12px;background:#eaf0e7}
+#qingzhang-v4 .q3-overview-health{min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+#qingzhang-v4 .q3-overview-score{display:flex;align-items:baseline;gap:7px;white-space:nowrap}
+#qingzhang-v4 .q3-overview-score strong{font-size:52px;font-weight:650;letter-spacing:-2px;line-height:1.1;color:var(--q-ink)}
+#qingzhang-v4 .q3-overview-score>span{color:var(--q-muted);font-size:11px}
+#qingzhang-v4 .q3-health-scale{display:flex;height:6px;border-radius:4px;margin-top:9px;position:relative;background:#dce4da}
+#qingzhang-v4 .q3-health-scale>i:nth-child(1){width:60%;background:#c9867d;border-radius:4px 0 0 4px}
+#qingzhang-v4 .q3-health-scale>i:nth-child(2){width:20%;background:#c5a261}
+#qingzhang-v4 .q3-health-scale>i:nth-child(3){width:20%;background:#719b7e;border-radius:0 4px 4px 0}
+#qingzhang-v4 .q3-health-scale>b{position:absolute;width:3px;height:15px;top:-4px;background:var(--q-ink);border:1px solid #eaf0e7;border-radius:2px;transform:translateX(-50%)}
+#qingzhang-v4 .q3-health-scale-labels{display:flex;justify-content:space-between;margin-top:5px;color:var(--q-muted);font-size:9px;line-height:1.5}
+#qingzhang-v4 .q3-overview-health-badge{align-self:flex-start;display:inline-flex;margin-top:8px;padding:2px 7px;border-radius:4px;background:#f5e9d0;color:#89632c;font-size:10px;font-weight:600}
+#qingzhang-v4 .q3-overview-method{font-size:9px;color:var(--q-muted);margin-top:6px}
+#qingzhang-v4 .q3-overview-conclusion{padding-left:23px;border-left:1px solid #d6e0d2;min-width:0}
+#qingzhang-v4 .q3-overview-conclusion h2{font-size:19px;font-weight:650;line-height:1.6;letter-spacing:-.2px}
+#qingzhang-v4 .q3-overview-conclusion h2 span{white-space:nowrap;color:#426e53}
+#qingzhang-v4 .q3-overview-financial>p{margin-top:10px;font-size:11px;line-height:1.85;color:var(--q-muted)}
+#qingzhang-v4 .q3-overview-action{display:inline-block;margin-top:8px;color:#4c7f60;font-size:10px}
+#qingzhang-v4 .q3-overview-focus{min-width:0}
+#qingzhang-v4 .q3-overview-focus-title{font-size:11px;color:var(--q-muted);margin-bottom:8px}
+#qingzhang-v4 .q3-focus-item{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:7px;background:#f8faf6;border-left:3px solid #bc9a5c;padding:9px 9px;margin-top:6px;font-size:10px;line-height:1.5}
+#qingzhang-v4 .q3-focus-item strong{font-weight:600}
+#qingzhang-v4 .q3-focus-item>span{color:var(--q-muted);white-space:nowrap}
+#qingzhang-v4 .q3-focus-item>span b{font-weight:600;color:var(--q-ink)}
+#qingzhang-v4 .q3-focus-item em{font-size:9px;font-style:normal;color:#8d6b35;white-space:nowrap}
+#qingzhang-v4 .q3-focus-item.tax{border-left-color:#a294af}
+#qingzhang-v4 .q3-focus-item.tax em{color:#80718e}
+#qingzhang-v4 .q3-overview-focus-note{font-size:10px;color:var(--q-muted);margin-top:9px;line-height:1.6}
+#qingzhang-v4 .q3-overview-kpi-scroll{margin-top:13px}
+#qingzhang-v4 .q-kpis.q3-overview-kpis{grid-template-columns:repeat(6,minmax(0,1fr));gap:11px;margin:0}
+#qingzhang-v4 .q-kpi.q3-overview-kpi{min-width:0;border:1px solid #dce5d8;background:var(--q-paper);padding:15px 14px 13px;position:relative;border-radius:9px;transition:transform .15s,border-color .15s,box-shadow .15s}
+#qingzhang-v4 .q-kpi.q3-overview-kpi:first-child{background:#f1f6ee}
+#qingzhang-v4 .q-kpi.q3-overview-kpi:after{display:none}
+#qingzhang-v4 .q-kpi.q3-overview-kpi:before{content:'↗';position:absolute;top:12px;right:12px;color:#a7b8aa;font-size:11px}
+#qingzhang-v4 .q-kpi.q3-overview-kpi:hover{border-color:#91af97;box-shadow:0 3px 12px #253a3009;transform:translateY(-2px)}
+#qingzhang-v4 .q3-kpi-label{font-size:11px;color:var(--q-muted);padding-right:9px;line-height:1.6}
+#qingzhang-v4 .q3-kpi-value{font-size:30px;font-weight:650;letter-spacing:-.8px;line-height:1.35;white-space:nowrap;margin-top:6px}
+#qingzhang-v4 .q3-kpi-value>small{font-size:11px;color:var(--q-muted);font-weight:500;letter-spacing:0;margin-left:4px}
+#qingzhang-v4 .q3-kpi-context{font-size:10px;color:var(--q-muted);line-height:1.6;min-height:16px;margin-top:5px;white-space:nowrap}
+#qingzhang-v4 .q3-kpi-description{padding-top:9px;margin-top:9px;border-top:1px dashed var(--q-line);font-size:10px;color:var(--q-muted);line-height:1.65}
+#qingzhang-v4 .q3-overview-kpis .positive{color:var(--q-green)}
+#qingzhang-v4 .q3-overview-hero [data-detail]:focus-visible,#qingzhang-v4 .q3-overview-kpis [data-detail]:focus-visible{outline:2px solid var(--q-green);outline-offset:3px}
+@media(max-width:1100px){#qingzhang-v4 .q3-overview-hero{grid-template-columns:180px minmax(0,1fr) 245px;gap:18px;padding:20px}#qingzhang-v4 .q3-overview-conclusion{padding-left:18px}#qingzhang-v4 .q3-overview-conclusion h2{font-size:17px}#qingzhang-v4 .q3-focus-item{gap:5px;padding:8px 7px;font-size:9px}#qingzhang-v4 .q3-kpi-value{font-size:27px}#qingzhang-v4 .q3-overview-kpi .q3-kpi-context{font-size:9px}#qingzhang-v4 .q-kpi.q3-overview-kpi{padding:14px 12px 12px}}
+@media(min-width:681px) and (max-width:1039px){#qingzhang-v4 .q3-overview-kpi-scroll{overflow-x:auto;padding-bottom:5px}#qingzhang-v4 .q-kpis.q3-overview-kpis{min-width:940px}#qingzhang-v4 .q3-overview-hero{grid-template-columns:175px minmax(0,1fr);gap:18px}#qingzhang-v4 .q3-overview-focus{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr 1fr;align-items:center;gap:10px;border-top:1px solid #d6e0d2;padding-top:13px}#qingzhang-v4 .q3-overview-focus-title{margin-bottom:0}#qingzhang-v4 .q3-focus-item{margin-top:0}#qingzhang-v4 .q3-overview-focus-note{display:none}}
+@media(max-width:680px){#qingzhang-v4 .q3-overview-title{align-items:flex-start;gap:6px}#qingzhang-v4 .q3-overview-title>.q-small{font-size:10px}#qingzhang-v4 .q3-overview-hero{grid-template-columns:105px minmax(0,1fr);padding:17px 14px;gap:17px 13px}#qingzhang-v4 .q3-overview-score{display:block}#qingzhang-v4 .q3-overview-score strong{font-size:43px}#qingzhang-v4 .q3-overview-score>span{display:block;font-size:9px;margin-top:1px}#qingzhang-v4 .q3-health-scale-labels{font-size:7px}#qingzhang-v4 .q3-overview-health-badge{font-size:9px;padding:2px 5px}#qingzhang-v4 .q3-overview-method{font-size:8px;line-height:1.6}#qingzhang-v4 .q3-overview-conclusion{padding-left:13px}#qingzhang-v4 .q3-overview-conclusion h2{font-size:15px;line-height:1.65}#qingzhang-v4 .q3-overview-conclusion h2 br{display:none}#qingzhang-v4 .q3-overview-financial>p{font-size:10px;margin-top:7px}#qingzhang-v4 .q3-overview-financial>p br{display:none}#qingzhang-v4 .q3-overview-action{font-size:9px}#qingzhang-v4 .q3-overview-focus{grid-column:1/-1;border-top:1px solid #d6e0d2;padding-top:12px;display:grid;grid-template-columns:1fr;gap:5px}#qingzhang-v4 .q3-overview-focus-title{margin-bottom:0;font-size:10px}#qingzhang-v4 .q3-focus-item{font-size:10px;margin-top:0;grid-template-columns:56px 1fr auto}#qingzhang-v4 .q3-overview-focus-note{font-size:9px;margin-top:3px}#qingzhang-v4 .q-kpis.q3-overview-kpis{grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;gap:9px}#qingzhang-v4 .q3-kpi-value{font-size:28px}#qingzhang-v4 .q3-kpi-context{font-size:9px}#qingzhang-v4 .q3-kpi-description{font-size:9px}}
+@media print{#qingzhang-v4 .q3-overview-hero{break-inside:avoid}#qingzhang-v4 .q3-overview-kpi-scroll{overflow:visible}#qingzhang-v4 .q-kpis.q3-overview-kpis{grid-template-columns:repeat(6,minmax(0,1fr));min-width:0}#qingzhang-v4 .q3-kpi-value{font-size:25px}#qingzhang-v4 .q3-kpi-context{white-space:normal}}
+
+#qingzhang-v4 #q2-monthly .q-net-label{visibility:hidden;opacity:0;pointer-events:none;transition:opacity .12s}#qingzhang-v4 #q2-monthly .q-net-value{fill:#527d94;font-size:10px;font-weight:500}#qingzhang-v4 .q-net-halo{opacity:0;transition:opacity .14s}#qingzhang-v4 .q-net-dot{transition:r .14s,fill .14s}#qingzhang-v4 .q-net-point:hover .q-net-halo,#qingzhang-v4 .q-net-point:focus-within .q-net-halo{opacity:.18}#qingzhang-v4 .q-net-point:hover .q-net-dot,#qingzhang-v4 .q-net-point:focus-within .q-net-dot{r:6px;fill:#376e8b}#qingzhang-v4 .q-net-point:hover .q-net-label rect,#qingzhang-v4 .q-net-point:focus-within .q-net-label rect{fill:#dfeef5;stroke:#527f99;stroke-width:1.2}#qingzhang-v4 #q2-monthly .q-net-point:hover .q-net-value,#qingzhang-v4 #q2-monthly .q-net-point:focus-within .q-net-value{fill:#245c79;font-weight:700;font-size:11px}#qingzhang-v4 #q2-monthly .q-net-hit:hover{filter:none}#qingzhang-v4 .q-monthly-provenance{margin-top:5px;font-size:10px;color:var(--q-muted)}
+
+/* v4: reveal net margin labels on line hover; keep both analysis rows level. */
+#qingzhang-v4 #q2-monthly .q-net-series:hover .q-net-label,#qingzhang-v4 #q2-monthly .q-net-point:has(.q-net-hit:focus-visible) .q-net-label{visibility:visible;opacity:1}
+#qingzhang-v4 #q3-net-line-hit{cursor:crosshair}
+#qingzhang-v4 .q-review-top,#qingzhang-v4 .q-review-bottom{align-items:stretch}
+#qingzhang-v4 .q-review-top>.q-panel,#qingzhang-v4 .q-review-bottom>.q-panel,#qingzhang-v4 .q-review-bottom>.q-priorities{align-self:stretch}
+#qingzhang-v4 .q-review-bottom>.q-priorities{grid-template-rows:repeat(3,minmax(min-content,1fr))}
+
+/* One column system for every left-summary / right-detail row. */
+#qingzhang-v4{--q-layout-gap:16px;--q-split-columns:minmax(0,1fr) minmax(0,1.8fr)}
+#qingzhang-v4 .q-split-layout{display:grid;grid-template-columns:var(--q-split-columns);gap:var(--q-layout-gap);align-items:stretch}
+#qingzhang-v4 .q-split-layout>*{min-width:0;align-self:stretch}
+#qingzhang-v4 .q-split-layout>.q-panel,
+#qingzhang-v4 .q-split-layout>.q-sim-controls,
+#qingzhang-v4 .q-split-layout>.q-sim-chart{padding:20px;border-radius:12px}
+#qingzhang-v4 .q-review-bottom{margin-top:var(--q-layout-gap)}
+#qingzhang-v4 .q-priorities{gap:12px}
+#qingzhang-v4 .q-overall-score{flex-wrap:wrap}
+#qingzhang-v4 .q-sim-chart .q-sim-method{font-size:10px;line-height:1.8;border-top:1px dashed var(--q-line);padding-top:12px;margin-top:14px}
+@media(max-width:900px){
+ #qingzhang-v4 .q-split-layout{grid-template-columns:minmax(0,1fr)}
+ #qingzhang-v4 .q-split-layout>.q-panel,
+ #qingzhang-v4 .q-split-layout>.q-sim-controls,
+ #qingzhang-v4 .q-split-layout>.q-sim-chart{padding:16px}
+ #qingzhang-v4 .q-sandbox .q-sliders{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+ #qingzhang-v4 .q-sim-verdict{min-height:0}
+}
+@media(max-width:620px){#qingzhang-v4 .q-sandbox .q-sliders{grid-template-columns:minmax(0,1fr);gap:20px}}
+/* Cash sandbox: each signed control starts at a shared zero midpoint. */
+#qingzhang-v4 .q-sandbox .q-sliders{grid-template-columns:minmax(0,1fr);gap:18px;margin:22px 0}
+#qingzhang-v4 .q-sim-control+.q-sim-control{padding-top:18px;border-top:1px solid var(--q-line)}
+#qingzhang-v4 .q-sandbox .q-slider-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:14px;font-weight:500}
+#qingzhang-v4 .q-sandbox .q-slider-top output{color:var(--q-ink);background:var(--q-soft);font-size:12px;font-weight:400;padding:4px 8px;border-radius:6px;font-variant-numeric:tabular-nums;white-space:nowrap}
+#qingzhang-v4 .q-sim-range{position:relative;height:44px;margin-top:6px}
+#qingzhang-v4 .q-sim-track{position:absolute;left:11px;right:11px;top:19px;height:6px;border-radius:8px;background:#e3e9e0}
+#qingzhang-v4 .q-sim-track:before{content:'';position:absolute;left:var(--range-start,50%);width:var(--range-width,0%);height:6px;border-radius:8px;background:var(--q-green)}
+#qingzhang-v4 .q-sim-track:after{content:'';position:absolute;left:50%;top:-6px;width:2px;height:18px;transform:translateX(-1px);background:#84958a}
+#qingzhang-v4 .q-sandbox .q-sim-range input[type=range]{position:relative;z-index:1;display:block;appearance:none;width:100%;height:44px;min-height:44px;margin:0;padding:0;border:0;background:transparent;cursor:ew-resize}
+#qingzhang-v4 .q-sim-range input[type=range]::-webkit-slider-runnable-track{height:6px;background:transparent;border:0}
+#qingzhang-v4 .q-sim-range input[type=range]::-moz-range-track{height:6px;background:transparent;border:0}
+#qingzhang-v4 .q-sandbox .q-sim-range input[type=range]::-webkit-slider-thumb{appearance:none;width:22px;height:22px;margin-top:-8px;background:var(--q-paper);border:5px solid var(--q-green);border-radius:50%;box-shadow:0 0 0 4px var(--q-soft)}
+#qingzhang-v4 .q-sandbox .q-sim-range input[type=range]::-moz-range-thumb{box-sizing:border-box;width:22px;height:22px;background:var(--q-paper);border:5px solid var(--q-green);border-radius:50%;box-shadow:0 0 0 4px var(--q-soft)}
+#qingzhang-v4 .q-sim-scale{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:12px;color:var(--q-muted);font-variant-numeric:tabular-nums}
+#qingzhang-v4 .q-sim-scale>span:nth-child(2){text-align:center;color:var(--q-ink)}
+#qingzhang-v4 .q-sim-scale>span:last-child{text-align:right}
+#qingzhang-v4 .q-sim-scale small{display:block;font-size:11px;color:var(--q-muted)}
+#qingzhang-v4 .q-sim-control .q-sim-hint{display:block;margin-top:9px;font-size:11px}
+#qingzhang-v4 #q2-reset-sim{font-size:12px;padding:7px 10px;min-height:36px}
+@media(pointer:coarse){#qingzhang-v4 #q2-reset-sim{min-height:44px}}
+#qingzhang-v4 .q3-overview-health-badge{background:#d9e9dc;color:#365f46}
+#qingzhang-v4 .q3-focus-item.risk{border-left-color:var(--q-red)}
+#qingzhang-v4 .q3-focus-item.risk em{color:var(--q-red)}
+#qingzhang-v4 .q-rank-context{display:block;font-size:10px;font-weight:400;color:var(--q-muted);margin-top:2px}
+/* Approved layout alignment; preserve all report content and chart calculations. */
+#qingzhang-v4{color-scheme:light;--q-split-columns:minmax(0,.82fr) minmax(0,1.18fr)}
+#qingzhang-v4 .q-chart-summary{grid-template-columns:244px minmax(0,1fr);gap:20px}
+#qingzhang-v4 .q-chart-summary>.q-summary{grid-column:1;grid-row:1;border-left:0;padding-left:0}
+#qingzhang-v4 .q-chart-summary>div:first-child{grid-column:2;grid-row:1;border-left:1px solid var(--q-line);padding-left:20px;min-width:0}
+#qingzhang-v4 .q-ar-table{table-layout:fixed;width:100%}
+#qingzhang-v4 .q-ar-table th{white-space:normal;overflow-wrap:anywhere}
+#qingzhang-v4 .q-ar-table th:nth-child(1){width:12%}
+#qingzhang-v4 .q-ar-table th:nth-child(2){width:14%}
+#qingzhang-v4 .q-ar-table th:nth-child(3){width:7%}
+#qingzhang-v4 .q-ar-table th:nth-child(4){width:12%}
+#qingzhang-v4 .q-ar-table th:nth-child(5){width:12%}
+#qingzhang-v4 .q-ar-table th:nth-child(6){width:13%}
+#qingzhang-v4 .q-ar-table th:nth-child(7){width:11%}
+#qingzhang-v4 .q-ar-table th:nth-child(8){width:19%}
+@media(max-width:760px){
+ #qingzhang-v4 .q-chart-summary{grid-template-columns:minmax(0,1fr);gap:16px}
+ #qingzhang-v4 .q-chart-summary>.q-summary{grid-column:1;grid-row:1;border:0;padding:0;flex-direction:row;gap:10px;flex-wrap:wrap}
+ #qingzhang-v4 .q-chart-summary>div:first-child{grid-column:1;grid-row:2;border-left:0;border-top:1px solid var(--q-line);padding-left:0;padding-top:16px}
+}
+/* End approved layout alignment. */
+/* Approved example report layout and concise module introductions. */
+#qingzhang-v4{--q-module-section-gap:32px;--q-module-heading-gap:12px;--q-module-card-radius:12px}
+#qingzhang-v4>.q-section,#qingzhang-v4 #q2-breakdowns{margin-top:var(--q-module-section-gap)}
+#qingzhang-v4 .q-module-heading,
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading{
+ display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:8px 10px;
+ min-height:30px;padding:0;margin:0 0 var(--q-module-heading-gap);border:0;background:transparent;
+}
+#qingzhang-v4 .q-module-heading>.q-no,
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.q-no{
+ display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;
+ width:22px;height:22px;padding:0;border:0;border-radius:5px;background:#e5ece2;
+ color:var(--q-muted);font:500 11px/1 Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+#qingzhang-v4 .q-module-heading>h2,
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>h2{
+ margin:0;padding:0;color:var(--q-ink);font:600 18px/1.4 Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+#qingzhang-v4 .q-module-heading>.q-pill,
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.yb-kicker{
+ margin:0;font-size:11px;font-weight:400;line-height:1.4;
+}
+#qingzhang-v4 .q3-overview-title.q-module-heading>.q-small{margin-left:auto}
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.yb-total{
+ display:flex;align-items:baseline;gap:9px;margin-left:auto;white-space:nowrap;
+}
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.yb-total span{display:inline;font-size:11px}
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.yb-total strong{display:inline;font-size:18px;font-weight:500;letter-spacing:0}
+#qingzhang-v4 #q2-breakdowns .yb-module{
+ border:0;border-radius:0;background:transparent;overflow:visible;margin:0 0 var(--q-module-section-gap);
+}
+#qingzhang-v4 #q2-breakdowns .yb-module:last-child{margin-bottom:0}
+#qingzhang-v4 #q2-breakdowns .q-breakdown-card{
+ border:1px solid var(--q-line);border-radius:var(--q-module-card-radius);background:var(--q-paper);overflow:hidden;
+}
+#qingzhang-v4 .q-shared-panel,
+#qingzhang-v4 #q2-breakdowns .yb-content{
+ display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+ gap:20px;padding:22px 20px 18px;align-items:stretch;
+}
+#qingzhang-v4 .q-shared-panel{
+ border:1px solid var(--q-line);border-radius:var(--q-module-card-radius);background:var(--q-paper);
+}
+#qingzhang-v4 .q-shared-panel>.q-panel{
+ min-width:0;padding:0;border:0;border-radius:0;background:transparent;
+}
+#qingzhang-v4 .q-shared-panel>:nth-child(2),
+#qingzhang-v4 #q2-breakdowns .yb-detail{
+ min-width:0;border-left:1px solid var(--q-line);padding-left:18px;
+}
+#qingzhang-v4 .q-shared-panel>.q-priorities{margin:0;min-width:0}
+@media(max-width:900px){
+ #qingzhang-v4 .q-shared-panel,#qingzhang-v4 #q2-breakdowns .yb-content{grid-template-columns:minmax(0,1fr);gap:20px}
+ #qingzhang-v4 .q-shared-panel>:nth-child(2),#qingzhang-v4 #q2-breakdowns .yb-detail{
+  border-left:0;border-top:1px solid var(--q-line);padding-left:0;padding-top:20px;
+ }
+}
+@media(max-width:620px){
+ #qingzhang-v4 .q-shared-panel,#qingzhang-v4 #q2-breakdowns .yb-content{padding:18px 16px}
+ #qingzhang-v4 .q3-overview-title.q-module-heading>.q-small{margin-left:32px;flex-basis:100%}
+ #qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.yb-total{margin-left:32px;flex-basis:100%;justify-content:flex-start}
+ #qingzhang-v4 .q-module-heading>.q-pill{max-width:100%}
+}
+/* One plain-language introduction beside each numbered module title. */
+#qingzhang-v4 .q-module-heading>.q-heading-copy,
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.q-heading-copy{
+ margin:0;padding:0;border:0;background:transparent;color:#607467;
+ font:400 12px/1.6 Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+ min-width:0;max-width:100%;flex:0 1 auto;
+}
+#qingzhang-v4 .q-module-heading>.q-heading-meta,
+#qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.q-heading-meta{
+ display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;
+ gap:8px 10px;margin-left:auto;min-width:0;
+}
+#qingzhang-v4 .q-heading-meta>.q-pill,
+#qingzhang-v4 #q2-breakdowns .q-heading-meta>.yb-kicker{
+ margin:0;font-size:11px;font-weight:400;line-height:1.4;
+}
+#qingzhang-v4 #q2-breakdowns .q-heading-meta>.yb-total{
+ display:flex;align-items:baseline;gap:9px;margin:0;white-space:nowrap;
+}
+#qingzhang-v4 #q2-breakdowns .q-heading-meta>.yb-total span{display:inline;font-size:11px}
+#qingzhang-v4 #q2-breakdowns .q-heading-meta>.yb-total strong{display:inline;font-size:18px;font-weight:500;letter-spacing:0}
+@media(max-width:900px){
+ #qingzhang-v4 .q-module-heading>.q-heading-meta,
+ #qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.q-heading-meta{
+  flex-basis:calc(100% - 32px);margin-left:32px;justify-content:flex-start;
+ }
+}
+@media(max-width:620px){
+ #qingzhang-v4 .q-module-heading>.q-heading-copy,
+ #qingzhang-v4 #q2-breakdowns .yb-heading.q-module-heading>.q-heading-copy{
+  flex-basis:calc(100% - 32px);margin-left:32px;
+ }
+}
+/* End example report module headings. */
+</style>
+<header class="q-row"><div class="q-brand">有数 <span class="q-small" style="letter-spacing:0;font-weight:400">企业经营报告</span></div><span class="q-pill">OPC AI 企业 · 全部为虚构示例</span></header>
+<div class="q-head q-row"><div><h1>看清经营，心中有数。</h1><p class="q-muted">星辰AI应用工作室 · 一名创始人运营 · 2026年9月 · 人民币</p></div></div>
+<div class="q-row q3-overview-title q-section-title q-module-heading"><span class="q-no">01</span><h2 aria-describedby="q-intro-01">财务总览</h2><span class="q-heading-copy" id="q-intro-01">一眼看懂生意做得怎么样</span><div class="q-heading-meta"><span class="q-small">2026年9月 · 人民币｜金额单位：万元</span></div></div>
+<div class="q3-overview-hero">
+<div class="q3-overview-health" data-detail="score:all"><div class="q3-overview-score"><strong id="q3-overview-score">88</strong><span>/ 100 管理评分</span></div><div class="q3-health-scale" aria-hidden="true"><i></i><i></i><i></i><b id="q3-overview-score-marker" style="left:88%"></b></div><div class="q3-health-scale-labels"><span>风险 &lt;60</span><span>关注</span><span>健康 ≥80</span></div><span class="q3-overview-health-badge">整体健康 · 回款需跟进</span><p class="q3-overview-method">自定义管理评分，点击查看依据 ↗</p></div>
+<div class="q3-overview-conclusion"><div class="q3-overview-financial" data-detail="summary:financial"><h2>一人做 AI，现金结余 <span>4.8 万元</span>，<br>盯住回款、API成本和交付容量。</h2><p>期末现金43.4万元，逾期未收2.4万元。<br>业务：智能体交付、流程自动化、订阅与运维。</p></div><span class="q3-overview-action" data-detail="summary:actions">查看本月优先行动 ↗</span></div>
+<div class="q3-overview-focus"><p class="q3-overview-focus-title">现在最该关心的</p><div class="q3-focus-item risk" data-detail="summary:risks"><strong>回款效率</strong><span>逾期占未收 <b>40%</b></span><em>风险</em></div><div class="q3-focus-item tax" data-detail="tax:tax-reconciliation"><strong>税费安排</strong><span>账面税费 <b>1.8 万</b></span><em>待核验</em></div><p class="q3-overview-focus-note">1名创始人运营，薪酬已计入成本费用。</p></div></div>
+<div class="q3-overview-kpi-scroll"><div class="q-kpis q3-overview-kpis"><div class="q-kpi q3-overview-kpi" data-detail="kpi:balance"><p class="q3-kpi-label">期末账户余额</p><div class="q3-kpi-value">43.40<small>万</small></div><p class="q3-kpi-context">截至9月30日 · 2个账户</p><p class="q3-kpi-description">账上现金，未扣待付款。</p></div><div class="q-kpi q3-overview-kpi" data-detail="kpi:income"><p class="q3-kpi-label">本月经营收入</p><div class="q3-kpi-value">12.00<small>万</small></div><p class="q3-kpi-context">▲ 环比增长 11.1%</p><p class="q3-kpi-description">AI项目、订阅及运维到账。</p></div><div class="q-kpi q3-overview-kpi" data-detail="kpi:cost"><p class="q3-kpi-label">本月成本支出</p><div class="q3-kpi-value">7.20<small>万</small></div><p class="q3-kpi-context">现金支付口径</p><p class="q3-kpi-description">含创始人薪酬1.80万元。</p></div><div class="q-kpi q3-overview-kpi" data-detail="flow:surplus"><p class="q3-kpi-label">本月经营结余</p><div class="q3-kpi-value positive">4.80<small>万</small></div><p class="q3-kpi-context">现金结余率 40.0%</p><p class="q3-kpi-description">现金收款减经营付款。</p></div><div class="q-kpi q3-overview-kpi" data-detail="kpi:net-margin"><p class="q3-kpi-label">本月净利润率</p><div class="q3-kpi-value"><span id="q3-kpi-net-margin">41.4</span><small>%</small></div><p class="q3-kpi-context" id="q3-kpi-net-margin-note">9月账务 · OPC AI合成示例</p><p class="q3-kpi-description">已计入创始人薪酬。</p></div><div class="q-kpi q3-overview-kpi" data-detail="kpi:coverage"><p class="q3-kpi-label">现金可支撑</p><div class="q3-kpi-value">6.03<small>个月</small></div><p class="q3-kpi-context">按本月全部支出静态估算</p><p class="q3-kpi-description">没有新收款，还能撑多久。</p></div></div></div>
+
+<section class="q-section"><div class="q-section-title q-module-heading"><span class="q-no">02</span><h2 aria-describedby="q-intro-02">现金流</h2><span class="q-heading-copy" id="q-intro-02">接下来手头还有多少钱</span><div class="q-heading-meta"><span class="q-pill">现金口径</span></div></div>
+<div class="q-panel"><div class="q-row"><div class="q-chart-head"><h3>本月收款分配</h3><p>收到的钱怎么分</p></div><span class="q-small">经营收款 ¥120,000</span></div>
+<div class="q-threebar" role="group" aria-label="稳定支出32400元，占收款27%；弹性支出39600元，占33%；现金结余48000元，占40%"><div class="q-stable" data-detail="flow:stable" style="flex:27"><span>稳定支出 · 27.0%</span><strong>¥32,400</strong></div><div class="q-flex" data-detail="flow:flex" style="flex:33"><span>弹性支出 · 33.0%</span><strong>¥39,600</strong></div><div class="q-surplus" data-detail="flow:surplus" style="flex:40"><span>结余 · 40.0%</span><strong>¥48,000</strong></div></div>
+<p class="q-small">点击查看组成。稳定支出：创始人薪酬、云资源、AI工具；弹性支出：模型API、按需协作、获客。</p></div>
+<div class="q-panel q-gap"><div class="q-row q-chart-head"><div><h3>月度收支</h3><p>每月收多少、花多少</p></div><label class="q-select-label">期间<select id="q2-period" class="cursor-interaction"><option value="12">最近12个月</option><option value="6">最近6个月</option><option value="3">最近3个月</option><option value="1">最近一个月</option></select></label></div>
+<div class="q-legend"><span><i style="background:var(--q-green)"></i>经营收款</span><span><i style="background:var(--q-purple)"></i>经营付款</span><span><i id="q2-margin-legend-mark" style="background:var(--q-blue);width:18px;height:3px;vertical-align:middle"></i><span id="q2-margin-legend-label">净利润率 · 折线</span></span></div>
+<div class="q-chart-summary"><div style="min-width:0"><div class="ym-scroll"><svg id="q2-monthly" class="q-svg ym-chart" data-monthly-chart="" style="height:280px" role="group" aria-label="双柱表示经营收付款，折线表示净利润率；悬停柱子显示全部金额，悬停折线显示全部百分比"></svg></div><p id="q2-monthly-readout" class="ym-readout" aria-live="polite"></p></div><div class="q-summary" aria-live="polite"><div><span class="q-small">期间收款</span><strong id="q2-total-in"></strong></div><div><span class="q-small">期间付款</span><strong id="q2-total-out"></strong></div><div><span class="q-small">期间现金结余</span><strong id="q2-total-net" class="q-green"></strong></div></div></div>
+<p class="q-small">悬停任意柱子显示全部收付款金额（万元），下方显示当前柱子的完整金额；移到净利润率节点或折线查看百分比。点击柱子或节点查看当月明细。净利润率＝账务净利润÷营业收入。<br><span class="q-monthly-provenance">全套为虚构OPC AI企业的合成数据；月度现金、账务利润与累计报表勾稽一致，未导入真实企业资料。</span></p></div>
+<div class="q-sandbox q-compact-sandbox q-split-layout q-gap">
+<div class="q-sim-controls"><div class="q-row"><h3>沙盘推演</h3><button id="q2-reset-sim" type="button">恢复默认</button></div>
+<div class="q-sliders">
+<div class="q-sim-control"><div class="q-slider-top"><label for="q2-income-change">收入变化</label><output id="q2-income-value" for="q2-income-change">0%</output></div><div class="q-sim-range"><span class="q-sim-track" aria-hidden="true"></span><input id="q2-income-change" type="range" min="-30" max="30" step="1" value="0" aria-describedby="q2-income-scale"></div><div class="q-sim-scale" id="q2-income-scale"><span>减少 30%</span><span>0%</span><span>增加 30%</span></div></div>
+<div class="q-sim-control"><div class="q-slider-top"><label for="q2-delay">客户付款</label><output id="q2-delay-value" for="q2-delay">按原计划</output></div><div class="q-sim-range"><span class="q-sim-track" aria-hidden="true"></span><input id="q2-delay" type="range" min="-60" max="60" step="1" value="0" aria-describedby="q2-delay-scale"></div><div class="q-sim-scale" id="q2-delay-scale"><span>提前 60 天</span><span>0 天</span><span>推迟 60 天</span></div></div>
+<div class="q-sim-control"><div class="q-slider-top"><label for="q2-expense-change">弹性支出</label><output id="q2-expense-value" for="q2-expense-change">0%</output></div><div class="q-sim-range"><span class="q-sim-track" aria-hidden="true"></span><input id="q2-expense-change" type="range" min="-30" max="30" step="1" value="0" aria-describedby="q2-expense-scale"></div><div class="q-sim-scale" id="q2-expense-scale"><span>减少 30%</span><span>0%</span><span>增加 30%</span></div></div>
+</div>
+<label class="q-tax-toggle"><input type="checkbox" id="q2-tax-sim" checked><span>首月支付待核验税费 <b>¥18,000</b></span></label>
+<div class="q-sim-verdict" aria-live="polite" id="q2-sim-verdict"></div>
+</div>
+<div class="q-sim-chart"><div class="q-row q-chart-head"><div><h3>未来 6 个月现金预测</h3></div><label class="q-select-label">账户<select id="q2-account"><option value="1">全部账户</option><option value="0.7">经营账户 · 70%</option><option value="0.3">储备账户 · 30%</option></select></label></div>
+<div class="q-sim-legend" aria-label="图例"><span><i class="history" aria-hidden="true"></i>账上现金（历史）</span><span><i class="scenario" aria-hidden="true"></i>账上现金（推演）</span><span><i class="safety" aria-hidden="true"></i>安全线</span></div>
+<div class="q-sim-plot"><svg id="q2-balance" class="q-svg" role="group" aria-label="过去12个月与未来6个月账户现金推演；点击节点查看明细"></svg></div>
+</div></div>
+
+</section>
+
+<section class="q-section"><div class="q-section-title q-module-heading"><span class="q-no">03</span><h2 aria-describedby="q-intro-03">应收账款</h2><span class="q-heading-copy" id="q-intro-03">还有哪些钱没收回来</span><div class="q-heading-meta"><span class="q-pill">台账补充 · 不计入现金收入</span></div></div><div class="q-ar-layout q-split-layout q-shared-panel">
+<div class="q-panel"><div class="q-chart-head"><h3>回款构成</h3><p>账款收回了多少</p></div><div class="q-legend"><span><i style="background:var(--q-green)"></i>已收</span><span><i style="background:var(--q-amber)"></i>未到期</span><span><i style="background:var(--q-red)"></i>逾期</span></div><svg id="q2-ar-chart" class="q-svg" role="group" aria-label="4至9月账款回款构成，尚未收回6万元，其中逾期2.4万元"></svg><p class="q-small">按账单月份分组，截至9月30日；金额单位：万元。点击色段查看该月明细。</p></div>
+<div class="q-panel"><div class="q-row q-chart-head"><div><h3>客户应收明细</h3><p>哪些客户要跟进</p></div><span class="q-small">应收 ¥60,000</span></div><table class="q-ar-table" aria-label="所有未结清客户应收明细"><thead><tr><th>客户</th><th>应收余额</th><th>占比</th><th>约定账期</th><th>实际平均</th><th>逾期金额</th><th>状态</th><th>建议动作</th></tr></thead><tbody id="q2-ar-rows"></tbody></table><p class="q-small q-gap">实际平均：按已收金额加权的回款天数。逾期依据各账单约定日期判断。</p></div></div></section>
+
+<div id="q2-breakdowns">
+  <div id="yb-modules"></div>
+  <p class="yb-provenance">2026年9月 · 现金口径 · 构成与交易明细均为虚构示例，合计与本月收付一致</p>
+  <p id="yb-status" class="yb-sr" role="status" aria-live="polite"></p>
+</div>
+
+<section class="q-section"><div class="q-section-title q-module-heading"><span class="q-no">06</span><h2 aria-describedby="q-intro-06">经营分析</h2><span class="q-heading-copy" id="q-intro-06">收入花完还能剩多少</span></div>
+<div class="q-panel q-business-flow"><div class="q-row q-chart-head"><h3>收入从哪来，钱花到哪里</h3><span class="q-flow-period">2026年9月 · 现金口径</span></div>
+<div class="q-flow-summary" aria-label="本月经营收付汇总"><div><span>经营收款</span><strong>¥120,000</strong></div><div><span>经营支出</span><strong>¥72,000</strong></div><div class="q-flow-surplus"><span>现金结余 <em>40%</em></span><strong>¥48,000</strong></div></div>
+<svg id="q2-sankey" class="q-svg q-sankey-desktop" role="img" aria-label="收入由左至右流入经营收款，再分为六类成本和经营结余；点击查看汇总明细"></svg>
+<div id="q2-sankey-mobile" class="q-sankey-mobile"></div>
+<p class="q-flow-note">带宽表示金额；资金汇总分配，不表示客户与具体费用逐笔对应。<span>虚构示例</span></p></div>
+<div class="q-panel q-gap"><div class="q-row q-chart-head"><div><h3>累计可分配利润</h3><p>今年赚的，加上以前留下的</p></div><span class="q-pill">2026年1—9月 · 合成账务示例</span></div>
+<div id="q2-profit-bridge" data-detail="summary:profit"></div>
+<p class="q-small q-gap">账务口径，含未收未付及折旧；不等于现金结余。税费为示例录入值。</p>
+<p class="q-small">可分配金额为演示估算，假设无未弥补亏损及其他分配限制；实际分配须核验，也不等于可提取现金。</p></div>
+</section>
+
+<section class="q-section" id="q2-analysis-section"><div class="q-section-title q-module-heading"><span class="q-no">07</span><h2 aria-describedby="q-intro-07">分析建议</h2><span class="q-heading-copy" id="q-intro-07">哪些问题需要先处理</span></div>
+<div class="q-review-top q-split-layout q-shared-panel"><div class="q-panel q-radar-card"><div class="q-chart-head"><h3>财务健康五维评分</h3><p>越靠外越接近管理目标 · 点击看依据</p></div><div class="q-radar-legend"><span><i></i>本企业</span><span><i class="target"></i>管理关注线</span></div><svg id="q2-radar" class="q-svg" role="group" aria-label="OPC AI财务健康五维评分"></svg><div id="q2-overall-score" class="q-overall-score" data-detail="score:all"></div></div><div class="q-panel"><h3>逐项解读</h3><div id="q2-readings"></div></div></div>
+<div class="q-review-bottom q-split-layout q-shared-panel"><div class="q-panel q-manager-summary"><h3>详细分析</h3><div class="q-boss-takeaway">现金有余量；先稳回款，再控API预算与一人交付容量。</div><p data-detail="summary:profit"><b>经营表现。</b>1—9月收入80.2万、净利润32.3万，净利率40.3%；创始人薪酬已计入费用。</p><p data-detail="summary:financial"><b>现金安全。</b>期末现金43.4万；预留账面税费1.8万后为41.6万，可支撑5.78个月。</p><p data-detail="summary:risks"><b>业务短板。</b>未收6万中逾期2.4万，占40%；前三大客户贡献80%收款，一人交付需控制项目并行量。</p><p data-detail="tax:tax-reconciliation"><b>成本与税费。</b>API与云资源合计占收款28%；核验境内外账单、协作与薪酬资料，税务状态仍待核验。</p></div><div class="q-priorities"><div class="q-priority risk" data-detail="score:action-1"><div class="q-priority-title"><b>1. 锁定2.4万元逾期款回款日</b><span class="q-status-badge risk">风险</span></div><p>优先跟进澄明电商1.6万、禾川咨询0.8万；以验收节点与阶段付款减少新增逾期。</p><div class="q-priority-effect">预期效果：若全部收回，现金43.4万 → 45.8万，支出覆盖6.03 → 6.36个月。</div></div><div class="q-priority watch" data-detail="score:action-2"><div class="q-priority-title"><b>2. 核对1.8万元税费并保留准备金</b><span class="q-status-badge unknown">待核验</span></div><p>核对申报与缴款记录，关联API、云资源、协作及薪酬凭证；确认后将税费到期日写入沙盘。</p><div class="q-priority-effect">预期效果：若先预留1.8万，可安排现金41.6万，覆盖5.78个月；仍高于3个月安全线。</div></div><div class="q-priority watch" data-detail="score:action-3"><div class="q-priority-title"><b>3. 设API调用预算，复核15%弹性节支情景</b><span class="q-status-badge watch">关注</span></div><p>按项目记录调用量、模型成本和交付工时，设置限额告警；评估缓存、模型路由和协作安排后再调整预算。</p><div class="q-priority-effect">预期效果：若弹性支出整体下降15%，每月节约5,940元；6个月累计节约35,640元。</div></div></div></div>
+<div class="q-analysis-bottom-note"><span>评分基于示例数据及自定义管理基准，不代表行业或税务合规评级。</span><button type="button" data-detail="score:all">查看评分口径 ↗</button></div>
+<details class="q-tax-details"><summary><b>税务状态：待核验</b> · 展开4项账税核验明细</summary><div class="q-tax-detail-links"><button type="button" data-detail="tax:tax-reconciliation">税费计提与缴纳<span>待核验 ↗</span></button><button type="button" data-detail="tax:tax-zero">零税费列示原因<span>待核验 ↗</span></button><button type="button" data-detail="tax:cost-vouchers">成本付款凭证<span>待核验 ↗</span></button><button type="button" data-detail="tax:identity-and-revenue">主体与纳税身份<span>待核验 ↗</span></button></div><p class="q-source-note">规则依据：<a href="https://www.chinatax.gov.cn/chinatax/n810341/n810765/n3359382/201806/c3730094/content.html" target="_blank" rel="noopener noreferrer">税前扣除凭证规则</a> · <a href="https://shanghai.chinatax.gov.cn/bstax/ztzl/yshj/ldjj/202512/t478641.html" target="_blank" rel="noopener noreferrer">增值税法</a> · <a href="https://fgk.chinatax.gov.cn/zcfgk/c100011/c5245544/content.html" target="_blank" rel="noopener noreferrer">欠税认定相关规则</a>。适用主体、税种、所属期及实际缴纳待核验。</p></details></section>
+
+<section class="q-section"><div class="q-section-title q-module-heading"><span class="q-no">08</span><h2 aria-describedby="q-intro-08">财务报表</h2><span class="q-heading-copy" id="q-intro-08">算清赚了多少钱和有多少家底</span><div class="q-heading-meta"><span class="q-pill">补充账务 · 管理报表示例</span></div></div><div class="q-panel">
+<div class="q-report-tabs" role="tablist" aria-label="财务报表类型">
+<button type="button" id="q2-tab-profit" class="cursor-interaction" role="tab" aria-controls="q2-report-profit" aria-selected="true">利润表</button>
+<button type="button" id="q2-tab-balance" class="cursor-interaction" role="tab" aria-controls="q2-report-balance" aria-selected="false">资产负债表</button>
+<button type="button" id="q2-tab-cash" class="cursor-interaction" role="tab" aria-controls="q2-report-cash" aria-selected="false">现金流量表</button>
+</div>
+<div id="q2-report-profit" role="tabpanel" aria-labelledby="q2-tab-profit"></div>
+<div id="q2-report-balance" role="tabpanel" aria-labelledby="q2-tab-balance" hidden></div>
+<div id="q2-report-cash" role="tabpanel" aria-labelledby="q2-tab-cash" hidden></div>
+<p class="q-small q-gap">补充应收应付、期初账务、折旧与税费后编制。仅凭银行流水不能生成完整账务报表。</p>
+</div></section>
+
+<section class="q-section"><div class="q-section-title q-module-heading"><span class="q-no">09</span><h2 aria-describedby="q-intro-09">开始你的报告</h2><span class="q-heading-copy" id="q-intro-09">用自己的账单生成报告</span></div><div class="q-panel"><div class="q-upload"><div><h3>上传流水或应收台账</h3><p class="q-muted">银行流水 · CSV / Excel ｜ 应收台账 · Excel</p></div><label class="q-select-label">选择文件<input id="q2-upload" type="file" accept=".csv,.xlsx,.xls" aria-label="选择银行流水或应收台账文件"></label></div><p id="q2-upload-status" class="q-small q-gap" aria-live="polite">样式演示：仅显示所选文件名，暂不解析或上传；图表始终使用示例数据。</p><div class="q-row q-gap"><span class="q-small">银行流水：12个月 · 2个账户 ｜ 应收台账：3个未结清客户</span><span class="q-pill">银行接口 · 预留</span></div></div></section>
+<dialog id="q2-detail-dialog" aria-labelledby="q2-detail-title"><div class="q-detail-top"><span class="q-detail-eyebrow">经营明细 · 示例数据</span><button type="button" id="q2-detail-close" aria-label="关闭明细">关闭 <span aria-hidden="true">×</span></button></div><div id="q2-detail-body"></div></dialog>
+<footer class="q-footer">有数 · 一页看清经营 ｜ OPC AI企业合成场景 · 经营图表按现金，利润与报表按账务 · 不代表真实经营成效。</footer>
+
+<script src="assets/report-statements.js?v=refund-income-20261101"></script>
+<script>
+(()=>{
+const root=document.getElementById('qingzhang-v4'),$=s=>root.querySelector(s),money=v=>'¥'+Math.round(v).toLocaleString('zh-CN');
+const demo={"scenario":{"name":"有数 · OPC AI 企业财务示例","asOf":"2026-09-30","currency":"CNY","unit":"元，报表 rows 与 ledger 另注明为万元","business":"一名创始人经营的 AI 智能体与工作流服务公司，收入来自项目实施、订阅与维护；按需采购外部交付协作，不设雇员团队。","paidPeople":1,"founderMonthlyCashSalary":18000,"isSynthetic":true,"provenance":"全套数据为 OPC AI 企业场景新构造的合成示例，既非真实企业流水，也非原报告数据或导入账簿。月度、客户、成本、应收及报表用于产品演示，不能作为实际经营成效或税务合规证据。","taxNote":"所得税费用及待付税费 18,000 元为独立给定的演示输入；按各月税前利润权重分配，未采用法定税率，不构成纳税测算。"},"incWan":[3.6,4.2,5.0,5.4,5.8,6.6,7.2,8.0,8.8,9.6,10.8,12.0],"expWan":[2.2,2.6,3.0,3.2,3.4,3.8,4.2,4.6,5.2,5.8,6.4,7.2],"openingCash2025Oct":80000,"balances":[94000,110000,130000,152000,176000,204000,234000,268000,304000,342000,386000,434000],"balancesWan":[9.4,11.0,13.0,15.2,17.6,20.4,23.4,26.8,30.4,34.2,38.6,43.4],"monthlyAccounting":{"provenance":"全新 OPC AI 企业合成账务示例，所有月份均为虚构演示数据，不是导入的真实月账。","allocationNote":"先保留创始人每月现金薪酬 18,000 元与折旧 1,000 元；2026 年 1—8 月其余成本按扣除创始人薪酬并加回应付变动后的付款池分配，9 月与六类成本明细逐项对应。2026 年 1—9 月税费费用合计 18,000 元，按各月税前利润权重分配并假设尚未支付，金额保留整数元。","displayNotice":"OPC AI 合成账务示例；月度与累计报表、应收应付及现金桥接一致。","allocationRules":["2026 年 1—9 月营业收入 802,000 元＝现金收款 742,000 元＋应收增加 60,000 元。","2026 年 1—9 月成本费用 461,000 元＝现金付款 438,000 元＋折旧 9,000 元＋应付增加 14,000 元；本期税费假设未付。","营业成本合计 204,000 元、销售费 36,000 元、管理费 215,000 元、财务费 6,000 元；管理费含创始人薪酬 162,000 元与折旧 9,000 元。","9 月营业成本 51,200 元＝模型 API 24,000＋云资源 9,600＋交付协作付款 9,600＋交付协作应付增加 8,000；销售费 6,000 元；管理费 23,800 元＝创始人薪酬 18,000＋AI 工具 4,800＋折旧 1,000；财务费 0。","所得税费用 18,000 元是独立给定的演示输入；按税前利润权重用最大余数法分配至月，不代表适用税率。2026 年 1—9 月均假设尚未支付，因此税费应付增加＝所得税费用。","2025 年 10—12 月每月计提并支付税费 500 元，已包含在现金付款中；每月折旧 1,000 元，创始人薪酬 18,000 元，无应收或应付增加，净利润＝现金结余－折旧。","所有月份现金桥接：净利润＋折旧＋应付增加＋应交税费增加－应收增加＝现金收款－现金付款。"],"rows":[{"period":"2025-10","label":"10月","year":2025,"month":10,"isNewExample":true,"revenue":36000,"cogs":2500,"sales":800,"admin":19000,"finance":200,"tax":500,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":0,"cashIn":36000,"cashOut":22000,"operatingExpenses":22500,"profitBeforeTax":13500,"netProfit":13000,"taxPaid":500,"netProfitRatePct":36.11111111111111},{"period":"2025-11","label":"11月","year":2025,"month":11,"isNewExample":true,"revenue":42000,"cogs":5700,"sales":1500,"admin":19000,"finance":300,"tax":500,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":0,"cashIn":42000,"cashOut":26000,"operatingExpenses":26500,"profitBeforeTax":15500,"netProfit":15000,"taxPaid":500,"netProfitRatePct":35.714285714285715},{"period":"2025-12","label":"12月","year":2025,"month":12,"isNewExample":true,"revenue":50000,"cogs":9000,"sales":2000,"admin":19000,"finance":500,"tax":500,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":0,"cashIn":50000,"cashOut":30000,"operatingExpenses":30500,"profitBeforeTax":19500,"netProfit":19000,"taxPaid":500,"netProfitRatePct":38.0},{"period":"2026-01","label":"1月","year":2026,"month":1,"isNewExample":true,"revenue":54000,"cogs":9382,"sales":1842,"admin":21408,"finance":368,"tax":1108,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":1108,"taxPaid":0,"cashIn":54000,"cashOut":32000,"operatingExpenses":33000,"profitBeforeTax":21000,"netProfit":19892,"netProfitRatePct":36.837037037037035},{"period":"2026-02","label":"2月","year":2026,"month":2,"isNewExample":true,"revenue":58000,"cogs":10723,"sales":2105,"admin":21751,"finance":421,"tax":1214,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":1214,"taxPaid":0,"cashIn":58000,"cashOut":34000,"operatingExpenses":35000,"profitBeforeTax":23000,"netProfit":21786,"netProfitRatePct":37.56206896551724},{"period":"2026-03","label":"3月","year":2026,"month":3,"isNewExample":true,"revenue":66000,"cogs":13404,"sales":2632,"admin":22438,"finance":526,"tax":1425,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":1425,"taxPaid":0,"cashIn":66000,"cashOut":38000,"operatingExpenses":39000,"profitBeforeTax":27000,"netProfit":25575,"netProfitRatePct":38.75},{"period":"2026-04","label":"4月","year":2026,"month":4,"isNewExample":true,"revenue":72000,"cogs":16084,"sales":3158,"admin":23126,"finance":632,"tax":1531,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":1531,"taxPaid":0,"cashIn":72000,"cashOut":42000,"operatingExpenses":43000,"profitBeforeTax":29000,"netProfit":27469,"netProfitRatePct":38.15138888888889},{"period":"2026-05","label":"5月","year":2026,"month":5,"isNewExample":true,"revenue":80000,"cogs":18765,"sales":3684,"admin":23814,"finance":737,"tax":1742,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":1742,"taxPaid":0,"cashIn":80000,"cashOut":46000,"operatingExpenses":47000,"profitBeforeTax":33000,"netProfit":31258,"netProfitRatePct":39.0725},{"period":"2026-06","label":"6月","year":2026,"month":6,"isNewExample":true,"revenue":88000,"cogs":22786,"sales":4474,"admin":24845,"finance":895,"tax":1847,"depreciation":1000,"founderSalary":18000,"arIncrease":0,"apIncrease":0,"taxPayableIncrease":1847,"taxPaid":0,"cashIn":88000,"cashOut":52000,"operatingExpenses":53000,"profitBeforeTax":35000,"netProfit":33153,"netProfitRatePct":37.673863636363635},{"period":"2026-07","label":"7月","year":2026,"month":7,"isNewExample":true,"revenue":108000,"cogs":28147,"sales":5526,"admin":26222,"finance":1105,"tax":2481,"depreciation":1000,"founderSalary":18000,"arIncrease":12000,"apIncrease":2000,"taxPayableIncrease":2481,"taxPaid":0,"cashIn":96000,"cashOut":58000,"operatingExpenses":61000,"profitBeforeTax":47000,"netProfit":44519,"netProfitRatePct":41.221296296296295},{"period":"2026-08","label":"8月","year":2026,"month":8,"isNewExample":true,"revenue":132000,"cogs":33509,"sales":6579,"admin":27596,"finance":1316,"tax":3326,"depreciation":1000,"founderSalary":18000,"arIncrease":24000,"apIncrease":4000,"taxPayableIncrease":3326,"taxPaid":0,"cashIn":108000,"cashOut":64000,"operatingExpenses":69000,"profitBeforeTax":63000,"netProfit":59674,"netProfitRatePct":45.20757575757576},{"period":"2026-09","label":"9月","year":2026,"month":9,"isNewExample":true,"revenue":144000,"cogs":51200,"sales":6000,"admin":23800,"finance":0,"tax":3326,"depreciation":1000,"founderSalary":18000,"arIncrease":24000,"apIncrease":8000,"taxPayableIncrease":3326,"taxPaid":0,"cashIn":120000,"cashOut":72000,"operatingExpenses":81000,"profitBeforeTax":63000,"netProfit":59674,"netProfitRatePct":41.44027777777778}]},"ledgerWan":{"revenue":80.2,"projectRevenue":62,"subscriptionRevenue":18.2,"cogs":20.4,"sales":3.6,"admin":21.5,"finance":0.6,"depreciation":0.9,"beforeTax":34.1,"tax":1.8,"net":32.3,"carry":7.5,"distributed":0,"otherAdjustment":0,"distributable":39.8},"profitRowsWan":[["一、营业收入",80.2,36,"group"],["其中：AI 智能体与工作流实施",62,30,"child"],["订阅与维护服务",18.2,6,"child"],["减：营业成本",20.4,9],["毛利",59.8,27,"total"],["减：税金及附加",0,0],["销售费用",3.6,2.4],["管理费用（含创始人薪酬与折旧）",21.5,18],["财务费用",0.6,0.6],["二、营业利润",34.1,6,"total"],["加：营业外收入",0,0],["减：营业外支出",0,0],["三、利润总额",34.1,6,"total"],["减：所得税费用",1.8,1],["四、净利润",32.3,5,"final"]],"balanceRowsWan":[["资产",null,null,"group"],["货币资金",43.4,13],["应收账款",6,0],["存货",0,0],["流动资产合计",49.4,13,"total"],["固定资产净值",3.6,4.5],["资产总计",53,17.5,"final"],["负债",null,null,"group"],["应付账款",1.4,0],["应交税费",1.8,0],["银行借款",0,0],["负债合计",3.2,0,"total"],["所有者权益",null,null,"group"],["实收资本",10,10],["盈余公积",0,0],["未分配利润",39.8,7.5],["所有者权益合计",49.8,17.5,"total"],["负债与所有者权益总计",53,17.5,"final"]],"cashRowsWan":[["一、经营活动现金流量",null,null,"group"],["销售商品、提供劳务收到的现金",74.2,36],["购买商品、接受劳务支付的现金",19,9],["支付给职工的现金（含创始人薪酬）",16.2,16.2],["支付的各项税费",0,1],["支付其他经营活动现金",8.6,3.9],["经营活动现金流量净额",30.4,5.9,"total"],["二、投资活动现金流量",null,null,"group"],["购建固定资产支付的现金",0,0],["投资活动现金流量净额",0,0,"total"],["三、筹资活动现金流量",null,null,"group"],["吸收投资、借款收到的现金",0,0],["偿还债务、分配利润支付的现金",0,0],["筹资活动现金流量净额",0,0,"total"],["四、现金及现金等价物净增加额",30.4,5.9,"total"],["加：期初现金及现金等价物余额",13,2.1],["五、期末现金及现金等价物余额",43.4,8,"final"]],"priorYearComparison":{"description":"独立合成的 2025 年 1—9 月可比场景，非实际历史资料。期初现金 21,000、固定资产净值 57,000；期末现金 80,000、固定资产净值 48,000；实收资本 100,000，期初未分配利润 −22,000，累计净利润 50,000，期末未分配利润 28,000。随后 2025 年 10—12 月净利润 47,000，2026 年初未分配利润 75,000，年初现金 130,000 与固定资产净值 45,000。","revenue":360000,"cogs":90000,"sales":24000,"admin":180000,"finance":6000,"depreciation":9000,"tax":10000,"net":50000,"cashIn":360000,"cashOut":301000,"cashOpening":21000,"cashEnding":80000},"clients":[["澄明电商",42000,"09-08"],["禾川咨询",30000,"09-12"],["鹿鸣教育",24000,"09-18"],["星屿软件",14400,"09-23"],["北辰工作室",9600,"09-27"]],"costs":[["模型 API 调用",24000,"09-25"],["创始人薪酬",18000,"09-28"],["云资源与部署",9600,"09-01"],["AI 工具订阅",4800,"09-05"],["按需交付协作",9600,"09-20"],["推广获客",6000,"09-15"]],"ar":[["澄明电商","30,000","50%","30天","48天","16,000","部分逾期","先确认验收与回款日"],["禾川咨询","18,000","30%","30天","42天","8,000","部分逾期","确认维护费回款日"],["鹿鸣教育","12,000","20%","90天","58天","0","正常","按账期提醒"]],"arCohorts":{"labels":["4月","5月","6月","7月","8月","9月"],"paid":[72000,80000,88000,96000,108000,120000],"notDue":[0,0,0,4000,8000,24000],"overdue":[0,0,0,8000,16000,0],"mappingNote":"澄明逾期 16,000＝7 月 8,000＋8 月 8,000；禾川逾期 8,000 来自 8 月；鹿鸣未到期 12,000＝7 月 4,000＋8 月 8,000，约定 90 天账期；9 月未到期 24,000 为澄明 14,000 与禾川 10,000。"},"cashCostClassification":{"stable":["创始人薪酬","云资源与部署","AI 工具订阅"],"stableTotal":32400,"flexible":["模型 API 调用","按需交付协作","推广获客"],"flexibleTotal":39600,"stableDefinition":"月度预算分类，云资源与工具按当月基础订阅预算；模型调用、协作与获客可调整，均不代表可以无成本立即停付。"},"kpis":{"cashBalance":434000,"monthlyCashIncome":120000,"monthlyCashExpense":72000,"monthlyCashSurplus":48000,"monthlyCashSurplusRatePct":40,"monthlyBookRevenue":144000,"monthlyNetProfit":59674,"monthlyNetProfitRatePct":41.44027777777778,"cumulativeRevenue":802000,"cumulativeNet":323000,"cumulativeNetMarginPct":40.27431421446384,"grossMarginPct":74.56359102244389,"cashRunwayMonths":6.027777777777778,"cashAfterTaxReserve":416000,"cashRunwayAfterTaxReserveMonths":5.777777777777778,"threeMonthSafety":216000,"cashAboveSafetyAfterTaxReserve":200000,"arTotal":60000,"arOverdue":24000,"arOverduePct":40,"arNotDue":36000,"apTotal":14000,"bookTaxPayable":18000,"top3ClientReceiptSharePct":80,"largestClientReceiptSharePct":35,"modelAPICashCostSharePct":33.33333333333333,"modelAPICashIncomeSharePct":20,"stableCashCostSharePct":45,"flexibleCashCostSharePct":55,"monthlyCashIncomeGrowthPct":11.111111111111114,"cumulativeRevenueGrowthPct":122.77777777777777,"subscriptionRevenueSharePct":22.693266832917704,"founderSalaryIncludedInProfit":true,"founderCashSalaryCumulative":162000,"cumulativeCashReceipts":742000,"cumulativeCashPayments":438000,"cumulativeOperatingCashFlow":304000,"distributableProfitBook":398000},"forecast":{"monthlyReceipt":120000,"monthlyPayment":72000,"flexibleMonthlyPayment":39600,"openingCash":434000,"bookTaxScenarioPayment":18000,"taxScenarioMonth":"2026-10","baseline6MonthEndWithTaxPayment":704000,"baseline6MonthEndWithoutTaxPayment":722000,"threeMonthSafety":216000,"collectOverdueCashGain":24000,"cashAfterCollection":458000,"cashRunwayAfterCollection":6.361111111111111,"cashAfterCollectionAndTaxReserve":440000,"cashRunwayAfterCollectionAndTaxReserve":6.111111111111111,"cut15PctMonthlySaving":5940,"cut15PctSixMonthSaving":35640,"note":"基准与沙盘均假设未来每月收款 120,000、付款 72,000；本期应收催收效果单列，不自动重复计入基准收款。可勾选于 2026 年 10 月支付账面待核验税费 18,000 元。"},"validation":{"passed":true,"checks":["12 个月利润到现金桥接","2026 年 1—9 月所有利润表科目累计一致","资产＝负债＋权益，期初与期末均成立","现金流量表勾稽","2025 年比较数据与 2025 年 10—12 月及 2026 年初衔接","9 月六类现金成本与账务成本桥接","客户收款、应收及账龄分布一致","六个月预测基准与税费情景一致"],"totals2026JanSep":{"cogs":204000,"sales":36000,"admin":215000,"finance":6000,"depreciation":9000,"tax":18000,"netProfit":323000,"arIncrease":60000,"apIncrease":14000,"taxPayableIncrease":18000,"cashIn":742000,"cashOut":438000,"operatingExpenses":461000,"profitBeforeTax":341000}}};
+window.YoushuExampleScenario=demo;
+const K=demo.kpis;
+const inc=demo.incWan,exp=demo.expWan,months=["10月","11月","12月","1月","2月","3月","4月","5月","6月","7月","8月","9月"];
+const balances=demo.balancesWan,monthlyAccounting=demo.monthlyAccounting;
+const serviceTypes={"澄明电商":"电商客服智能体交付","禾川咨询":"业务流程自动化实施","鹿鸣教育":"企业知识库与教学助手","星屿软件":"AI插件订阅与运维","北辰工作室":"AI应用咨询与培训"};
+const costDescriptions={"模型 API 调用":"项目模型推理与调用用量","创始人薪酬":"唯一运营者薪酬，计入费用","云资源与部署":"基础云资源、存储与应用部署","AI 工具订阅":"开发、设计与生产力工具订阅","按需交付协作":"外部服务采购，无雇员团队","推广获客":"推广渠道、内容与获客支出"};
+const ns='http://www.w3.org/2000/svg';
+function start(id,h){const s=$(id),w=Math.max(240,s.getBoundingClientRect().width||400);s.setAttribute('viewBox',`0 0 ${w} ${h}`);s.replaceChildren();const add=(tag,a={},txt)=>{const e=document.createElementNS(ns,tag);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,String(v)));if(txt!==undefined)e.textContent=txt;s.appendChild(e);return e};return {s,w,h,add};}
+function axes(c,max,l=34,b=28,t=30){const y=v=>c.h-b-v/max*(c.h-b-t);[0,max/2,max].forEach(v=>{c.add('line',{x1:l,x2:c.w-8,y1:y(v),y2:y(v),stroke:'var(--q-line)'});c.add('text',{x:l-6,y:y(v)+4,'text-anchor':'end'},Number(v.toFixed(1)));});return y;}
+let lastMarginPoints=null,lastScenarioPath=null;
+const pathOf=points=>'M '+points.map(p=>p.join(',')).join(' L ');
+function morph(node,from,to){
+  if(!from||from===to||(typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
+  const animation=document.createElementNS(ns,'animate');
+  Object.entries({attributeName:'d',from,to,dur:'180ms',fill:'remove'}).forEach(([k,v])=>animation.setAttribute(k,v));
+  node.appendChild(animation);animation.beginElement?.();
+}
+function monthly(animate=false){
+  const n=+$('#q2-period').value,a=inc.slice(-n),b=exp.slice(-n),entries=monthlyAccounting.rows.slice(-n),labs=months.slice(-n),c=start('#q2-monthly',280);
+  const single=n===1;
+  if(single)labs[0]=`${entries[0].period.slice(0,4)}年${Number(entries[0].period.slice(5,7))}月`;
+  c.s.dataset.monthlyCount=String(n);
+  $('#q2-margin-legend-label').textContent=single?'净利润率':'净利润率 · 折线';
+  const legendMark=$('#q2-margin-legend-mark');legendMark.style.width=single?'8px':'18px';legendMark.style.height=single?'8px':'3px';legendMark.style.borderRadius=single?'50%':'2px';
+  const left=44,right=50,bottom=32,top=45;
+  const viewport=c.s.parentElement.getBoundingClientRect().width||900;
+  c.w=YoushuMonthly.chartWidth(viewport,a.length,a.concat(b).map(v=>v*10000),left+right);c.h=280;
+  c.s.parentElement.classList.toggle('ym-fit',a.length<=12);
+  c.s.style.minWidth=a.length<=12?'0px':c.w+'px';
+  const pw=c.w-left-right,step=pw/n,ph=c.h-top-bottom,maxAmount=Math.max(1,Math.ceil(Math.max(...a,...b)/5)*5),rates=entries.map(d=>d.netProfit/d.revenue*100);
+  const lowRate=Math.min(0,Math.floor(Math.min(...rates)/10)*10),highRate=Math.max(10,Math.ceil(Math.max(...rates)/10)*10);
+  const y=v=>c.h-bottom-v/maxAmount*ph,yr=v=>c.h-bottom-(v-lowRate)/(highRate-lowRate)*ph,x=i=>left+step*(i+.5),bw=Math.min(single?26:18,step*.2),barOffset=single?23:step*.24;
+  [0,.5,1].forEach(k=>{const py=y(k*maxAmount);c.add('line',{x1:left,x2:c.w-right,y1:py,y2:py,stroke:'var(--q-line)'});c.add('text',{x:left-6,y:py+4,'text-anchor':'end'},Number((k*maxAmount).toFixed(1)));c.add('text',{x:c.w-right+7,y:py+4},Math.round(lowRate+k*(highRate-lowRate))+'%');});
+  const barLabels=[],exactMoney=value=>'¥'+value.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+  a.forEach((v,i)=>{
+    [[v,-1,'var(--q-green)','#356d50','收款','in'],[b[i],1,'var(--q-purple)','#73638f','付款','out']].forEach(([val,side,color,ink,label,kind])=>{
+      const center=x(i)+side*barOffset,amount=val*10000,key=i+':'+kind,description=`${entries[i].period} ${label} ${exactMoney(amount)}`;
+      c.add('rect',{class:'ym-bar',x:center-bw/2,y:y(val),width:bw,height:Math.max(0,y(0)-y(val)),rx:2,fill:color,'data-tooltip':description,'data-detail':'monthly:'+(12-n+i),'data-monthly-bar':key,'data-monthly-description':description});
+      const text=YoushuMonthly.amountLabel(amount);
+      barLabels.push({key,center,top:y(val)-25,width:Math.max(31,text.length*6.2+6),height:20,anchorY:y(val),text,ink});
+    });
+    c.add('text',{x:x(i),y:c.h-8,'text-anchor':'middle'},step<28?String(parseInt(labs[i],10)):labs[i]);
+  });
+  const points=rates.map((v,i)=>[x(i),yr(v)]),d=pathOf(points);
+  const series=c.add('g',{class:'q-net-series','data-monthly-margin':'','aria-label':single?'当月净利润率；聚焦节点查看明细':'净利润率折线；悬停显示全部百分比，聚焦节点查看单月'});
+  const addSeries=(tag,attrs,txt)=>{const node=c.add(tag,attrs,txt);series.appendChild(node);return node};
+  if(!single){
+    const line=addSeries('path',{id:'q2-margin-line','data-series':'net-profit-margin',d,fill:'none',stroke:'var(--q-blue)','stroke-width':2.6,'stroke-linejoin':'round','pointer-events':'none'});
+    if(animate&&lastMarginPoints){const previous=points.map((_,i)=>{const t=i*(lastMarginPoints.length-1)/(points.length-1),j=Math.floor(t),u=t-j,v=lastMarginPoints[j],z=lastMarginPoints[Math.min(j+1,lastMarginPoints.length-1)];return [v[0]+(z[0]-v[0])*u,v[1]+(z[1]-v[1])*u]});morph(line,pathOf(previous),d);}
+    addSeries('path',{id:'q3-net-line-hit',d,fill:'none',stroke:'transparent','stroke-width':18,'pointer-events':'stroke','aria-hidden':'true'});
+  }
+  const marginLabels=YoushuMonthly.placeLabels(rates.map((value,i)=>({center:x(i),top:yr(value)-27,width:42,height:18})),{left,right:c.w-right,gap:3});
+  rates.forEach((value,i)=>{
+    const group=addSeries('g',{class:'q-net-point','data-month-index':12-n+i,'aria-label':`${labs[i]}净利润率${value.toFixed(1)}%`}),add=(tag,attrs,txt)=>{const node=c.add(tag,attrs,txt);group.appendChild(node);return node},pointX=x(i),pointY=yr(value),box=marginLabels[i];
+    add('circle',{class:'q-net-halo',cx:pointX,cy:pointY,r:10,fill:'var(--q-blue)','pointer-events':'none'});
+    add('circle',{class:'q-net-dot',cx:pointX,cy:pointY,r:4.5,fill:'var(--q-blue)','pointer-events':'none'});
+    const label=add('g',{class:'q-net-label ym-margin-label','aria-hidden':'true','data-net-margin':value.toFixed(1)}),addLabel=(tag,attrs,txt)=>{const node=c.add(tag,attrs,txt);label.appendChild(node);return node};
+    if(box.y<box.top-1)addLabel('line',{x1:pointX,x2:box.x+box.width/2,y1:pointY-5,y2:box.y+box.height,stroke:'var(--q-blue)','stroke-width':.7});
+    addLabel('rect',{x:box.x,y:box.y,width:box.width,height:box.height,rx:4,fill:'white',stroke:'#dce6eb','stroke-width':.7});
+    addLabel('text',{class:'q-net-value',x:box.x+box.width/2,y:box.y+13,'text-anchor':'middle'},value.toFixed(1)+'%');
+    add('circle',{class:'q-net-hit',cx:pointX,cy:pointY,r:Math.min(12,step*.46),fill:'transparent','data-detail':'monthly:'+(12-n+i),'data-tooltip':`${labs[i]}净利润率 ${value.toFixed(1)}%；账务净利润${money(entries[i].netProfit)} ÷ 营业收入${money(entries[i].revenue)}；OPC AI合成账务示例`});
+  });
+  // Labels are painted last so the line cannot cut through a revealed amount.
+  const placed=YoushuMonthly.placeLabels(barLabels,{left,right:c.w-right,gap:3});
+  placed.forEach(item=>{
+    const label=c.add('g',{class:'ym-bar-label '+(item.key.endsWith(':in')?'ym-in-label':'ym-out-label'),'data-monthly-label-for':item.key,'data-bar-amount':item.text,'aria-hidden':'true'});
+    const add=(tag,attrs,txt)=>{const node=c.add(tag,attrs,txt);label.appendChild(node);return node};
+    if(item.y<item.top-1)add('line',{x1:item.center,x2:item.x+item.width/2,y1:item.anchorY-2,y2:item.y+item.height,stroke:item.ink,'stroke-width':.7,'stroke-opacity':.55});
+    add('rect',{x:item.x,y:item.y,width:item.width,height:item.height,rx:4,fill:'white',stroke:item.ink,'stroke-opacity':.25});
+    add('text',{x:item.x+item.width/2,y:item.y+14,'text-anchor':'middle',style:'fill:'+item.ink+';font-size:12px;font-weight:500'},item.text);
+  });
+  const minY=Math.min(0,...placed.concat(marginLabels).map(box=>box.y-25));
+  c.s.setAttribute('viewBox',`0 ${minY} ${c.w} ${c.h-minY}`);c.s.style.height=(c.h-minY)+'px';
+  c.add('text',{x:left,y:minY+14},'万元');c.add('text',{x:c.w-right+35,y:minY+14,'text-anchor':'end'},'净利润率');
+  lastMarginPoints=points;
+  const total=a.reduce((sum,v)=>sum+v,0)*10000,out=b.reduce((sum,v)=>sum+v,0)*10000;
+  $('#q2-total-in').textContent=money(total);$('#q2-total-out').textContent=money(out);$('#q2-total-net').textContent=money(total-out);
+  c.s.setAttribute('aria-label',`${single?labs[0]:'最近'+n+'个月'}，现金收款${Math.round(total)}元、付款${Math.round(out)}元；${single?'净利润率'+rates[0].toFixed(1)+'%。':''}悬停或聚焦任意柱子显示全部收付款金额，移到净利润率节点或折线查看百分比。点击查看当月明细。月度账务为合成场景。`);
+  YoushuMonthly.bind(c.s,{readout:$('#q2-monthly-readout')});
+  if(typeof enhanceDetails==='function')enhanceDetails();
+}
+
+let scenarioState=null;
+const scenarioPercent=value=>value===0?'不变 · 0%':`${value<0?'减少':'增加'} ${Math.abs(value)}%`;
+const scenarioPayment=value=>value===0?'按原计划 · 0 天':`${value<0?'提前':'推迟'} ${Math.abs(value)} 天`;
+function bank(animate=false){
+  const f=+$('#q2-account').value,income=+$('#q2-income-change').value,delay=+$('#q2-delay').value,expense=+$('#q2-expense-change').value,tax=$('#q2-tax-sim').checked?K.bookTaxPayable/10000:0;
+  const opening=balances.at(-1),receipt=K.monthlyCashIncome/10000*(1+income/100),payment=(K.monthlyCashExpense+demo.cashCostClassification.flexibleTotal*expense/100)/10000,safety=K.threeMonthSafety/10000*f;
+  const base=[0,1,2,3,4,5,6].map(m=>(opening+K.monthlyCashSurplus/10000*m-(m>0?tax:0))*f);
+  // Shift a finite six-month receipt plan. Opening cash stays historical; any
+  // advance across that boundary is collected in the first forecast month.
+  const receipts=[0,1,2,3,4,5,6].map(m=>m===0?0:receipt*Math.min(180,Math.max(0,m*30-delay))/30);
+  const adjusted=receipts.map((collected,m)=>(opening+collected-payment*m-(m>0?tax:0))*f);
+  const plot=$('#q2-balance').parentElement,plotHeight=plot.getBoundingClientRect().height;
+  const history=balances.map(v=>v*f),c=start('#q2-balance',Math.max(280,plotHeight||320)),left=42,right=16,top=28,bottom=30;
+  const all=[...history,...adjusted,safety],min=Math.min(0,Math.floor(Math.min(...all)/10)*10),max=Math.ceil((Math.max(...all)+2)/10)*10;
+  const y=v=>c.h-bottom-(v-min)/(max-min)*(c.h-top-bottom),x=i=>left+i*(c.w-left-right)/17,split=x(11);
+  c.add('rect',{x:split,y:top,width:c.w-right-split,height:c.h-top-bottom,fill:'#edf3ef',opacity:.36});
+  c.add('rect',{x:left,y:y(safety),width:c.w-left-right,height:y(min)-y(safety),fill:'#dcae9e',opacity:.035});
+  for(let i=0;i<=4;i++){const v=min+(max-min)*i/4;c.add('line',{x1:left,x2:c.w-right,y1:y(v),y2:y(v),stroke:'#e2e8e0'});c.add('text',{x:left-8,y:y(v)+4,'text-anchor':'end'},Number(v.toFixed(1)));}
+  c.add('line',{x1:left,x2:c.w-right,y1:y(safety),y2:y(safety),stroke:'#62836a','stroke-dasharray':'2 4','stroke-width':1.3});
+  c.add('text',{x:left+4,y:y(safety)-7,fill:'#62836a'},`安全线 ${safety.toFixed(2)}万`);
+  c.add('line',{x1:split,x2:split,y1:top,y2:c.h-bottom,stroke:'#c4d0c7','stroke-dasharray':'3 5'});
+  c.add('text',{x:left,y:14},'万元');c.add('text',{x:(split+c.w-right)/2,y:14,'text-anchor':'middle'},'预测区间');
+  c.add('path',{'data-series':'history',d:pathOf(history.map((v,i)=>[x(i),y(v)])),fill:'none',stroke:'#6c97b3','stroke-width':2.3,'stroke-linejoin':'round'});
+  history.forEach((v,i)=>{c.add('circle',{cx:x(i),cy:y(v),r:i===11?4:2.7,fill:'#6c97b3','data-tooltip':`${i<3?'2025':'2026'}年${months[i]} 账上现金（历史）${money(v*10000)}`});c.add('circle',{cx:x(i),cy:y(v),r:11,fill:'transparent','data-detail':'balance-history:'+i,'aria-label':`${months[i]}历史账户现金，点击明细`,'data-tooltip':`${i<3?'2025':'2026'}年${months[i]} 账上现金（历史）${money(v*10000)}`});});
+  const d=pathOf(adjusted.map((v,i)=>[x(11+i),y(v)]));const line=c.add('path',{'data-series':'scenario',d,fill:'none',stroke:'#ca795c','stroke-width':2.3,'stroke-dasharray':'5 5','stroke-linejoin':'round'});if(animate)morph(line,lastScenarioPath,d);lastScenarioPath=d;
+  adjusted.slice(1).forEach((v,j)=>{const i=j+1; c.add('circle',{cx:x(11+i),cy:y(v),r:2.7,fill:'#ca795c','data-tooltip':`${i}个月后 账上现金（推演）${money(v*10000)}`});c.add('circle',{cx:x(11+i),cy:y(v),r:12,fill:'transparent','data-detail':'forecast:'+i,'aria-label':`${i}个月后推演余额，点击明细`,'data-tooltip':`${i}个月后 账上现金（推演）${money(v*10000)}`});});
+  const labels=['25/10','25/11','25/12','26/01','26/02','26/03','26/04','26/05','26/06','26/07','26/08','26/09','26/10','26/11','26/12','27/01','27/02','27/03'];
+  const tickIndices=c.w<360?[0,6,11,17]:[0,4,8,11,14,17];
+  tickIndices.forEach(i=>c.add('text',{x:x(i),y:c.h-10,'text-anchor':i===0?'start':i===17?'end':'middle'},labels[i]));
+  c.add('text',{x:split-7,y:Math.max(top+12,y(history[11])-11),'text-anchor':'end',class:'q-sim-current'},`当前 ${history[11].toFixed(2)}万`);
+  const final=Math.round(adjusted[6]*10000),lowest=Math.min(...adjusted.slice(1)),lowMonth=adjusted.slice(1).indexOf(lowest)+1,gap=lowest-safety;
+  const monthNames=['当前','2026年10月','2026年11月','2026年12月','2027年1月','2027年2月','2027年3月'];
+  const controlValues=[['#q2-income-change','#q2-income-value',scenarioPercent(income),income===0?'0%':scenarioPercent(income)],['#q2-delay','#q2-delay-value',scenarioPayment(delay),delay===0?'按原计划':scenarioPayment(delay)],['#q2-expense-change','#q2-expense-value',scenarioPercent(expense),expense===0?'0%':scenarioPercent(expense)]];
+  controlValues.forEach(([id,output,text,display])=>{const e=$(id),position=(+e.value-+e.min)/(+e.max-+e.min)*100;$(output).textContent=display;e.setAttribute('aria-valuetext',text);e.parentElement.style.setProperty('--range-start',Math.min(50,position)+'%');e.parentElement.style.setProperty('--range-width',Math.abs(position-50)+'%');});
+  $('#q2-sim-verdict').innerHTML=`<p class="q-sim-verdict-label">6 个月后预计结余</p><div class="q-sim-verdict-amount"><strong>${(final/10000).toFixed(2)}</strong><span>万元</span></div><p class="q-sim-verdict-low">最低点 ${monthNames[lowMonth]} · ${lowest.toFixed(2)} 万元</p><p class="q-sim-verdict-status ${lowest<0?'danger':gap<0?'warning':'safe'}">${gap<0?'低于安全线':gap===0?'最低点达到安全线':'全程高于安全线'} · ${gap<0?'最大缺口':'最小余量'} ${Math.abs(gap).toFixed(2)} 万元</p>`;
+  scenarioState={f,income,delay,expense,tax,opening,receipt,receipts,payment,safety,base,adjusted,monthNames};c.s.dataset.simFinal=String(Math.round(final));c.s.setAttribute('aria-label',`未来6个月推演，收入${scenarioPercent(income)}，客户付款${scenarioPayment(delay)}，弹性支出${scenarioPercent(expense)}，期末${money(final)}，安全线${money(safety*10000)}`);
+  if(typeof enhanceDetails==='function')enhanceDetails();
+}
+
+function arChart(){const c=start('#q2-ar-chart',210),paid=demo.arCohorts.paid.map(v=>v/10000),due=demo.arCohorts.notDue.map(v=>v/10000),late=demo.arCohorts.overdue.map(v=>v/10000),y=axes(c,20,28,28,20),step=(c.w-35)/6,bw=Math.min(30,step*.65);paid.forEach((v,i)=>{const total=v+due[i]+late[i],x=28+(i+.5)*step;let sum=0;[[v,'var(--q-green)','已收'],[due[i],'var(--q-amber)','未到期'],[late[i],'var(--q-red)','逾期']].forEach(([val,color,label])=>{if(!val)return;const h=y(sum)-y(sum+val);c.add('rect',{x:x-bw/2,y:y(sum+val),width:bw,height:h,fill:color,'data-tooltip':`${i+4}月${label} ${money(val*10000)}，占${(val/total*100).toFixed(1)}%`,'data-detail':`ar-month:${i}`});if(h>20)c.add('text',{x,y:y(sum+val)+h/2+4,'text-anchor':'middle',class:'q-plot-label'},Math.round(val/total*100)+'%');sum+=val;});c.add('text',{x,y:204,'text-anchor':'middle'},`${i+4}月`);});}
+const ar=demo.ar,arHeads=['客户','应收余额','占比','约定账期','实际平均','逾期金额','状态','建议动作'];
+$('#q2-ar-rows').innerHTML=ar.map(row=>`<tr data-detail="customer:${row[0]}">`+row.map((v,i)=>`<td data-label="${arHeads[i]}" class="${i===5&&v!=='0'?'q-warn':''}">${v}</td>`).join('')+'</tr>').join('');
+const sources=demo.clients,costs=demo.costs;
+globalThis.YoushuDemoBreakdown.mount($('#q2-breakdowns'),demo);
+const breakdownData=globalThis.YoushuDemoBreakdown.buildData(demo);
+const surplusBranches=[['经营账户结余',K.monthlyCashSurplus*.7],['储备账户结余',K.monthlyCashSurplus*.3]];
+/* Replace the original sankey(), branchList(), and mobile-list assignment. */
+function businessFlowItems(){
+  const incoming=sources.map(([name,value,date])=>({name,value,date,key:'source:'+name,kind:'income',color:'#82a996'}));
+  const outgoing=costs.slice().sort((a,b)=>b[1]-a[1]).map(([name,value,date])=>({name,value,date,key:'cost:'+name,kind:'expense',color:'#a49bbb'}));
+  outgoing.push({name:'现金结余',value:K.monthlyCashSurplus,key:'flow:surplus',kind:'surplus',color:'#54866b'});
+  return {incoming,outgoing};
+}
+function sankey(){
+  const c=start('#q2-sankey',458),nodeW=7,flowHeight=192,bodyTop=26,bodyHeight=432,gap=36,scale=flowHeight/K.monthlyCashIncome,hubColor='#8da9b0';
+  const leftX=Math.min(128,c.w*.28),rightX=c.w-Math.min(160,c.w*.34)-nodeW,centerX=(leftX+rightX)/2,centerY=bodyTop+(bodyHeight-flowHeight)/2;
+  const {incoming,outgoing}=businessFlowItems();
+  const positions=items=>{let y=bodyTop+(bodyHeight-flowHeight-gap*(items.length-1))/2;return items.map(n=>{const h=n.value*scale,node={...n,h,y};y+=h+gap;return node;});};
+  const sourceNodes=positions(incoming),outputNodes=positions(outgoing);
+  const make=(tag,attrs={},text,parent=c.s)=>{const e=document.createElementNS(c.s.namespaceURI,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(text!==undefined)e.textContent=text;parent.appendChild(e);return e;};
+  const defs=make('defs');
+  const gradient=(id,x1,x2,a,b)=>{const g=make('linearGradient',{id,gradientUnits:'userSpaceOnUse',x1,x2,y1:0,y2:0},undefined,defs);make('stop',{offset:0,'stop-color':a},undefined,g);make('stop',{offset:1,'stop-color':b},undefined,g);return `url(#${id})`;};
+  const ribbon=(x1,y1,x2,y2,h)=>{const mid=(x1+x2)/2;return `M${x1},${y1} C${mid},${y1} ${mid},${y2} ${x2},${y2} L${x2},${y2+h} C${mid},${y2+h} ${mid},${y1+h} ${x1},${y1+h} Z`;};
+  const attrs=(key,label)=>({class:'q-flow-part q-flow-interactive','data-flow-group':key,'data-detail':key,tabindex:0,role:'button','aria-haspopup':'dialog','aria-controls':'q2-detail-dialog','aria-label':label,'data-tooltip':label});
+  let sourceOffset=0,outputOffset=0;
+  make('text',{x:leftX-12,y:17,'text-anchor':'end',class:'q-flow-heading'},'收入来源 · 5 位客户');
+  make('text',{x:c.w-4,y:17,'text-anchor':'end',class:'q-flow-heading'},'资金去向 · 占全部收款');
+  sourceNodes.forEach((n,i)=>{
+    const label=`${n.name}到账 ${money(n.value)}，占全部收款 ${(n.value/K.monthlyCashIncome*100).toFixed(1)}%；点击查看明细`;
+    make('path',{...attrs(n.key,label),d:ribbon(leftX+nodeW,n.y,centerX,centerY+sourceOffset,n.h),fill:gradient('q2-flow-in-'+i,leftX+nodeW,centerX,n.color,hubColor),class:'q-flow-part q-flow-band q-flow-interactive','data-value':n.value,'data-source':n.name,'data-target':'经营收款'});
+    sourceOffset+=n.h;
+  });
+  outputNodes.forEach((n,i)=>{
+    const label=`${n.name} ${money(n.value)}，占全部收款 ${(n.value/K.monthlyCashIncome*100).toFixed(1)}%；点击查看明细`;
+    make('path',{...attrs(n.key,label),d:ribbon(centerX+nodeW,centerY+outputOffset,rightX,n.y,n.h),fill:gradient('q2-flow-out-'+i,centerX+nodeW,rightX,hubColor,n.color),class:'q-flow-part q-flow-band q-flow-interactive','data-value':n.value,'data-source':'经营收款','data-target':n.kind==='surplus'?'经营结余':n.name});
+    outputOffset+=n.h;
+  });
+  const central=make('g',{...attrs('flow:income','本月经营收款共 ¥120,000，支付 ¥72,000，留下经营结余 ¥48,000；点击查看分配明细'),'data-flow-group':'all',class:'q-flow-part q-flow-node q-flow-interactive'});
+  make('rect',{x:centerX-18,y:centerY,width:43,height:flowHeight,rx:4,fill:'transparent',class:'q-flow-hit'},undefined,central);
+  make('rect',{x:centerX,y:centerY,width:nodeW,height:flowHeight,rx:2,fill:hubColor},undefined,central);
+  const drawNode=(n,isSource)=>{
+    const x=isSource?leftX:rightX,mid=n.y+n.h/2,labelX=isSource?x-12:x+nodeW+12,anchor=isSource?'end':'start';
+    const label=`${n.name} ${money(n.value)}，占全部收款 ${(n.value/K.monthlyCashIncome*100).toFixed(1)}%；点击查看明细`;
+    const g=make('g',{...attrs(n.key,label),class:'q-flow-part q-flow-node q-flow-interactive','data-kind':n.kind});
+    make('rect',{x:isSource?0:x-4,y:mid-22,width:isSource?x+nodeW:c.w-x+4,height:44,rx:5,fill:'transparent',class:'q-flow-hit'},undefined,g);
+    make('rect',{x,y:n.y,width:nodeW,height:n.h,rx:Math.min(3,n.h/2),fill:n.color},undefined,g);
+    make('text',{x:labelX,y:mid-3,'text-anchor':anchor,class:'q-flow-label'},n.name,g);
+    make('text',{x:isSource?labelX-44:labelX+56,y:mid+13,'text-anchor':'end',class:'q-flow-value q-flow-amount'},money(n.value),g);
+    make('text',{x:isSource?labelX:c.w-4,y:mid+13,'text-anchor':'end',class:'q-flow-value q-flow-percent'},(n.value/K.monthlyCashIncome*100).toFixed(1)+'%',g);
+  };
+  sourceNodes.forEach(n=>drawNode(n,true));outputNodes.forEach(n=>drawNode(n,false));
+  let pointerKey=null,focusKey=null;
+  const highlight=()=>{
+    const key=pointerKey||focusKey;
+    c.s.classList.toggle('q-flow-active',!!key);
+    c.s.querySelectorAll('.q-flow-part').forEach(el=>el.classList.toggle('q-flow-match',!key||key==='all'||el.dataset.flowGroup===key||el.dataset.flowGroup==='all'));
+  };
+  c.s.onpointerover=e=>{pointerKey=e.target.closest('[data-flow-group]')?.dataset.flowGroup||null;highlight();};
+  c.s.onpointerleave=()=>{pointerKey=null;highlight();};
+  c.s.onfocusin=e=>{focusKey=e.target.closest('[data-flow-group]')?.dataset.flowGroup||null;highlight();};
+  c.s.onfocusout=e=>{focusKey=c.s.contains(e.relatedTarget)?e.relatedTarget?.closest('[data-flow-group]')?.dataset.flowGroup||null:null;highlight();};
+  c.s.setAttribute('role','group');c.s.setAttribute('aria-label','2026 年 9 月收款分配：五位客户收款合计 120000 元，汇总后支付六类AI经营成本 72000 元，经营结余 48000 元。节点及色带可查看明细。');
+  c.s.setAttribute('data-left-total',String(K.monthlyCashIncome));c.s.setAttribute('data-right-total',String(K.monthlyCashExpense+K.monthlyCashSurplus));
+}
+function branchList(title,description,nodes){return `<div class="q-branch-block"><div class="q-branch-heading"><h4>${title}</h4><span>${description}</span></div>${nodes.map(n=>`<button type="button" class="q-branch-row" data-detail="${n.key}" data-kind="${n.kind}" aria-haspopup="dialog" aria-controls="q2-detail-dialog" aria-label="${n.name} ${money(n.value)}，占全部收款 ${(n.value/K.monthlyCashIncome*100).toFixed(1)}%，查看明细"><span class="q-flow-mobile-name">${n.name}</span><span class="q-flow-mobile-values"><b>${money(n.value)}</b><small>${(n.value/K.monthlyCashIncome*100).toFixed(1)}%</small></span><span class="q-flow-mobile-track" aria-hidden="true"><i style="width:${n.value/K.monthlyCashIncome*100}%"></i></span></button>`).join('')}</div>`;}
+const flowItems=businessFlowItems();
+$('#q2-sankey-mobile').innerHTML=branchList('收入来源','5 位客户',flowItems.incoming)+branchList('资金去向','占全部收款',flowItems.outgoing);
+
+
+// 合成账务示例：金额单位为万元，单独于经营图表的现金口径。
+const ledger={...demo.ledgerWan,dividends:demo.ledgerWan.distributed,allocation:demo.ledgerWan.otherAdjustment};
+ledger.cost=ledger.cogs+ledger.sales+ledger.admin+ledger.finance;
+ledger.beforeTax=ledger.revenue-ledger.cost;ledger.net=ledger.beforeTax-ledger.tax;
+ledger.retained=ledger.net-ledger.dividends-ledger.allocation;ledger.distributable=ledger.carry+ledger.retained;
+const wan=v=>v.toFixed(2)+'万',term=(label,v)=>`<div class="q-profit-term"><span>${label}</span><strong>${wan(v)}</strong></div>`;
+$('#q2-profit-bridge').innerHTML=`<div class="q-profit-equation">${term('营业收入',ledger.revenue)}<span class="q-math-sign">−</span>${term('成本与费用',ledger.cost)}<span class="q-math-sign">＝</span>${term('税前利润',ledger.beforeTax)}</div><div class="q-profit-steps"><div class="q-calc-row"><span>减：所得税费用</span><span>${wan(ledger.tax)}</span></div><div class="q-calc-row q-subtotal"><span>＝ 本年净利润</span><span>${wan(ledger.net)}</span></div><div class="q-calc-row"><span>减：已宣告分红</span><span>${wan(ledger.dividends)}</span></div><div class="q-calc-row"><span>减：其他分配调整</span><span>${wan(ledger.allocation)}</span></div></div><div class="q-retained-equation">${term('本年留存利润',ledger.retained)}<span class="q-math-sign">＋</span>${term('上年结转',ledger.carry)}<span class="q-math-sign">＝</span>${term('累计可分配利润 · 估算',ledger.distributable)}</div>`;
+$('#q2-profit-bridge').setAttribute('data-distributable',String(Math.round(ledger.distributable*10000)));
+const profitRows=demo.profitRowsWan;
+const balanceRows=demo.balanceRowsWan;
+const cashRows=demo.cashRowsWan;
+function statement(key,title,period,heads,rows,note){
+  const prepared={key,title,company:'星辰AI应用工作室',period,heads,note,rows:rows.map(([label,now,prev,kind])=>[label,now===null?null:now*10000,prev===null?null:prev*10000,now===null?'group':kind])};
+  $('#q2-report-'+key).innerHTML=window.YoushuReportStatements.renderPrepared(prepared,{prefix:'q',detailAttribute:'data-detail'});
+}
+statement('profit','利润表','2026年1—9月',['本年累计','上年同期'],profitRows,'权责发生制 · 管理展示格式');
+statement('balance','资产负债表','2026年9月30日',['期末余额','年初余额'],balanceRows,'资产＝负债＋所有者权益');
+statement('cash','现金流量表','2026年1—9月',['本年累计','上年同期'],cashRows,'现金收付口径 · 直接法简表');
+const reportKeys=['profit','balance','cash'];
+reportKeys.forEach(key=>$('#q2-tab-'+key).addEventListener('click',()=>reportKeys.forEach(k=>{$('#q2-tab-'+k).setAttribute('aria-selected',String(k===key));$('#q2-report-'+k).hidden=k!==key;})));
+const analysisContent={"insights":[{"id":"financial","title":"财务状况","headline":"现金可覆盖约6个月，保留税费与交付准备金","text":"9月实收12.0万元、实付7.2万元，经营现金结余4.8万元（40.0%），期末现金43.4万元。若停止收款、维持全部付款规模，静态可支撑6.03个月；暂预留账面税费1.8万元后为5.78个月。账面另有应付账款1.4万元，仍须按到期日核对，避免在付款预算中重复扣除。现金较充足，但不等于可以全部分配。","known":["月收款120,000元、月付款72,000元、现金结余48,000元","期末现金434,000元","账面应付账款14,000元、应交税费18,000元"],"unknown":["现金是否受限、未履约交付与各笔应付款到期日","税费所属期、实际到期额及申报缴款状态"],"verify":"核对银行余额、项目交付承诺、未付清单与税费台账，再按实际到期计划更新现金沙盘。"},{"id":"risks","title":"风险摘要","headline":"现金充足，重点防回款集中、调用超支与创始人交付瓶颈","text":"未收账款6.0万元，其中逾期2.4万元，占40.0%；前三大客户贡献80.0%的本月收款。模型API与云资源合计3.36万元，占收款28.0%，调用量增长可能先增加付款，需按客户和项目跟踪成本。业务由一位创始人主导，销售、交付和维护对同一人的依赖较高。账面税费计提1.8万元而示例税费实付为0，原因尚未核验，不能直接认定欠税或免税。","known":["逾期24,000元；澄明电商16,000元、禾川咨询8,000元","前三大客户本月到账96,000元，占80%","9月模型API24,000元、云资源9,600元，合计占收款28%","一位创始人主导业务；外部协作按项目采购"],"unknown":["客户续订意愿、逾期原因及承诺回款日","各项目调用毛利、超额用量能否转向客户收费","创始人可承接工时、应急交接与服务承诺","成本凭证完整性与税费实际申报缴纳状态"],"verify":"将催收、订阅续期、项目交付与调用成本放入同一项目清单；同时补齐账税对账资料。"},{"id":"actions","title":"优先行动","headline":"先锁定逾期回款，再补税费资料和调用预算","text":"① 与澄明电商确认1.6万元、禾川咨询确认0.8万元逾期款的回款日；新项目采用阶段验收和收款。② 将1.8万元账面税费按所属期拆开，与申报、缴款及银行记录核对，确认后写入沙盘。③ 为模型API和云资源设置项目预算、调用告警与客户限额，跟踪每个项目的交付时间和利润。④ 在扩大获客前明确创始人的交付容量、维护时段与外部协作备援。","known":["催收目标共24,000元","账面税费核验目标18,000元","模型API与云资源现金付款合计33,600元/月"],"unknown":["回款承诺是否能够兑现","实际应付税额、到期日与适用凭证","API优化效果及可用交付容量"],"verify":"以上为管理安排，预期节约和回款属于情景测算；核验后再调整预算与服务承诺。"}],"taxSection":{"title":"税务风险与账税核验","subtitle":"OPC经营模式不等于工商或纳税身份；以下仅核验示例账税资料，尚不能给出合规评级。","status":"待核验","cards":[{"id":"tax-reconciliation","title":"税费计提与实际缴纳待对账","status":"待核验","priority":"高","known":"示例资产负债表应交税费1.8万元；利润表所得税费用1.8万元；现金流量表各项税费实付0元。","unknown":"税费种、所属期、期初余额、本期计提、实际缴纳及其他调整；申报状态和实际到期日。所得税费用不等于同期间应缴税款。","verify":"按“期初余额＋本期计提－本期缴纳±其他调整＝期末余额”核对明细，取得申报表、缴款凭证和银行记录。","implication":"可能是计提与付款时点差异、分类差异或示例资料不完整；不能据此认定1.8万元为欠税。","sourceIds":["arrears"]},{"id":"tax-zero","title":"税金及附加与税费实付0值待解释","status":"待核验","priority":"中","known":"示例利润表税金及附加0元，累计税费实付0元；0值为模拟录入，并非免税结论。","unknown":"适用税费种、计税基础、优惠资料、是否尚未发生或另列其他项目。","verify":"核对主体档案、明细账与申报资料，说明每项0值的原因；没有资料时保留“未核验”。","implication":"不能把0值展示为无需申报、免税或无税务风险，也不能将不同税种混为一项。","sourceIds":["vat"]},{"id":"cost-vouchers","title":"API、云资源与协作支出凭证待补齐","status":"资料缺口","priority":"高","known":"本月六类经营付款共7.2万元：模型API2.4万、创始人薪酬1.8万、云资源0.96万、按需交付协作0.96万、获客0.6万、AI工具订阅0.48万；凭证状态均未提供。","unknown":"供应商结算主体与所在地、实际业务期间、所需凭证类型及取得情况；创始人薪酬的支付与扣缴资料。","verify":"按供应商和项目关联账单、合同、调用记录、交付验收与银行流水；分别核对订阅、按量费用、协作费用和薪酬的适用资料。","implication":"实际支付不自动证明税前扣除或抵扣条件已满足；境内外供应商与不同业务的资料要求需按真实情况核验。","sourceIds":["vouchers","vat"]},{"id":"identity-and-revenue","title":"OPC主体与订阅、项目收入归属待核验","status":"资料缺口","priority":"高","known":"“星辰AI应用工作室”为虚构企业；一位创始人经营AI智能体、工作流交付与订阅服务。9月实收12.0万元，1—9月账务营业收入80.2万元，期末应收6.0万元。","unknown":"工商主体、纳税所在地及身份、税费种、含税口径、合同履约、订阅服务期、预收与开票申报资料。","verify":"先核验主体和税费种资料，再区分一次性交付、持续订阅、预收款和应收回款；按合同、履约、开票与到账建立收入桥接。","implication":"OPC仅描述经营模式，不能据此判断适用税种或税率；到账月份不能直接替代账务确认和申报所属期。","sourceIds":["vat"]}],"footer":"企业、客户与全部金额均为合成示例，非真实申报数据。适用税费种、税率、优惠及申报期限需结合实际主体与所属期核验，页面未作认定。"},"readingsReview":{"replacementReadings":[{"dimension":"现金创造","metric":"现金结余率 40.0%","value":40,"unit":"%","score":null,"scoreLabel":"示例指标","explanation":"9月实收12.0万元－实付7.2万元＝现金结余4.8万元；4.8÷12.0＝40.0%。现金结余率与账务净利润率口径不同，不能混用。","action":"核对项目收付、订阅预收和税费实际付款。"},{"dimension":"现金韧性","metric":"全部支出静态覆盖 6.03个月","value":6.027777777777778,"unit":"个月","score":null,"scoreLabel":"示例测算","explanation":"现金43.4万元÷月付款7.2万元＝6.03个月；若暂预留账面税费1.8万元，为5.78个月。尚未核验受限资金及每笔付款到期日。","action":"保留交付与税费准备金，按到期日更新现金预算。"},{"dimension":"回款效率","metric":"逾期占未收账款 40.0%","value":40,"unit":"%","score":null,"scoreLabel":"需关注","explanation":"逾期2.4万元÷未收6.0万元＝40.0%。澄明电商1.6万元、禾川咨询0.8万元为优先催收对象。","action":"确认承诺回款日，阶段交付与阶段收款同步。"},{"dimension":"成本结构","metric":"API与云资源占收款 28.0%","value":28,"unit":"%","score":null,"scoreLabel":"示例分类","explanation":"模型API2.4万元＋云资源0.96万元＝3.36万元，占收款28.0%；调用成本与客户用量相关，应跟踪项目利润。稳定支出另为3.24万元，占27.0%。","action":"按项目设置调用预算、限额与告警，评估缓存和模型路由的实际效果。"},{"dimension":"收入趋势","metric":"经营收款环比 +11.1%","value":11.111111111111116,"unit":"%","score":null,"scoreLabel":"同口径可比","explanation":"9月实收12.0万元较8月10.8万元增加1.2万元，环比11.1%；单月增长不代表持续订阅或长期增长。","action":"持续观察订阅续期、项目复购和创始人交付容量；缺少去年9月数据，不计算同比。"}]}};
+const healthModel={"dimensions":[{"key":"profitability","dimension":"盈利能力","metric":"账务净利率 40.3%","value":40.27431421446384,"unit":"%","period":"2026年1—9月 · OPC AI账务示例","detailKey":"health:0","explanation":"每100元账务收入约留40.3元净利；仍需区分项目交付与订阅服务期。","formula":"账务净利润323,000 ÷ 账务营业收入802,000 × 100 = 40.2743%","anchors":[[0,0],[10,60],[15,80],[25,100]],"benchmark":"管理关注线：账务净利率15%对应80分；25%及以上为100分。","action":"逐项目核对履约收入、API成本、创始人薪酬与税费计提，不能用收付差额替代。","score":100,"status":"健康","tone":"healthy"},{"key":"cashSafety","dimension":"现金安全","metric":"预留税费后可支撑 5.78个月","value":5.777777777777778,"unit":"个月","period":"2026年9月末 · 静态情景","detailKey":"health:1","explanation":"预留账面税费后可支撑5.78个月，高于3个月自定义管理目标。","formula":"(账面现金434,000 − 暂预留账面税费18,000) ÷ 月付款72,000 = 5.7778个月","anchors":[[0,0],[1,30],[3,80],[4,100]],"benchmark":"管理关注线：3个月全部支出对应80分；4个月及以上为100分。","action":"保留交付准备金，核验税费和应付款到期日后更新现金安排。","limitation":"1.8万元是账面待核验金额，预留不表示已确认欠税。未另扣应付账款1.4万元，须按实际到期计划补充，避免重复扣除。","score":100,"status":"健康","tone":"healthy"},{"key":"collection","dimension":"回款效率","metric":"逾期占未收 40.0%","value":40,"unit":"%","period":"2026年9月末","detailKey":"health:2","explanation":"未收6万元中2.4万元已逾期，现金充足也应及时确认回款日。","formula":"逾期应收24,000 ÷ 未收应收60,000 × 100 = 40.0%","anchors":[[0,100],[10,80],[30,60],[50,30],[100,0]],"benchmark":"管理关注线：逾期占比10%对应80分；30%对应60分，越低越好。","action":"澄明电商1.6万元、禾川咨询0.8万元逐笔跟进，新项目分阶段收款。","score":45,"status":"风险","tone":"risk"},{"key":"costControl","dimension":"成本控制","metric":"稳定支出占收款 27.0%","value":27,"unit":"%","period":"2026年9月 · 演示分类","detailKey":"health:3","explanation":"稳定支出占收款27%；API与云资源合计占28%，需按项目监控用量。","formula":"(创始人薪酬18,000 + 云资源9,600 + AI工具订阅4,800) ÷ 收款120,000 × 100 = 27.0%","anchors":[[0,100],[40,90],[50,70],[80,0],[100,0]],"benchmark":"管理关注线：稳定支出占收款45%对应80分；50%对应70分，越低越好。","action":"模型API、按需交付协作、获客合计3.96万元/月；优先评估API预算与交付效率。","limitation":"稳定/弹性为演示分类，云资源按当前预留预算列为稳定；实际是否可变需按合同核验。API与云资源占比28%是成本观察项，不另计分。","score":93,"status":"健康","tone":"healthy"},{"key":"growth","dimension":"成长性","metric":"经营收款环比 +11.1%","value":11.111111111111116,"unit":"%","period":"2026年9月较8月","detailKey":"health:4","explanation":"9月比8月多收1.2万元，环比增长11.1%；需结合续订与交付容量判断。","formula":"(9月收款120,000 ÷ 8月收款108,000 − 1) × 100 = 11.1111%","anchors":[[-10,0],[0,60],[5,80],[10,100]],"benchmark":"管理关注线：月收款环比+5%对应80分；+10%及以上为100分。","action":"持续跟踪订阅续期、项目复购与客户集中度，避免销售增长超过创始人交付容量。","score":100,"status":"健康","tone":"healthy"}],"scoring":{"method":"按各指标的(value,score)锚点分段线性插值，区间外取端点分数，最后四舍五入为整数。","statusRules":{"healthy":">=80分：健康","attention":"60—79分：关注","risk":"<60分：风险"},"scope":"演示管理刻度；阈值为看板自定义管理基准，非行业标准、审计结论或合规评级。","referenceLine":80,"meanScore":87.6,"meanScoreMeaning":"五项等权算术平均，只用于管理展示，不并入税务风险判断。"},"actions":[{"order":1,"title":"锁定2.4万元逾期款回款日","status":"风险","tone":"risk","detailKey":"summary:actions","description":"优先跟进澄明电商1.6万、禾川咨询0.8万；以验收节点与阶段付款减少新增逾期。","expected":"若全部收回，现金43.4万 → 45.8万，支出覆盖6.03 → 6.36个月。","effectFormula":"434,000 + 24,000 = 458,000；458,000 ÷ 72,000 = 6.3611个月","condition":"假设两笔逾期全部收回且无同时新增付款；不作为回款保证。"},{"order":2,"title":"核对1.8万元税费并保留准备金","status":"待核验","tone":"attention","detailKey":"tax:tax-reconciliation","description":"核对申报与缴款记录，关联API、云资源、协作及薪酬凭证；确认后将税费到期日写入沙盘。","expected":"若先预留1.8万，可安排现金41.6万，覆盖5.78个月；仍高于3个月安全线。","effectFormula":"434,000 − 18,000 = 416,000；416,000 ÷ 72,000 = 5.7778个月；416,000 − 216,000 = 200,000","condition":"1.8万元为账面核验线索，预留不等于已确认欠税或实际缴纳；另核验交付与应付款安排。"},{"order":3,"title":"设API调用预算，复核15%弹性节支情景","status":"关注","tone":"attention","detailKey":"health:3","description":"按项目记录调用量、模型成本和交付工时，设置限额告警；评估缓存、模型路由和协作安排后再调整预算。","expected":"若弹性支出整体下降15%，每月节约5,940元；6个月累计节约35,640元。","effectFormula":"(模型API24,000 + 按需交付协作9,600 + 获客6,000) × 15% = 5,940元/月；5,940 × 6 = 35,640元","condition":"15%仅为情景假设，未承诺实际优化效果；需核对服务质量、合同约束和创始人交付容量。"}]};
+function managementScore(value,anchors){if(value<=anchors[0][0])return anchors[0][1];for(let i=1;i<anchors.length;i++){const [x1,s1]=anchors[i-1],[x2,s2]=anchors[i];if(value<=x2)return Math.round(s1+(value-x1)/(x2-x1)*(s2-s1));}return anchors.at(-1)[1];}
+healthModel.dimensions.forEach(d=>{d.score=managementScore(d.value,d.anchors)});
+const dims=healthModel.dimensions.map(d=>d.dimension),scores=healthModel.dimensions.map(d=>d.score),healthMean=scores.reduce((sum,s)=>sum+s,0)/scores.length;
+const healthDetails=healthModel.dimensions.map(d=>[['经营指标',d.metric],['数据期间',d.period],['计算公式',d.formula],['管理评分',d.score+'分 · '+d.status],['管理基准',d.benchmark],['评分锚点',d.anchors.map(([v,s])=>`${v}${d.unit}→${s}分`).join('；')],['解读',d.explanation],['建议动作',d.action],...(d.limitation?[['口径限制',d.limitation]]:[])]);
+function radar(){
+  const c=start('#q2-radar',272),cx=c.w/2,cy=136,r=Math.min(89,(c.w-130)/2),pt=(i,k)=>[cx+Math.cos(-Math.PI/2+i*Math.PI*2/5)*r*k,cy+Math.sin(-Math.PI/2+i*Math.PI*2/5)*r*k],points=k=>dims.map((_,i)=>pt(i,k).join(',')).join(' ');
+  [.25,.5,.75,1].forEach(k=>{c.add('polygon',{points:points(k),fill:'none',stroke:'var(--q-line)'});c.add('text',{x:cx+5,y:cy-r*k+3,style:'font-size:9px'},Math.round(k*100));});
+  dims.forEach((label,i)=>{const p=pt(i,1),t=pt(i,1.22);c.add('line',{x1:cx,y1:cy,x2:p[0],y2:p[1],stroke:'var(--q-line)'});c.add('text',{x:t[0],y:t[1]+(i===0?-3:4),'text-anchor':i===0?'middle':i<3?'start':'end',class:'q-plot-label',style:'font-size:11px;font-weight:600'},label);});
+  c.add('polygon',{points:points(.8),fill:'none',stroke:'var(--q-green)','stroke-width':1.3,'stroke-dasharray':'4 4'});
+  c.add('polygon',{points:scores.map((v,i)=>pt(i,v/100).join(',')).join(' '),fill:'var(--q-blue)','fill-opacity':.18,stroke:'var(--q-blue)','stroke-width':2.2});
+  scores.forEach((v,i)=>{const p=pt(i,v/100);c.add('circle',{cx:p[0],cy:p[1],r:4.5,fill:'var(--q-blue)','data-detail':'health:'+i,'data-tooltip':`${dims[i]} ${v}分；点击查看指标及评分规则`});});
+  c.s.setAttribute('aria-label','财务健康五维评分：'+dims.map((d,i)=>d+scores[i]+'分').join('；')+'。80分为自定义管理关注线。');
+}
+const toneClass=d=>d.score>=80?'good':d.score>=60?'watch':'risk';
+$('#q2-readings').innerHTML=healthModel.dimensions.map((d,i)=>`<div class="q-dimension-row" data-detail="health:${i}"><div class="q-dimension-label"><b>${d.dimension}</b><span class="q-dimension-score">${d.score}分</span><span class="q-status-badge ${toneClass(d)}">${d.status}</span></div><div class="q-dimension-content"><strong>${d.metric}</strong><div class="q-track"><div style="width:${d.score}%;background:${d.score>=80?'var(--q-green)':d.score>=60?'var(--q-amber)':'var(--q-red)'}"></div></div><p>${d.explanation}</p></div></div>`).join('');
+$('#q2-overall-score').innerHTML=`<span>综合评分</span><strong>${Math.round(healthMean)}</strong><small>/ 100 · 自定义管理基准</small><span class="q-status-badge watch">回款需跟进</span>`;
+function scoreDetail(id,table){
+  if(id.startsWith('action-')){const a=healthModel.actions.find(x=>x.order===+id.slice(7));return table(a.title,['内容','依据与测算'],[['当前行动',a.description],['预期效果',a.expected],['计算公式',a.effectFormula],['成立条件',a.condition]],{subtitle:'管理行动优先级 '+a.order+' · '+a.status,intro:a.description,action:a.expected,foot:a.condition+' 未来效果为情景测算，尚未实际发生。'});}
+  return table('财务健康五维评分 · 计算口径',['维度','指标','分数','80分管理关注线'],healthModel.dimensions.map(d=>[d.dimension,d.metric,d.score+'分',d.benchmark]),{subtitle:'示例数据 · 自定义管理评分',intro:`五项等权平均${healthMean.toFixed(1)}分，四舍五入显示${Math.round(healthMean)}分。80分及以上为健康，60—79分为关注，低于60分为风险；税务状态单独待核验。`,action:'先处理45分的回款效率，核验税费，并监控API用量与一人交付容量。',foot:healthModel.scoring.method+' '+healthModel.scoring.scope});
+}
+
+function getAnalysisDetail(type,id,basic,table){
+  if(type==='tax'){
+    const card=analysisContent.taxSection.cards.find(x=>x.id===id);if(!card)return null;
+    return table(card.title,['核验层次','依据与处理'],[['已知 · 账面信息',card.known],['未知 · 缺少资料',card.unknown],['可能影响',card.implication],['核验步骤',card.verify]],{subtitle:'税务资料核验 · '+card.status,intro:'本项为合成场景中的账面与资料线索，税务状态仍为待核验。',action:card.verify,foot:analysisContent.taxSection.footer});
+  }
+  if(id==='profit')return table('累计可分配利润 · 账务桥接',['项目','金额','说明'],[['营业收入',money(ledger.revenue*10000),'2026年1—9月合成账务'],['成本与费用',money(ledger.cost*10000),'含创始人薪酬、模型API、云资源等'],['税前利润',money(ledger.beforeTax*10000),'收入减成本费用'],['所得税费用',money(ledger.tax*10000),'独立给定的情景输入，不代表适用税率'],['净利润',money(ledger.net*10000),'税前利润减所得税费用'],['上年结转',money(ledger.carry*10000),'合成期初余额'],['累计可分配利润估算',money(ledger.distributable*10000),'含上年结转，不等于可提取现金']],{intro:'全套为虚构OPC AI企业数据。可分配利润为管理演示估算，实际分配条件与资金安排另行核验。'});
+  const item=analysisContent.insights.find(x=>x.id===id);if(!item)return null;
+  const rows=[...item.known.map(x=>['已知',x]),...item.unknown.map(x=>['待补充',x])];
+  if(id==='financial')rows.push(['静态覆盖 · 全部支出',`${money(K.cashBalance)} ÷ ${money(K.monthlyCashExpense)} = ${K.cashRunwayMonths.toFixed(2)}个月`],['若预留账面税费',`${money(K.cashAfterTaxReserve)} ÷ ${money(K.monthlyCashExpense)} = ${K.cashRunwayAfterTaxReserveMonths.toFixed(2)}个月`],['若再预留账面应付',`${money(K.cashAfterTaxReserve-K.apTotal)} ÷ ${money(K.monthlyCashExpense)} = ${((K.cashAfterTaxReserve-K.apTotal)/K.monthlyCashExpense).toFixed(2)}个月`],['敏感性限制','须核对受限资金与实际到期付款，预留不等于实际支付。']);
+  return table(item.title+' · 依据与行动',['信息层次','数据与说明'],rows,{subtitle:'2026年9月经营 + 1—9月合成账务',intro:item.text,action:item.verify,foot:basic.foot+' 税务状态：待核验。'});
+}
+
+$('#q2-period').addEventListener('change',()=>monthly(true));$('#q2-account').addEventListener('change',()=>bank(true));$('#q2-tax-sim').addEventListener('change',()=>bank(true));$('#q2-reset-sim').addEventListener('click',()=>{['#q2-income-change','#q2-delay','#q2-expense-change'].forEach(id=>$(id).value=0);$('#q2-tax-sim').checked=true;bank(true)});['#q2-income-change','#q2-delay','#q2-expense-change'].forEach(id=>$(id).addEventListener('input',()=>bank(true)));$('#q2-upload').addEventListener('change',e=>{$('#q2-upload-status').textContent=e.target.files.length?`已选择：${e.target.files[0].name}。仅预览文件名，未上传或解析；图表仍为示例数据。`:'未选择文件；图表使用示例数据。'});
+const escapeHTML=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const monthFull=i=>(i<3?'2025年':'2026年')+months[i];
+let activeDetail=null,lastDetailTrigger=null;
+function enhanceDetails(){root.querySelectorAll('[data-detail]').forEach(el=>{el.setAttribute('tabindex','0');if(el.tagName.toLowerCase()!=='button')el.setAttribute('role','button');if(!el.hasAttribute('aria-label'))el.setAttribute('aria-label',(el.dataset.tooltip||el.textContent?.trim().slice(0,60)||'图表数据')+'，点击查看明细');});root.querySelectorAll('[data-tooltip]').forEach(el=>{if(el.namespaceURI===ns&&!el.querySelector('title')){const title=document.createElementNS(ns,'title');title.textContent=el.dataset.tooltip;el.appendChild(title);}});}
+function detailFor(key){
+  const [type,...parts]=key.split(':'),id=parts.join(':'),format=money;
+  const basic={subtitle:'2026年9月 · OPC AI企业合成示例',foot:demo.scenario.provenance};
+  const table=(title,heads,rows,extra={})=>({...basic,title,heads,rows,...extra});
+  const stableNames=demo.cashCostClassification.stable;
+  if(type==='kpi'&&id==='balance')return table('期末账户余额',['账户','余额','说明'],[['经营账户',format(K.cashBalance*.7),'按70%示例分摊'],['储备账户',format(K.cashBalance*.3),'按30%示例分摊'],['全部账户',format(K.cashBalance),'期末账面现金']],{intro:'现金储备可覆盖当前规模的交付开支，仍需核对付款承诺、税费和受限资金。',metrics:[['全部月支出覆盖',K.cashRunwayMonths.toFixed(2)+'个月'],['稳定支出覆盖',(K.cashBalance/demo.cashCostClassification.stableTotal).toFixed(2)+'个月'],['账面应交税费',format(K.bookTaxPayable)]],action:'核对API/云服务账单、按需协作应付款及待核验税费，再安排资金。'});
+  if((type==='kpi'&&id==='income')||(type==='flow'&&id==='income'))return table('本月经营收款 · AI业务与客户',['客户','业务','收款期间','金额','占收款'],sources.map(([n,v])=>[n,serviceTypes[n],'2026年9月',format(v),(v/K.monthlyCashIncome*100).toFixed(1)+'%']),{intro:'一名创始人提供智能体搭建、自动化实施和订阅运维，五个虚构客户合计到账12万元；前三大客户占80%。逐笔示例见收入模块。',metrics:[['经营收款',format(K.monthlyCashIncome)],['付款客户','5个'],['前三大占比','80.0%']]});
+  if(type==='kpi'&&id==='cost')return table('本月经营付款 · OPC AI成本',['项目','付款期间','金额','预算分类'],costs.map(([n,v])=>[n,'2026年9月',format(v),stableNames.includes(n)?'稳定支出':'弹性支出']),{metrics:[['全部付款',format(K.monthlyCashExpense)],['稳定支出',format(demo.cashCostClassification.stableTotal)],['弹性支出',format(demo.cashCostClassification.flexibleTotal)]],intro:'创始人薪酬每月18,000元，已计入费用；按需协作属于外部项目服务，不代表雇员团队。逐笔示例见成本模块。',action:'API和云资源按项目关联调用账单，订阅按服务期归集；创始人薪酬与分红分别记录。'});
+  if(type==='flow'){
+    if(id==='surplus')return table('本月经营结余 · 计算明细',['项目','金额','口径'],[['经营收款',format(K.monthlyCashIncome),'到账示例'],['减：经营付款',format(K.monthlyCashExpense),'支付示例，含创始人薪酬'],['经营结余',format(K.monthlyCashSurplus),'现金收款 − 付款'],['现金结余率',K.monthlyCashSurplusRatePct.toFixed(1)+'%','现金结余 ÷ 收款']],{intro:'现金收付与账务利润采用不同口径；未收未付、折旧和税费会产生差异。'});
+    const stable=id==='stable',data=costs.filter(([n])=>stableNames.includes(n)===stable),total=stable?demo.cashCostClassification.stableTotal:demo.cashCostClassification.flexibleTotal;
+    return table((stable?'稳定':'弹性')+'支出 · 组成明细',['项目','金额','占该类支出'],data.map(([n,v])=>[n,format(v),(v/total*100).toFixed(1)+'%']),{intro:stable?demo.cashCostClassification.stableDefinition:'沙盘调整比例仅作用于模型API调用、按需交付协作和推广获客，可模拟减少或增加；实际调整幅度取决于服务质量与合同。',metrics:[['支出合计',format(total)],['占本月收款',(total/K.monthlyCashIncome*100).toFixed(1)+'%']]});
+  }
+  if(type==='kpi'&&id==='net-margin'){
+    const d=monthlyAccounting.rows.at(-1),rate=d.netProfit/d.revenue*100;
+    return table('本月净利润率 · 账务口径',['项目','金额 / 比率','口径'],[['营业收入',format(d.revenue),'2026年9月权责发生制示例'],['成本与费用',format(d.operatingExpenses),'含创始人薪酬、折旧及未付协作费'],['所得税费用',format(d.tax),'演示分摊值，非适用税率测算'],['账务净利润',format(d.netProfit),'收入 − 成本费用 − 所得税费用'],['本月净利润率',rate.toFixed(1)+'%','净利润 ÷ 营业收入'],['1—9月累计净利率',K.cumulativeNetMarginPct.toFixed(1)+'%',`${format(K.cumulativeNet)} ÷ ${format(K.cumulativeRevenue)}`],['本月现金结余率',K.monthlyCashSurplusRatePct.toFixed(1)+'%','现金结余 ÷ 收款']],{intro:'利润中已计入创始人薪酬。所有月度与累计账务均为同一套合成情景，不是实际导入数据。',metrics:[['账务净利润',format(d.netProfit)],['账务营业收入',format(d.revenue)],['本月净利润率',rate.toFixed(1)+'%']],foot:monthlyAccounting.provenance+' '+monthlyAccounting.allocationNote});
+  }
+  if(type==='kpi'&&id==='coverage')return table('现金可支撑 · 静态测算',['情景','可安排现金','可支撑月数'],[['当前账户现金',format(K.cashBalance),K.cashRunwayMonths.toFixed(2)+'个月'],['若预留账面税费1.8万元',format(K.cashAfterTaxReserve),K.cashRunwayAfterTaxReserveMonths.toFixed(2)+'个月'],['若再预留账面应付1.4万元',format(K.cashAfterTaxReserve-K.apTotal),((K.cashAfterTaxReserve-K.apTotal)/K.monthlyCashExpense).toFixed(2)+'个月']],{intro:'静态可支撑月数＝账户现金÷9月全部经营付款；假设没有新增收款，支出规模保持不变。',action:'预留税费后仍高于3个月自定义安全线；按项目交付和应付到期日制定预算，避免重复预留。',foot:'税费金额为演示输入，预留不表示已到期、已确认欠税或已支付。'});
+  if(type==='monthly'){
+    const i=+id,d=monthlyAccounting.rows[i],rate=d.netProfit/d.revenue*100;
+    return table(monthFull(i)+' · 收支与净利润率',['指标','金额 / 比率','计算或口径'],[['经营现金收款',format(d.cashIn),'到账示例'],['经营现金付款',format(d.cashOut),'支付示例，含创始人薪酬'],['经营现金结余',format(d.cashIn-d.cashOut),'现金收款 − 付款'],['账务营业收入',format(d.revenue),'含尚未收回的已履约收入'],['账务营业成本',format(d.cogs),'模型API、云资源与交付协作等'],['销售费用',format(d.sales),'推广获客等'],['管理费用（含创始人薪酬及折旧）',format(d.admin),`其中折旧${format(d.depreciation)}`],['财务费用',format(d.finance),'支付通道等费用示例'],['所得税费用',format(d.tax),'合成账务费用输入'],['税费实际支付（演示）',format(d.taxPaid||0),'已包含在当月现金付款中'],['账务净利润',format(d.netProfit),'收入 − 成本费用 − 所得税费用'],['净利润率',rate.toFixed(1)+'%','账务净利润 ÷ 营业收入']],{intro:`现金桥接：净利润${format(d.netProfit)} ＋ 折旧${format(d.depreciation)} ＋ 应付增加${format(d.apIncrease)} ＋ 应交税费增加${format(d.taxPayableIncrease)} − 应收增加${format(d.arIncrease)} ＝ 现金结余${format(d.cashIn-d.cashOut)}。`,metrics:[['账务收入',format(d.revenue)],['账务净利润',format(d.netProfit)],['净利润率',rate.toFixed(1)+'%']],foot:monthlyAccounting.provenance+' '+monthlyAccounting.allocationNote});
+  }
+  if(type==='source'||type==='cost'){
+    const isCost=type==='cost',group=breakdownData[isCost?'cost':'income'],item=group.items.find(row=>row.name===id);if(!item)return null;
+    const rows=item.transactions.slice().sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id)).map(row=>[row.date,row.counterparty,row.summary,format(row.amount),row.source]);
+    return table(item.name+' · '+(isCost?'付款':'收款')+'明细',['交易时间','交易对象','构成 / 摘要',(isCost?'付款':'收款')+'金额','账户'],rows,{intro:'与'+group.noun+'模块使用同一套虚构交易，默认按时间从旧到新展示。',metrics:[['本项合计',format(item.amount)],['交易笔数',String(rows.length)],['占全部'+group.noun,(item.amount/group.total*100).toFixed(1)+'%']],action:isCost?'核验模型用量、云账单、订阅服务期与协作交付，付款不自动等于可税前扣除。':'将合同、验收、订阅服务期、开票、应收与到账逐项勾稽。'});
+  }
+  if(type==='ar-month'){
+    const i=+id,co=demo.arCohorts,paid=co.paid[i],due=co.notDue[i],late=co.overdue[i],total=paid+due+late;
+    return table(`2026年${i+4}月账单 · 回款构成`,['状态','金额','占该月账单'],[['已收',format(paid),(paid/total*100).toFixed(1)+'%'],['未到期',format(due),(due/total*100).toFixed(1)+'%'],['逾期',format(late),(late/total*100).toFixed(1)+'%']],{subtitle:'合成账单月份分组 · 截至2026年9月30日',intro:co.mappingNote});
+  }
+  if(type==='customer'){
+    const row=ar.find(a=>a[0]===id);if(!row)return null;
+    return table(id+' · 应收跟进',['字段','合成台账信息'],[['AI业务',serviceTypes[id]],...arHeads.slice(1).map((h,i)=>[h,row[i+1]])],{intro:`${id}当前应收${row[1]}元，其中逾期${row[5]}元。${demo.arCohorts.mappingNote}`,action:row[5]!=='0'?'核对项目验收、订阅服务期及付款约定，取得明确回款日期。':'按合同账期提醒客户付款，区分尚未到期与逾期。'});
+  }
+  if(type==='balance-history'){
+    const i=+id,f=scenarioState.f,opening=(i===0?demo.openingCash2025Oct/10000:balances[i-1])*f*10000;
+    return table(monthFull(i)+' · 历史现金',['项目','金额'],[['期初余额',format(opening)],['当月收款',format(inc[i]*f*10000)],['当月付款',format(exp[i]*f*10000)],['期末余额',format(balances[i]*f*10000)]],{subtitle:monthFull(i)+' · '+$('#q2-account').selectedOptions[0].textContent,intro:'全为合成历史轨迹；期末＝期初＋经营收款－经营付款。账户按70%/30%示例分摊。'});
+  }
+  if(type==='forecast'){
+    const m=+id,t=scenarioState,cumulative=t.receipts[m]*t.f,prior=t.receipts[m-1]*t.f,pay=t.payment*t.f,tax=m===1?t.tax*t.f:0;
+    return table(t.monthNames[m]+' · 推演计算',['月份','基准期末','推演期末','距安全线'],t.adjusted.slice(1).map((v,j)=>[t.monthNames[j+1],format(t.base[j+1]*10000),format(v*10000),format((v-t.safety)*10000)]),{subtitle:$('#q2-account').selectedOptions[0].textContent+' · '+m+'个月后 · 情景测算',intro:`当月：期初${format(t.adjusted[m-1]*10000)} ＋ 到账${format((cumulative-prior)*10000)} − 经营付款${format(pay*10000)} − 假设税费支付${format(tax*10000)} ＝ 期末${format(t.adjusted[m]*10000)}。`,metrics:[['收入变化',scenarioPercent(t.income)],['客户付款',scenarioPayment(t.delay)],['弹性支出',scenarioPercent(t.expense)]],foot:`公式（万元，预测月数1—6）：[${K.cashBalance/10000} + ${K.monthlyCashIncome/10000} × (1 + ${t.income}%) × min(180, max(0, 30 × 月数 − (${t.delay}))) / 30 − (${K.monthlyCashExpense/10000} + ${demo.cashCostClassification.flexibleTotal/10000} × (${t.expense}%)) × 月数 − ${t.tax}] × ${(t.f*100).toFixed(0)}%。当前时点的累计新增到账为0；提前跨过当前时点的计划收款并入首个预测月，6个月到账总额不超过计划总额。税费仅首月扣一次，安全线为基准月支出×3；既有6万元应收不重复叠加。`,action:'静态情景使用合成基准；实际使用应核验API预算、续费、交付承诺与税费到期计划。'});
+  }
+  if(type==='statement'){
+    const[k,i]=id.split(':'),row=({profit:profitRows,balance:balanceRows,cash:cashRows})[k][+i],[name,now,prev]=row;
+    const special=name==='应交税费'?'账面1.8万元为演示输入；须核对税种、所属期、申报和缴款资料，未认定欠税。':name.includes('所得税费用')?demo.scenario.taxNote:name==='支付的各项税费'?'本年合成场景税费支付为0，是演示假设；不代表真实企业无需缴税。':name==='减：税金及附加'?'0为演示录入值；实际适用税费种、计税口径与资料另行核验。':name.includes('创始人薪酬')?'一名创始人的经营薪酬已计入费用与经营现金付款，不等于利润分配；外部协作按服务采购记录。':'本期、期初及上年比较数均为同一套OPC AI合成情景；未导入真实企业账务。';
+    return table(name+' · 报表口径',['项目','数值'],[['本期 / 期末',format(now*10000)],['上年同期 / 年初',format(prev*10000)],['变动',format((now-prev)*10000)]],{subtitle:({profit:'2026年1—9月 · 利润表',balance:'2026年9月30日 · 资产负债表',cash:'2026年1—9月 · 现金流量表'})[k],intro:special});
+  }
+  if(type==='health'){const i=+id;return table(dims[i]+' · 指标解读',['核验角度','当前数据与限制'],healthDetails[i],{intro:'评分采用合成数据与自定义管理刻度；税务状态单独待核验。'});}
+  if(type==='score')return scoreDetail(id,table);
+  if(type==='tax'||type==='summary')return getAnalysisDetail(type,id,basic,table);
+  return null;
+}
+function openDetail(key,trigger){const data=detailFor(key);if(!data)return;activeDetail=data;lastDetailTrigger=trigger;
+  $('#q2-detail-body').innerHTML=`<h2 id="q2-detail-title">${escapeHTML(data.title)}</h2><p class="q-detail-sub">${escapeHTML(data.subtitle)}</p>${data.intro?`<p class="q-detail-intro">${escapeHTML(data.intro)}</p>`:''}${data.metrics?`<div class="q-detail-metrics">${data.metrics.map(([a,b])=>`<div><span>${escapeHTML(a)}</span><strong>${escapeHTML(b)}</strong></div>`).join('')}</div>`:''}<div class="q-detail-table-wrap"><table><thead><tr>${data.heads.map(h=>`<th>${escapeHTML(h)}</th>`).join('')}</tr></thead><tbody>${data.rows.map(row=>`<tr>${row.map(cell=>`<td>${escapeHTML(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${data.action?`<div class="q-detail-action"><b>建议动作</b><p>${escapeHTML(data.action)}</p></div>`:''}<p class="q-detail-foot">${escapeHTML(data.foot)}</p><div class="q-detail-bottom"><span>OPC AI合成账务、明细与情景测算</span><button id="q2-detail-export" type="button">导出此页明细 CSV</button></div>`;
+  const dialog=$('#q2-detail-dialog');if(!dialog.open){dialog.showModal();document.body.classList.add('q-modal-open')}$('#q2-detail-close').focus();$('#q2-detail-export').addEventListener('click',()=>{const csv='\uFEFF'+[data.heads,...data.rows].map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})),a=document.createElement('a');a.href=url;a.download='有数-'+data.title.replace(/[/\\:]/g,'-')+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),500);});}
+root.addEventListener('click',event=>{const target=event.target.closest('[data-detail]');if(target)openDetail(target.dataset.detail,target);});
+root.addEventListener('keydown',event=>{const target=event.target.closest('[data-detail]');if(target&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openDetail(target.dataset.detail,target);}});
+$('#q2-detail-close').addEventListener('click',()=>$('#q2-detail-dialog').close());
+$('#q2-detail-dialog').addEventListener('close',()=>{document.body.classList.remove('q-modal-open');if(lastDetailTrigger?.isConnected)lastDetailTrigger.focus();});
+$('#q2-detail-dialog').addEventListener('click',event=>{if(event.target!==event.currentTarget)return;const r=event.currentTarget.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)event.currentTarget.close();});
+
+
+const overviewMonth=monthlyAccounting.rows.at(-1);
+$('#q3-overview-score').textContent=String(Math.round(healthMean));
+$('#q3-overview-score-marker').style.left=Math.round(healthMean)+'%';
+$('#q3-kpi-net-margin').textContent=(overviewMonth.netProfit/overviewMonth.revenue*100).toFixed(1);
+$('#q3-kpi-net-margin-note').textContent='9月账务 · OPC AI合成示例';
+
+function draw(){monthly();bank();arChart();sankey();radar();enhanceDetails()};draw();let lastWidth=root.clientWidth;new ResizeObserver(()=>{if(root.clientWidth!==lastWidth){lastWidth=root.clientWidth;draw()}}).observe(root);
+// The plot fills the controls' height; redraw after wrapping or visibility changes.
+const forecastPlot=$('#q2-balance').parentElement;let lastForecastSize='';
+new ResizeObserver(()=>{const box=forecastPlot.getBoundingClientRect(),size=box.width+':'+box.height;if(box.width>0&&box.height>0&&size!==lastForecastSize){lastForecastSize=size;bank();}}).observe(forecastPlot);
+})();
+</script>
+</div>
+</main>
+<script>
+// Offline exports use native chart hover labels.
+(()=>{const root=document.getElementById('qingzhang-v4');function labelCharts(){root.querySelectorAll('[data-tooltip]').forEach(el=>{if(el.namespaceURI==='http://www.w3.org/2000/svg'){if(!el.querySelector('title')){const title=document.createElementNS('http://www.w3.org/2000/svg','title');title.textContent=el.dataset.tooltip;el.appendChild(title);}}else{el.title=el.dataset.tooltip;}});}labelCharts();root.addEventListener('input',labelCharts);root.addEventListener('change',labelCharts);new ResizeObserver(labelCharts).observe(root);})();
+</script>
+<script src="assets/data-engine.js?v=bank-pdf-preview-2"></script>
+<script src="assets/file-readers.js?v=bank-pdf-preview-1"></script>
+<script src="assets/allocation.js?v=0.2.1"></script>
+<script src="assets/wechat-import.js?v=wechat-preview-1"></script>
+<script src="assets/alipay-import.js?v=alipay-preview-1"></script>
+<script src="assets/bank-import.js?v=bank-pdf-preview-2"></script>
+<script src="assets/ledger.js?v=bank-pdf-preview-2"></script>
+<script src="assets/ledger-storage.js?v=clean-release-031"></script>
+<script src="assets/pdf-import.js?v=bank-pdf-preview-2"></script>
+<script src="assets/supplement-data.js?v=cash-history-20261101"></script>
+<script src="assets/own-report-cash.js?v=cash-history-20261101"></script>
+<script src="assets/report-model.js?v=cash-history-20261101"></script>
+<script src="assets/report-charts.js?v=cash-history-20261101"></script>
+<script src="assets/random-scenario-generator.js?v=random-details-1"></script>
+<script src="assets/random-scenario-insights.js?v=refund-income-20261101"></script>
+<script src="assets/own-report-insights.js?v=cash-history-20261101"></script>
+<script src="assets/report-view.js?v=clean-release-031"></script>
+<script src="assets/fixed-sample-project.js?v=global-period-20261031"></script>
+<script src="assets/supplement-ui.js?v=cash-history-20261101"></script>
+<script src="assets/workspace.js?v=clean-release-031"></script>
+</body></html>
