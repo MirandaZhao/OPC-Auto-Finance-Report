@@ -1,109 +1,6 @@
-# 有数提交历史 / Youshu Commit History
+# Youshu Commit History / 有数提交历史
 
-[中文摘要](#中文) · [历史版本说明原文](#历史版本说明原文) · [English](#english) · [66 条原始提交 / Original commits](#original-commit-messages)
-
-## 中文
-
-本文件保留有数仓库 **66 次提交时写下的原始标题和完整正文**，包括当时说明的更改动作、用户收益、验证结果和待完成事项；另保留旧版历史文档中的版本功能说明。
-
-- 仓库：[MirandaZhao/OPC-Auto-Finance-Report](https://github.com/MirandaZhao/OPC-Auto-Finance-Report)；分支：`main`。
-- 覆盖期间：**2026 年 9 月 22 日—2026 年 11 月 1 日**。日期按北京时间计算，仅显示年月日。
-- 截止提交：[86cf00d](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/86cf00dafb5bf21d098584ec2e0692e5f49cff46)，2026 年 11 月 1 日。此后新增的提交不在本次范围内。
-- 原始记录：[跳转到 66 条完整提交](#original-commit-messages)。按最早到最近排列，逐条展开，保留日期、提交哈希和变更链接。
-- 更新摘要：下方中文、英文摘要按最近到最早归纳五个阶段，供快速浏览。
-
-**整理说明：** 阶段摘要是本次后续整理；标为“原文”的内容保留当时的表述和拼写。英文提交记录仅统一换行格式，未润色或删减标题和正文。每条记录都可通过链接回到 GitHub 核对。
-
-摘要以提交消息为依据；对笼统的文件上传消息，补充核对了文件清单。文档修订与软件更新分别表述；测试结果按原记录归属到当时的版本，本次整理未重新运行软件测试。
-
-### 2026-11-01｜发布 v0.3.1 并完善上手体验
-
-共 29 条提交。
-
-- **更新报告看板，让用户既能浏览示例，也能创建自己的财务报告。** 替换原有入口文件并上传新版看板。 相关提交：[7933c62](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/7933c62227ea127fcbdfba0bbf4888b7777aac08)。
-
-- **加入本地处理组件和财务模板，让用户更容易把账单整理成报告。** 补齐账单处理所需的组件，并提供准备导入数据的模板。 相关提交：[8bbdf22](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/8bbdf22f2771c412a2128b54eb4c0dcb35c3522c)、[960dffd](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/960dffd9d8ec72ce74b813888ed121c2ac83a75c)。
-
-- **发布有数 v0.3.1 压缩包，让用户一次下载账单导入、财务报告及双语使用资料。** 这一组提交包含压缩包的上传、删除和重新发布。 相关提交：[002a54a](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/002a54aa76833e56f4d71fdee9cea6f19f0ef711)。
-
-- **整理部署、评估、工作流和提交历史说明，让用户更容易找到使用方法与验证范围。** 统一 WORKFLOW.md、EVALUATION.md 文件名，更新数据处理指引，并清理或替换部分旧文档、模板及目录占位文件。 相关提交：[dd65c1c](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/dd65c1c01319dcb398e60bab872327c6e78e78c2)、[c9adf3e](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/c9adf3e56298214e4be698ebc7816e9649400505)、[86cf00d](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/86cf00dafb5bf21d098584ec2e0692e5f49cff46)。
-
-- **完善 README 介绍、下载链接和截图，让用户更快理解软件并开始体验。** 更新版本与功能说明，调整文字和配图，并在最新修订中补充两张截图。 相关提交：[9147e9b](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9147e9b2fb2c2fe271c7e1bb684e62fda66102cb)、[bd4dd64](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/bd4dd64262d0d151477ae9119ba78de7be06ae30)。
-
-### 2026-10-26｜明确验证范围与部署步骤
-
-共 2 条提交。
-
-- **用 28 项检查报告区分已验证结果和未测试部分，让用户能够判断报告的验证范围。** 记录现金历史、现金与权责发生制之间的核对、财务报表、预测边界、120 种明细类型、CSV 输出和交互等检查内容；提交消息说明检查已在本地 Node.js 23/24 运行，提供的 Node.js 22/24 Actions 矩阵尚未执行。 相关提交：[ce79a3c](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/ce79a3cebc6fe61d953e4b9b3534fb7f7c6be7c8)。
-
-- **将本机预览和 GitHub Pages 发布写成逐步指南，让项目使用者知道每一步该打开什么、看到什么。** 以中英双语说明本机预览、仓库状态、托管设置和发布记录。 相关提交：[0f9a83b](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/0f9a83b478ba161e0f7b24484fbe0f46d37978df)。
-
-### 2026-10-22—2026-10-23｜完善 OPC AI 原型的双语说明
-
-共 4 条提交。
-
-- **解释现金结余、净利润、净利率和现金可支撑时间，让用户读懂示例中的财务数字。** 完善中文在前、英文在后的概览，说明合成数据、预测假设和验证边界，并区分已发布的制造业示例与当时仍待上传的 OPC AI 应用材料。 相关提交：[ac54bb9](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/ac54bb909fe8f073b07f4f23bcae44bffe4057c3)、[097e045](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/097e045d1bb179d0ac885dc9144f4816c10bf6ad)、[8e20169](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/8e2016934daff5ee692a4073a97829958ec0a25d)。
-
-- **补齐预览、部署和发布记录的文档入口，让用户按现有材料找到操作步骤。** 这些提交仅发布说明文档；相关应用和配套材料当时仍待上传，部署指南也不代表已经完成托管发布。 相关提交：[9deb102](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9deb102d235f43c7dc07dfa80e232dc2729d1892)。
-
-### 2026-09-28—2026-10-10｜细化计算说明、测试记录与使用流程
-
-共 16 条提交。
-
-- **补充财务指标、评分规则和阈值说明，让用户理解数字背后的计算口径。** 设计文档进一步解释系统结构、数据模型、计算规则和行业适配方式。 相关提交：[09859b8](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/09859b8cc8f9640cf39c32eae898ca581cd38a63)、[fe19175](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/fe19175406ee3b3392afaf6a08fd438c82c07eda)。
-
-- **充实测试结果、复现步骤和限制说明，让用户清楚哪些内容经过检查。** 评估文档覆盖现金流核对、CSV 导入和评分等内容，并记录未验证事项与改进建议。 相关提交：[75d2030](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/75d2030ced6a23e65e11af2ca68ac49b3f76ae0d)、[3bd7554](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/3bd75549318c839c7be5e71380ee1df589f472ce)。
-
-- **细化静态托管和 GitHub Pages 部署指引，让用户更容易选择并配置运行方式。** 补充环境设置、数据处理、自定义域名和使用提示。 相关提交：[15d7b57](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/15d7b57d788ba1a4b6f3012e2b5899f56b1944c8)、[556c430](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/556c430aec2365da6968366637e88d808d4d115b)。
-
-- **完善功能、指标和使用限制的介绍，让用户使用前了解项目的用途与边界。** 在 README 中补充设计解释、进阶功能说明和贡献指引。 相关提交：[2ab3fa4](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/2ab3fa470f41e79d0d54f880b306952d6802ea44)、[82f7a4a](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/82f7a4aabe9e17281389cea0cebd39ded4bd546c)。
-
-- **整理导入和发布工作流，让数据准备及版本更新的步骤更容易跟随。** 调整文档结构，并明确变更记录、开发检查和发布测试步骤。 相关提交：[e07ea6c](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/e07ea6ce6f7f0a7f2d6f95e42b739b272aad20a7)。
-
-### 2026-09-22｜建立项目、示例报告与基础文档
-
-共 15 条提交。
-
-- **建立仓库并上传示例财务报告和 CSV 模板，让用户有可查看的报告与数据准备参考。** 对应初始仓库、index.html 示例页面和 docs/template.csv。 相关提交：[cf3aa8d](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/cf3aa8d01f22d851d3dcc7d684f20194d7bb1f6a)、[21d2830](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/21d2830225e98a7d97a84d32e9a99802902e8f3f)。
-
-- **完善项目概览、许可和现金流解释，让用户快速了解项目用途与文件结构。** 修订 README 的测试说明和功能描述，并移除其中的 Chart.js 引用。 相关提交：[7034f10](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/7034f108f3862fce7c57fffbc8d0398de1a87e60)、[d0af6cb](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/d0af6cbc8ddd8c8b7b080fdc56919a32228e6419)。
-
-- **加入系统设计与发布流程说明，让读者了解评分、建议和预测的设计依据。** 记录系统目标、架构和已知限制，补充更新记录及测试步骤，并建立初始版本历史文档。 相关提交：[1eb0a78](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/1eb0a788c36553a8f384a5e51e71db57d67d28bc)、[f2e97ac](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/f2e97acbffd2a77517bbab160680a7b988e7d0a6)、[35d5750](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/35d575042032cd7460471c0803b39ba06d5d9b5a)。
-
-- **提供静态 HTML 部署指南和测试评估报告，让用户能够找到运行方法与检查记录。** 说明部署方式，并记录自动化测试结果、样例数据评估及人工检查清单。 相关提交：[9f7a986](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9f7a9862c91a1d523ae24b25b1edd4c2eadb6fee)、[e7d09f1](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/e7d09f131816067402407846736093fd7120f860)。
-
-**版本名称说明：** 历史消息中分别出现过“version 1.0.0”和“v0.3.1”。本文件保留当时的名称，不据此推断统一的版本顺序或 Git 标签。
-
-### 历史版本说明原文
-
-以下保留旧版 Commit History.md 中的版本功能说明。它们是当时写入文档的描述，来源链接固定到对应提交，便于追溯；功能和测试表述按原文保留，本次未重新验证。完整历史文档可通过各来源链接查看。
-
-#### v0.3.1 — 2026-11-01
-
-来源：[Commit History.md · 86cf00d](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/blob/86cf00dafb5bf21d098584ec2e0692e5f49cff46/Commit%20History.md)，原文“四、版本节点”中的 0.3.1 小节。
-
-> 当前发布版本，中英双语文档。
-> 
-> - 支持 CSV、Excel、PDF 账单导入，「我的报告」可多份追加、随时管理导入记录与备份
-> - 首页内置虚构示例（星辰AI应用工作室），点击「再来一个」随机切换，无需安装或注册
-> - 报告时间范围支持「全部月份」与最近 12 / 6 / 3 / 1 个月，自动跳过缺月
-> - 新增 `templates/` 财务模板，降低数据准备与导入门槛
-> - 本地处理组件：账单直接在浏览器端转为报告，数据不上传
-> - 提供 `youshu-github-v0.3.1-bilingual.zip` 分发包，解压后打开 `index.html` 即可使用
-
-#### 1.0.0 — 2026-09-22
-
-来源：[首次提交的 Commit History.md · 35d5750](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/blob/35d575042032cd7460471c0803b39ba06d5d9b5a/Commit%20History.md)。
-
-> 首个公开版本。
-> 
-> - 七个页面：财务总览、收入分析、现金流、应收账款、财务报表、分析建议、数据管理
-> - 五维健康评分与规则式风险预警
-> - 未来 6 个月现金沙盘推演（收入、回款、弹性支出三个滑块）
-> - CSV 导入与数据质量检查
-> - 计算引擎自动化测试 14 项，全部通过
-
----
+[English](#english) · [Original commits](#original-commit-messages) · [中文摘要](#中文) · [历史版本说明原文](#历史版本说明原文)
 
 ## English
 
@@ -179,7 +76,7 @@ The summaries are based on commit messages, with file lists checked for generic 
 
 ### Historical version notes — reference translation
 
-The notes below translate the Chinese source excerpts retained above. They describe what the earlier history documents stated; they are not newly verified feature or test results. Each source link opens the complete file at its historical commit.
+The notes below translate the original Chinese source excerpts in the [Chinese section](#历史版本说明原文). They describe what the earlier history documents stated; they are not newly verified feature or test results. Each source link opens the complete file at its historical commit.
 
 #### v0.3.1 — 2026-11-01
 
@@ -737,3 +634,106 @@ The following 66 records preserve the complete original messages, including thei
 > Revise Commit History for clarity and updates
 > 
 > Updated commit history document to reflect changes and enhancements made in the project, including version details and submission summaries.
+
+---
+
+## 中文
+
+本文件保留有数仓库 **66 次提交时写下的原始标题和完整正文**，包括当时说明的更改动作、用户收益、验证结果和待完成事项；另保留旧版历史文档中的版本功能说明。
+
+- 仓库：[MirandaZhao/OPC-Auto-Finance-Report](https://github.com/MirandaZhao/OPC-Auto-Finance-Report)；分支：`main`。
+- 覆盖期间：**2026 年 9 月 22 日—2026 年 11 月 1 日**。日期按北京时间计算，仅显示年月日。
+- 截止提交：[86cf00d](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/86cf00dafb5bf21d098584ec2e0692e5f49cff46)，2026 年 11 月 1 日。此后新增的提交不在本次范围内。
+- 原始记录：[跳转到 66 条完整提交](#original-commit-messages)。按最早到最近排列，逐条展开，保留日期、提交哈希和变更链接。
+- 更新摘要：本文件的中英文摘要按最近到最早归纳五个阶段，供快速浏览。
+
+**整理说明：** 阶段摘要是本次后续整理；标为“原文”的内容保留当时的表述和拼写。英文提交记录仅统一换行格式，未润色或删减标题和正文。每条记录都可通过链接回到 GitHub 核对。
+
+摘要以提交消息为依据；对笼统的文件上传消息，补充核对了文件清单。文档修订与软件更新分别表述；测试结果按原记录归属到当时的版本，本次整理未重新运行软件测试。
+
+### 2026-11-01｜发布 v0.3.1 并完善上手体验
+
+共 29 条提交。
+
+- **更新报告看板，让用户既能浏览示例，也能创建自己的财务报告。** 替换原有入口文件并上传新版看板。 相关提交：[7933c62](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/7933c62227ea127fcbdfba0bbf4888b7777aac08)。
+
+- **加入本地处理组件和财务模板，让用户更容易把账单整理成报告。** 补齐账单处理所需的组件，并提供准备导入数据的模板。 相关提交：[8bbdf22](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/8bbdf22f2771c412a2128b54eb4c0dcb35c3522c)、[960dffd](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/960dffd9d8ec72ce74b813888ed121c2ac83a75c)。
+
+- **发布有数 v0.3.1 压缩包，让用户一次下载账单导入、财务报告及双语使用资料。** 这一组提交包含压缩包的上传、删除和重新发布。 相关提交：[002a54a](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/002a54aa76833e56f4d71fdee9cea6f19f0ef711)。
+
+- **整理部署、评估、工作流和提交历史说明，让用户更容易找到使用方法与验证范围。** 统一 WORKFLOW.md、EVALUATION.md 文件名，更新数据处理指引，并清理或替换部分旧文档、模板及目录占位文件。 相关提交：[dd65c1c](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/dd65c1c01319dcb398e60bab872327c6e78e78c2)、[c9adf3e](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/c9adf3e56298214e4be698ebc7816e9649400505)、[86cf00d](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/86cf00dafb5bf21d098584ec2e0692e5f49cff46)。
+
+- **完善 README 介绍、下载链接和截图，让用户更快理解软件并开始体验。** 更新版本与功能说明，调整文字和配图，并在最新修订中补充两张截图。 相关提交：[9147e9b](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9147e9b2fb2c2fe271c7e1bb684e62fda66102cb)、[bd4dd64](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/bd4dd64262d0d151477ae9119ba78de7be06ae30)。
+
+### 2026-10-26｜明确验证范围与部署步骤
+
+共 2 条提交。
+
+- **用 28 项检查报告区分已验证结果和未测试部分，让用户能够判断报告的验证范围。** 记录现金历史、现金与权责发生制之间的核对、财务报表、预测边界、120 种明细类型、CSV 输出和交互等检查内容；提交消息说明检查已在本地 Node.js 23/24 运行，提供的 Node.js 22/24 Actions 矩阵尚未执行。 相关提交：[ce79a3c](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/ce79a3cebc6fe61d953e4b9b3534fb7f7c6be7c8)。
+
+- **将本机预览和 GitHub Pages 发布写成逐步指南，让项目使用者知道每一步该打开什么、看到什么。** 以中英双语说明本机预览、仓库状态、托管设置和发布记录。 相关提交：[0f9a83b](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/0f9a83b478ba161e0f7b24484fbe0f46d37978df)。
+
+### 2026-10-22—2026-10-23｜完善 OPC AI 原型的双语说明
+
+共 4 条提交。
+
+- **解释现金结余、净利润、净利率和现金可支撑时间，让用户读懂示例中的财务数字。** 完善中文在前、英文在后的概览，说明合成数据、预测假设和验证边界，并区分已发布的制造业示例与当时仍待上传的 OPC AI 应用材料。 相关提交：[ac54bb9](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/ac54bb909fe8f073b07f4f23bcae44bffe4057c3)、[097e045](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/097e045d1bb179d0ac885dc9144f4816c10bf6ad)、[8e20169](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/8e2016934daff5ee692a4073a97829958ec0a25d)。
+
+- **补齐预览、部署和发布记录的文档入口，让用户按现有材料找到操作步骤。** 这些提交仅发布说明文档；相关应用和配套材料当时仍待上传，部署指南也不代表已经完成托管发布。 相关提交：[9deb102](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9deb102d235f43c7dc07dfa80e232dc2729d1892)。
+
+### 2026-09-28—2026-10-10｜细化计算说明、测试记录与使用流程
+
+共 16 条提交。
+
+- **补充财务指标、评分规则和阈值说明，让用户理解数字背后的计算口径。** 设计文档进一步解释系统结构、数据模型、计算规则和行业适配方式。 相关提交：[09859b8](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/09859b8cc8f9640cf39c32eae898ca581cd38a63)、[fe19175](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/fe19175406ee3b3392afaf6a08fd438c82c07eda)。
+
+- **充实测试结果、复现步骤和限制说明，让用户清楚哪些内容经过检查。** 评估文档覆盖现金流核对、CSV 导入和评分等内容，并记录未验证事项与改进建议。 相关提交：[75d2030](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/75d2030ced6a23e65e11af2ca68ac49b3f76ae0d)、[3bd7554](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/3bd75549318c839c7be5e71380ee1df589f472ce)。
+
+- **细化静态托管和 GitHub Pages 部署指引，让用户更容易选择并配置运行方式。** 补充环境设置、数据处理、自定义域名和使用提示。 相关提交：[15d7b57](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/15d7b57d788ba1a4b6f3012e2b5899f56b1944c8)、[556c430](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/556c430aec2365da6968366637e88d808d4d115b)。
+
+- **完善功能、指标和使用限制的介绍，让用户使用前了解项目的用途与边界。** 在 README 中补充设计解释、进阶功能说明和贡献指引。 相关提交：[2ab3fa4](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/2ab3fa470f41e79d0d54f880b306952d6802ea44)、[82f7a4a](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/82f7a4aabe9e17281389cea0cebd39ded4bd546c)。
+
+- **整理导入和发布工作流，让数据准备及版本更新的步骤更容易跟随。** 调整文档结构，并明确变更记录、开发检查和发布测试步骤。 相关提交：[e07ea6c](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/e07ea6ce6f7f0a7f2d6f95e42b739b272aad20a7)。
+
+### 2026-09-22｜建立项目、示例报告与基础文档
+
+共 15 条提交。
+
+- **建立仓库并上传示例财务报告和 CSV 模板，让用户有可查看的报告与数据准备参考。** 对应初始仓库、index.html 示例页面和 docs/template.csv。 相关提交：[cf3aa8d](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/cf3aa8d01f22d851d3dcc7d684f20194d7bb1f6a)、[21d2830](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/21d2830225e98a7d97a84d32e9a99802902e8f3f)。
+
+- **完善项目概览、许可和现金流解释，让用户快速了解项目用途与文件结构。** 修订 README 的测试说明和功能描述，并移除其中的 Chart.js 引用。 相关提交：[7034f10](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/7034f108f3862fce7c57fffbc8d0398de1a87e60)、[d0af6cb](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/d0af6cbc8ddd8c8b7b080fdc56919a32228e6419)。
+
+- **加入系统设计与发布流程说明，让读者了解评分、建议和预测的设计依据。** 记录系统目标、架构和已知限制，补充更新记录及测试步骤，并建立初始版本历史文档。 相关提交：[1eb0a78](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/1eb0a788c36553a8f384a5e51e71db57d67d28bc)、[f2e97ac](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/f2e97acbffd2a77517bbab160680a7b988e7d0a6)、[35d5750](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/35d575042032cd7460471c0803b39ba06d5d9b5a)。
+
+- **提供静态 HTML 部署指南和测试评估报告，让用户能够找到运行方法与检查记录。** 说明部署方式，并记录自动化测试结果、样例数据评估及人工检查清单。 相关提交：[9f7a986](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9f7a9862c91a1d523ae24b25b1edd4c2eadb6fee)、[e7d09f1](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/e7d09f131816067402407846736093fd7120f860)。
+
+**版本名称说明：** 历史消息中分别出现过“version 1.0.0”和“v0.3.1”。本文件保留当时的名称，不据此推断统一的版本顺序或 Git 标签。
+
+### 历史版本说明原文
+
+以下保留旧版 Commit History.md 中的版本功能说明。它们是当时写入文档的描述，来源链接固定到对应提交，便于追溯；功能和测试表述按原文保留，本次未重新验证。完整历史文档可通过各来源链接查看。
+
+#### v0.3.1 — 2026-11-01
+
+来源：[Commit History.md · 86cf00d](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/blob/86cf00dafb5bf21d098584ec2e0692e5f49cff46/Commit%20History.md)，原文“四、版本节点”中的 0.3.1 小节。
+
+> 当前发布版本，中英双语文档。
+> 
+> - 支持 CSV、Excel、PDF 账单导入，「我的报告」可多份追加、随时管理导入记录与备份
+> - 首页内置虚构示例（星辰AI应用工作室），点击「再来一个」随机切换，无需安装或注册
+> - 报告时间范围支持「全部月份」与最近 12 / 6 / 3 / 1 个月，自动跳过缺月
+> - 新增 `templates/` 财务模板，降低数据准备与导入门槛
+> - 本地处理组件：账单直接在浏览器端转为报告，数据不上传
+> - 提供 `youshu-github-v0.3.1-bilingual.zip` 分发包，解压后打开 `index.html` 即可使用
+
+#### 1.0.0 — 2026-09-22
+
+来源：[首次提交的 Commit History.md · 35d5750](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/blob/35d575042032cd7460471c0803b39ba06d5d9b5a/Commit%20History.md)。
+
+> 首个公开版本。
+> 
+> - 七个页面：财务总览、收入分析、现金流、应收账款、财务报表、分析建议、数据管理
+> - 五维健康评分与规则式风险预警
+> - 未来 6 个月现金沙盘推演（收入、回款、弹性支出三个滑块）
+> - CSV 导入与数据质量检查
+> - 计算引擎自动化测试 14 项，全部通过
