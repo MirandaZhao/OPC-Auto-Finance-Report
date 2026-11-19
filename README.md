@@ -4,13 +4,13 @@
 
 **Turn your WeChat, Alipay, and bank statements into a personalized financial report. Youshu makes professional financial reports easy to read for small businesses and solo founders.**
 
-v0.3.1 · No account required · Statements processed locally · Chinese interface (CNY)
+v0.3.1 · No account required · Statements processed locally · English and Chinese interface (CNY)
 
 ![A fictional studio received CNY 120,000 and paid CNY 72,000 in a month, leaving an operating cash surplus of CNY 48,000.](docs/media/en/cover.png)
 
 ## Explore a business before adding statements
 
-The two buttons at the top right take you to **随机体验 (Explore examples)** and **我的报告 (My report)**. In the examples, click **再来一个 (Another one)** to switch businesses. An AI studio earns money building software agents and pays for model API calls. Friday Flowers sells bouquets and buys flowers and supplies. The report changes with the business.
+Select **English** at the top right to switch from Chinese to English, or **Chinese** to switch back. The two report views are **Explore examples** and **My report**. In the examples, click **Another example** to switch businesses. An AI studio earns money building software agents and pays for model API calls. Friday Flowers sells bouquets and buys flowers and supplies. The report changes with the business.
 
 ![Random report illustration comparing an AI studio, Friday Flowers, and a study-abroad consultancy with different income sources and costs.](docs/media/en/random-reports.gif)
 
@@ -34,11 +34,11 @@ Move the **客户付款 (Customer payment timing)** slider to see how the timing
 
 ## Open your first report
 
-**[Download Youshu v0.3.1][download]** · ZIP, about 9 MB
+**[Download Youshu v0.3.1][download]** · ZIP, about 13 MB
 
 1. **Download** `youshu-github-v0.3.1-bilingual.zip` to your computer using the link above.
 2. **Extract the entire ZIP.** Double-click it on macOS or right-click and choose **Extract All** on Windows. Open the extracted `youshu-github-v0.3.1` folder and keep `assets/` and `templates/` alongside `index.html`.
-3. **Double-click `index.html`.** Your browser opens the fictional report for Xingchen AI Applications Studio (星辰AI应用工作室). Select **再来一个 (Another one)** to explore a different sample company at random. To start your own report, select **我的报告 (My report)** at the top right and add your statements.
+3. **Double-click `index.html`.** Your browser opens the fictional report for Xingchen AI Applications Studio (星辰AI应用工作室). Select **Another example** to explore a different sample company at random. To start your own report, select **我的报告 (My report)** at the top right and add your statements.
 
 ![Getting started illustration showing the ZIP download, extraction, opening index.html, and the fictional studio report appearing in the browser.](docs/media/en/get-started.gif)
 
@@ -60,13 +60,13 @@ Maintained by Yuchen Zhao. [MIT License](LICENSE) · [Third-party notices](asset
 
 **把微信、支付宝和银行账单，变成个性化财务报告。专业还能看得懂！小微企业及OPC个人最佳搭子！**
 
-v0.3.1　·　无需注册　·　账单在本机处理　·　中文界面（人民币）
+v0.3.1　·　无需注册　·　账单在本机处理　·　中英文双语界面（人民币）
 
 ![有数示例报告，星辰AI应用工作室当月经营收款 12 万元、付款 7.2 万元，经营结余 4.8 万元。](docs/media/zh/cover.png)
 
 ## 手边没有账单，也能先试
 
-首页右上角有两个入口。**「随机体验」** 可以直接看虚构公司的经营情况，**「我的报告」** 用来导入自己的账单。点一下「再来一个」，就会换一家虚构公司。AI 工作室靠智能体开发收款，成本里有模型 API 调用费。「周五花铺」靠花束销售收款，主要支出则是鲜花与礼品材料。
+在首页右上角点 **English** 切换到英文，点 **Chinese** 切回中文。首页有两个报告入口。**「随机体验」** 可以直接看虚构公司的经营情况，**「我的报告」** 用来导入自己的账单。点一下「再来一个」，就会换一家虚构公司。AI 工作室靠智能体开发收款，成本里有模型 API 调用费。「周五花铺」靠花束销售收款，主要支出则是鲜花与礼品材料。
 
 ![随机体验功能示意：依次查看 AI 工作室、周五花铺和留学咨询工作室的收支及主要业务项目。](docs/media/zh/random-reports.gif)
 
@@ -90,7 +90,7 @@ v0.3.1　·　无需注册　·　账单在本机处理　·　中文界面（�
 
 ## 下载后怎么打开？
 
-**[下载有数 v0.3.1][download]**　·　ZIP 约 9 MB
+**[下载有数 v0.3.1][download]**　·　ZIP 约 13 MB
 
 1. **下载。** 点击上方下载链接，把 `youshu-github-v0.3.1-bilingual.zip` 保存到电脑。
 2. **解压。** 在 Mac 上双击 ZIP，在 Windows 上右键选择「全部解压缩」（Extract All）。打开解压后的 `youshu-github-v0.3.1` 文件夹，保留 `index.html`、`assets/` 和 `templates/` 的相对位置。

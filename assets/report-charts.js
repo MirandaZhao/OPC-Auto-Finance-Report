@@ -121,6 +121,11 @@ function donutLines(value,width,size=12,maxLines=Infinity){
   shortened[shortened.length-1]=tail+'…';return shortened;
 }
 function donut(container,parts,selected,onSelect,options={}){
+  const own=!!container.closest('.rt-own');
+  const sourceName=own?{'data-i18n-raw':''}:{};
+  const english=global.YoushuI18n?.language==='en';
+  const labelFor=(name,field)=>own?(global.YoushuI18n?.sourceLabel(name,field)??name):(global.YoushuI18n?.text(name,true)??name);
+  const formatted=value=>global.YoushuI18n?.text(money(value))??money(value);
   const markPart=(element,part)=>{element.setAttribute('data-chart-part',String(part.key??part.id??''));element.setAttribute('data-chart-kind',container.dataset?.kind||'income');};
   parts=(Array.isArray(parts)?parts:[]).filter(p=>finite(p.amount)&&Number(p.amount)!==0);
   const measured=container.getBoundingClientRect?.().width||container.clientWidth||520,w=Math.max(180,Math.round(measured));
@@ -129,13 +134,16 @@ function donut(container,parts,selected,onSelect,options={}){
   const key=(p,i)=>p.key??p.id??String(i);
   if(selected===undefined)selected=parts.length?key(parts[0],0):null;
   let angle=-Math.PI/2;
-  const data=parts.map((p,index)=>{const span=signed?0:Number(p.amount)/total*Math.PI*2,result={...p,key:key(p,index),source:p,index,start:angle,end:angle+span,mid:angle+span/2,color:colors[index%colors.length]};angle+=span;return result;});
+  const data=parts.map((p,index)=>{const span=signed?0:Number(p.amount)/total*Math.PI*2,result={...p,name:labelFor(p.name,p.labelField),key:key(p,index),source:p,index,start:angle,end:angle+span,mid:angle+span/2,color:colors[index%colors.length]};angle+=span;return result;});
   const select=onSelect?p=>onSelect(p.source):null;
+  const describe=p=>english
+    ? p.name+', '+formatted(p.amount)+(signed?'':', share '+percent(p.amount/total))
+    : p.name+'，'+formatted(p.amount)+(signed?'':'，占比 '+percent(p.amount/total));
   const pad=12,gutter=18,minRadius=88;
   const maxColumn=(w-2*pad-2*gutter-2*minRadius)/2;
-  const desiredColumn=Math.max(100,...data.map(p=>Math.max(donutTextWidth(money(p.amount)+' · '+percent(p.amount/total),11)+12,Math.min(160,donutTextWidth(p.name,12)/2+12))));
+  const desiredColumn=Math.max(100,...data.map(p=>Math.max(donutTextWidth(formatted(p.amount)+' · '+percent(p.amount/total),11)+12,Math.min(160,donutTextWidth(p.name,12)/2+12))));
   const labelWidth=Math.min(168,Math.floor(maxColumn),Math.ceil(desiredColumn));
-  const labelInfo=data.map(p=>({...p,lines:donutLines(p.name,Math.max(1,labelWidth-12)),values:money(p.amount)+' · '+percent(p.amount/total)}));
+  const labelInfo=data.map(p=>({...p,lines:donutLines(p.name,Math.max(1,labelWidth-12)),values:formatted(p.amount)+' · '+percent(p.amount/total)}));
   const callouts=!signed&&!dense&&w>=440&&labelWidth>=100&&labelInfo.every(p=>p.lines.length<=3&&donutTextWidth(p.values,11)<=labelWidth-12);
   const r=callouts?Math.min(110,(w-2*pad-2*gutter-2*labelWidth)/2):Math.min(96,(w-24)/2),inner=r*.72;
   const sides=[-1,1].map(side=>labelInfo.filter(p=>(Math.cos(p.mid)<0?-1:1)===side).sort((a,b)=>Math.sin(a.mid)-Math.sin(b.mid)));
@@ -151,19 +159,22 @@ function donut(container,parts,selected,onSelect,options={}){
     data.forEach(p=>{
       if(p.key===selected)add(s,'path',{d:ringPath(cx,cy,r+7,r+3,p.start,p.end),fill:p.color,opacity:.3,'pointer-events':'none'});
       const shape=add(s,'path',{d:ringPath(cx,cy,r,inner,p.start,p.end),fill:p.color,stroke:'#fff','stroke-width':2,'aria-pressed':String(p.key===selected)});
-      const label=`${p.name}，${money(p.amount)}，占比 ${percent(p.amount/total)}`;tip(shape,label);markPart(shape,p);
+      const label=describe(p);if(own)shape.setAttribute('data-i18n-raw','');tip(shape,label);markPart(shape,p);
       if(dense&&select){shape.setAttribute('class','cursor-interaction');shape.setAttribute('aria-label',label);shape.addEventListener('click',()=>select(p));}
       else clickable(shape,select,p,label);
     });
-    const active=data.find(p=>p.key===selected),name=active?.name||options.label||'本项合计',amount=money(active?.amount??total),rate=active?percent(active.amount/total):'100%';
+    const active=data.find(p=>p.key===selected);
+    const centerLabel=options.label||'本项合计';
+    const name=active?.name||(options.sourceLabel?labelFor(centerLabel,options.labelField):(global.YoushuI18n?.text(centerLabel,!own)??centerLabel));
+    const amount=formatted(active?.amount??total),rate=active?percent(active.amount/total):'100%';
     // An inscribed square leaves every center line clear of the inner arc,
     // including the currency row at its widest and longest possible value.
     const box=inner*Math.SQRT2*.96,nameSize=11.5,amountSize=11,rateSize=Math.min(27,box/donutTextWidth(rate,27)*27);
     const names=donutLines(name,box,nameSize,2),amountLines=donutLines(amount,box,amountSize),nameHeight=names.length*14,amountHeight=amountLines.length*13;
     const contentHeight=nameHeight+5+rateSize+5+amountHeight,scale=Math.min(1,box/contentHeight),top=cy-contentHeight*scale/2;
-    const center=add(s,'g',{'data-donut-center':'true','data-center-x':cx-box/2,'data-center-y':cy-box/2,'data-center-size':box,'aria-label':`${name}，${rate}，${amount}`});tip(center,`${name} ${amount} · ${rate}`);
+    const center=add(s,'g',{'data-donut-center':'true','data-center-x':cx-box/2,'data-center-y':cy-box/2,'data-center-size':box,...sourceName,'aria-label':[name,rate,amount].join(english?', ':'，')});tip(center,`${name} ${amount} · ${rate}`);
     let baseline=top+11.5*scale;
-    names.forEach(line=>{text(center,cx,baseline,line,{'text-anchor':'middle',fill:C.ink,'font-size':nameSize*scale,'data-center-line':'name'});baseline+=14*scale;});
+    names.forEach(line=>{text(center,cx,baseline,line,{'text-anchor':'middle',fill:C.ink,'font-size':nameSize*scale,'data-center-line':'name',...(active?sourceName:{})});baseline+=14*scale;});
     baseline=top+(nameHeight+5+rateSize*.82)*scale;
     text(center,cx,baseline,rate,{'text-anchor':'middle',fill:C.ink,'font-size':rateSize*scale,'font-weight':500,'data-center-line':'percent'});
     baseline=top+(nameHeight+5+rateSize+5+10.5)*scale;
@@ -181,12 +192,12 @@ function donut(container,parts,selected,onSelect,options={}){
       rows.forEach((p,index)=>{
         const x=side<0?pad:w-pad-labelWidth,y=positions[index],start=polar(cx,cy,r+3,p.mid),edge=side<0?x+labelWidth:x,elbow=cx+side*(r+10),targetY=y+p.labelHeight/2;
         add(leaders,'path',{d:`M ${start} L ${elbow} ${targetY} L ${edge} ${targetY}`,fill:'none',stroke:'#aebdb1','stroke-width':.8});
-        const group=add(s,'g',{'data-donut-label':p.key,'data-label-x':x,'data-label-y':y,'data-label-width':labelWidth,'data-label-height':p.labelHeight,'aria-pressed':String(p.key===selected)});
+        const group=add(s,'g',{'data-donut-label':p.key,...sourceName,'data-label-x':x,'data-label-y':y,'data-label-width':labelWidth,'data-label-height':p.labelHeight,'aria-pressed':String(p.key===selected)});
         add(group,'rect',{x,y,width:labelWidth,height:p.labelHeight,rx:5,fill:p.key===selected?(cost?'#f0edf5':'#edf3ea'):'#fff','fill-opacity':p.key===selected?1:.94});
         const tx=side<0?x+6:x+labelWidth-6,anchor=side<0?'start':'end';
-        p.lines.forEach((line,i)=>text(group,tx,y+14+i*15,line,{'text-anchor':anchor,fill:C.ink,'font-size':12}));
+        p.lines.forEach((line,i)=>text(group,tx,y+14+i*15,line,{'text-anchor':anchor,fill:C.ink,'font-size':12,...sourceName}));
         text(group,tx,y+p.lines.length*15+14,p.values,{'text-anchor':anchor,'font-size':11});
-        const label=`${p.name} ${money(p.amount)} ${percent(p.amount/total)}`;tip(group,label);markPart(group,p);clickable(group,select,p,label);
+        const label=`${p.name} ${formatted(p.amount)} ${percent(p.amount/total)}`;tip(group,label);markPart(group,p);clickable(group,select,p,label);
       });
     }
   }
@@ -196,17 +207,18 @@ function donut(container,parts,selected,onSelect,options={}){
     function html(tag,attrs,content){const element=document.createElement(tag);for(const [k,v]of Object.entries(attrs||{}))element.setAttribute(k,v);if(content!==undefined)element.textContent=content;return element;}
     const legend=html('div',{class:'rt-composition-pages'+(dense?' rt-composition-paginated':'')}),screen=html('div',{class:'rt-composition-screen'}),list=html('div',{class:'rt-composition-list'}),footer=html('div',{class:'rt-composition-footer'});
     legend.appendChild(screen);screen.appendChild(list);screen.appendChild(footer);container.appendChild(legend);
-    const stacked=w<360||data.some(p=>donutTextWidth(money(p.amount)+(signed?'':' · '+percent(p.amount/total)),12)>w*.52);
+    const stacked=w<360||data.some(p=>donutTextWidth(formatted(p.amount)+(signed?'':' · '+percent(p.amount/total)),12)>w*.52);
     function legendRow(p,interactive=true){
-      const label=`${p.name}，${money(p.amount)}${signed?'':'，占比 '+percent(p.amount/total)}`;
-      const row=html(interactive?'button':'div',{...(interactive?{type:'button','aria-pressed':String(p.key===selected)}:{}),class:'rt-composition-item'+(stacked?' rt-composition-stacked':''),'aria-label':label});
+      const label=describe(p);
+      const row=html(interactive?'button':'div',{...(interactive?{type:'button','aria-pressed':String(p.key===selected)}:{}),...sourceName,class:'rt-composition-item'+(stacked?' rt-composition-stacked':''),'aria-label':label});
       const name=html('span',{class:'rt-composition-name'}),swatch=html('span',{'aria-hidden':'true',class:'rt-composition-swatch',style:'background:'+p.color});
-      name.appendChild(swatch);name.appendChild(html('span',{},p.name));row.appendChild(name);
-      const values=html('span',{class:'rt-composition-values'});values.appendChild(html('span',{class:'rt-composition-money'},money(p.amount)));if(!signed)values.appendChild(html('span',{class:'rt-composition-share'},percent(p.amount/total)));row.appendChild(values);
+      name.appendChild(swatch);name.appendChild(html('span',sourceName,p.name));row.appendChild(name);
+      const values=html('span',{class:'rt-composition-values'});values.appendChild(html('span',{class:'rt-composition-money'},formatted(p.amount)));if(!signed)values.appendChild(html('span',{class:'rt-composition-share'},percent(p.amount/total)));row.appendChild(values);
       if(interactive){markPart(row,p);clickable(row,select,p,label);}return row;
     }
-    const pageSize=dense?6:data.length,totalPages=Math.ceil(data.length/pageSize);let page=Math.floor(Math.max(0,data.findIndex(p=>p.key===selected))/pageSize);
+    const pageSize=dense?6:data.length,totalPages=Math.ceil(data.length/pageSize);let page=Math.min(totalPages-1,Number(container.dataset.compositionPage)||Math.floor(Math.max(0,data.findIndex(p=>p.key===selected))/pageSize));
     function drawPage(){
+      container.dataset.compositionPage=String(page);
       list.replaceChildren();footer.replaceChildren();data.slice(page*pageSize,(page+1)*pageSize).forEach(p=>list.appendChild(legendRow(p)));
       if(totalPages<2)return;
       footer.appendChild(html('span',{},`第 ${page+1} / ${totalPages} 页 · 共 ${data.length} 项`));const actions=html('span',{class:'rt-composition-page-actions'});
@@ -215,7 +227,8 @@ function donut(container,parts,selected,onSelect,options={}){
     drawPage();
     if(dense){const print=html('div',{class:'rt-composition-print',style:'display:none'});data.forEach(p=>print.appendChild(legendRow(p,false)));legend.appendChild(print);}
   }
-  s.setAttribute('aria-label',`总额 ${money(total)}。`+parts.map(p=>`${p.name} ${money(p.amount)}${signed?'':' 占比 '+percent(p.amount/total)}`).join('；'));
+  s.setAttribute('aria-label',(english?'Total: ':'总额 ')+formatted(total)+(english?'. ':'。')+data.map(describe).join(english?'; ':'；'));
+  s.setAttribute('data-i18n-formatted-aria','');
   return s;
 }
 function forecast(container,history,prediction,safety,onPoint,options={}){
@@ -247,7 +260,13 @@ function forecast(container,history,prediction,safety,onPoint,options={}){
   const last=prediction.at(-1);if(last&&finite(last.value))text(s,w-box.right,Math.max(box.top+14,Math.min(h-box.bottom-8,y(Number(last.value))-12)),money(last.value),{'text-anchor':'end',fill:C.forecast,'font-size':12,'font-weight':600,'data-forecast-ending':last.value});
   const step=Math.max(1,Math.ceil(rows.length/(w<450?4:7)));rows.forEach((r,i)=>{if(i%step===0||i===rows.length-1)text(s,x(i),h-(focused?29:15),r.opening?'期初':shortMonth(r.month),{'text-anchor':i===0?'start':i===rows.length-1?'end':'middle'});});
   text(s,box.left,18,'万元');
-  s.setAttribute('aria-label',rows.map((r,i)=>`${r.date||month(r.month)} ${i<history.length?(r.estimated?'历史推算':'历史'):'预测'}${valueLabel} ${finite(r.value)?money(r.value):'待补充'}`).join('；'));
+  const english=global.YoushuI18n?.language==='en';
+  s.setAttribute('aria-label',rows.map((r,i)=>{
+    const period=i<history.length?(r.estimated?'历史推算':'历史'):'预测';
+    if(!english)return `${r.date||month(r.month)} ${period}${valueLabel} ${finite(r.value)?money(r.value):'待补充'}`;
+    const basis=i<history.length?(r.estimated?'Estimated historical':'Historical'):'Projected';
+    return `${r.date||month(r.month)}: ${basis} ${global.YoushuI18n.text(valueLabel)} · ${global.YoushuI18n.text(finite(r.value)?money(r.value):'待补充')}`;
+  }).join(english?'; ':'；'));
   return s;
 }
 function receivables(container,rows,onGroup,options={}){
@@ -284,7 +303,11 @@ function receivables(container,rows,onGroup,options={}){
     }
   });
   text(s,box.left,34,'万元');
-  s.setAttribute('aria-label',groups.map(g=>`${g.month}：已收 ${money(g.received)}，未到期 ${money(g.pending)}，逾期 ${money(g.late)}`).join('；'));
+  const english=global.YoushuI18n?.language==='en';
+  const format=v=>global.YoushuI18n?.text(money(v))??money(v);
+  s.setAttribute('aria-label',groups.map(g=>english
+    ? `${g.month}: received ${format(g.received)}, not yet due ${format(g.pending)}, overdue ${format(g.late)}`
+    : `${g.month}：已收 ${money(g.received)}，未到期 ${money(g.pending)}，逾期 ${money(g.late)}`).join(english?'; ':'；'));
   return s;
 }
 function allocation(container,incomeGroups,costGroups,onSelect,options={}){
@@ -307,25 +330,29 @@ function allocation(container,incomeGroups,costGroups,onSelect,options={}){
   const total=left.reduce((sum,r)=>sum+r.amount,0),cw=container.getBoundingClientRect?.().width||container.clientWidth||800;
   const compact=cw<560,count=Math.max(left.length,right.length,1),height=compact?130+(left.length+right.length)*46:Math.max(340,count*40+140),{s,w,h}=svg(container,height,'收入到支出及现金结余的资金流向');
   if(!total){text(s,w/2,150,'暂无现金收支数据',{'text-anchor':'middle'});return s;}
+  const own=!!container.closest('.rt-own');
+  const rawLabel=r=>own&&(r.kind==='income'||r.kind==='cost')&&!r.members;
+  const labelFor=r=>rawLabel(r)?(global.YoushuI18n?.sourceLabel(r.name,r.labelField)??r.name):(global.YoushuI18n?.text(r.name,!own)??r.name);
+  const describe=r=>labelFor(r)+' '+(global.YoushuI18n?.text(money(r.amount))??money(r.amount));
   const color=r=>r.kind==='shortfall'?C.red:r.kind==='surplus'?C.green:r.kind==='income'?C.green:C.purple;
   if(compact){
     let y=28;
     for(const [title,list] of [['资金来源',left],['资金去向',right]]){
       text(s,12,y,title,{fill:C.ink,'font-size':13});y+=26;
-      list.forEach(r=>{const g=add(s,'g',{});text(g,12,y,r.name,{fill:C.ink});text(g,w-12,y,money(r.amount),{'text-anchor':'end'});add(g,'rect',{x:12,y:y+8,width:w-24,height:5,rx:2,fill:'#eef2eb'});add(g,'rect',{x:12,y:y+8,width:(w-24)*r.amount/total,height:5,rx:2,fill:color(r)});clickable(g,onSelect,r,`${r.name} ${money(r.amount)}`);y+=46;});y+=15;
+      list.forEach(r=>{const g=add(s,'g',{});text(g,12,y,labelFor(r),{fill:C.ink,'data-i18n-raw':rawLabel(r)?'':null});text(g,w-12,y,money(r.amount),{'text-anchor':'end'});add(g,'rect',{x:12,y:y+8,width:w-24,height:5,rx:2,fill:'#eef2eb'});add(g,'rect',{x:12,y:y+8,width:(w-24)*r.amount/total,height:5,rx:2,fill:color(r)});clickable(g,onSelect,r,describe(r));y+=46;});y+=15;
     }
     s.setAttribute('height',y+5);s.setAttribute('viewBox',`0 0 ${w} ${y+5}`);
   }else{
     const xL=132,xR=w-132,xC=w/2,nodeW=8,gap=32,flowHeight=h-55-(count-1)*gap,centerY=(h-flowHeight)/2,scale=flowHeight/total;
     const arrange=list=>{let value=0;return list.map((r,i)=>{const item={...r,y:27+value*scale+i*gap,height:r.amount*scale,center:centerY+value*scale};value+=r.amount;return item;});};
     const lhs=arrange(left),rhs=arrange(right);
-    lhs.forEach(r=>{const end=r.center+r.height,d=`M ${xL+nodeW} ${r.y} C ${xC-65} ${r.y} ${xC-65} ${r.center} ${xC} ${r.center} L ${xC} ${end} C ${xC-65} ${end} ${xC-65} ${r.y+r.height} ${xL+nodeW} ${r.y+r.height} Z`;const p=add(s,'path',{d,fill:color(r),opacity:.23});tip(p,r.name+' '+money(r.amount));clickable(p,onSelect,r,r.name+' '+money(r.amount));});
-    rhs.forEach(r=>{const end=r.center+r.height,d=`M ${xC+nodeW} ${r.center} C ${xC+65} ${r.center} ${xC+65} ${r.y} ${xR} ${r.y} L ${xR} ${r.y+r.height} C ${xC+65} ${r.y+r.height} ${xC+65} ${end} ${xC+nodeW} ${end} Z`;const p=add(s,'path',{d,fill:color(r),opacity:.25});tip(p,r.name+' '+money(r.amount));clickable(p,onSelect,r,r.name+' '+money(r.amount));});
+    lhs.forEach(r=>{const end=r.center+r.height,d=`M ${xL+nodeW} ${r.y} C ${xC-65} ${r.y} ${xC-65} ${r.center} ${xC} ${r.center} L ${xC} ${end} C ${xC-65} ${end} ${xC-65} ${r.y+r.height} ${xL+nodeW} ${r.y+r.height} Z`;const p=add(s,'path',{d,fill:color(r),opacity:.23});tip(p,describe(r));clickable(p,onSelect,r,describe(r));});
+    rhs.forEach(r=>{const end=r.center+r.height,d=`M ${xC+nodeW} ${r.center} C ${xC+65} ${r.center} ${xC+65} ${r.y} ${xR} ${r.y} L ${xR} ${r.y+r.height} C ${xC+65} ${r.y+r.height} ${xC+65} ${end} ${xC+nodeW} ${end} Z`;const p=add(s,'path',{d,fill:color(r),opacity:.25});tip(p,describe(r));clickable(p,onSelect,r,describe(r));});
     add(s,'rect',{x:xC,y:centerY,width:nodeW,height:flowHeight,rx:3,fill:C.blue});
     for(const [list,x,side] of [[lhs,xL,-1],[rhs,xR,1]])list.forEach(r=>{
       const g=add(s,'g',{});add(g,'rect',{x,y:r.y,width:nodeW,height:Math.max(1,r.height),rx:2,fill:color(r)});
-      const tx=side<0?x-9:x+nodeW+9,anchor=side<0?'end':'start',mid=r.y+r.height/2,label=splitLabel(r.name,9)[0];
-      text(g,tx,mid-3,label,{'text-anchor':anchor,fill:C.ink,'font-size':12});text(g,tx,mid+14,`${money(r.amount)} · ${percent(r.amount/total)}`,{'text-anchor':anchor,'font-size':11});tip(g,r.name+' '+money(r.amount));clickable(g,onSelect,r,r.name+' '+money(r.amount));
+      const tx=side<0?x-9:x+nodeW+9,anchor=side<0?'end':'start',mid=r.y+r.height/2,label=global.YoushuI18n?.language==='en'?donutLines(labelFor(r),114,12,1)[0]:splitLabel(r.name,9)[0];
+      text(g,tx,mid-3,label,{'text-anchor':anchor,fill:C.ink,'font-size':12,'data-i18n-raw':rawLabel(r)?'':null});text(g,tx,mid+14,`${money(r.amount)} · ${percent(r.amount/total)}`,{'text-anchor':anchor,'font-size':11});tip(g,describe(r));clickable(g,onSelect,r,describe(r));
     });
   }
   s.setAttribute('aria-label',`${labels.income} ${money(inTotal)}，${labels.cost} ${money(outTotal)}，${net>=0?labels.surplus:labels.shortfall} ${money(Math.abs(net))}。`);

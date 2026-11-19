@@ -445,6 +445,7 @@
 #ys-report.rt-own .rt-health-scale>i:nth-child(3){width:33.333%;background:#8cac9c}
 
 </style>
+<link rel="stylesheet" href="assets/language.css?v=language-link-1">
 </head>
 <body><main>
 <section id="ys-app"><p>正在打开有数。若长时间停留，请完整解压下载包，保留 assets 文件夹。</p></section>
@@ -501,7 +502,7 @@
 @media(max-width:420px){#qingzhang-v4 .q-profit-equation{grid-template-columns:1fr}#qingzhang-v4 .q-profit-equation .q-profit-term{display:flex;align-items:center;justify-content:space-between}#qingzhang-v4 .q-profit-equation .q-math-sign{text-align:left}#qingzhang-v4 .q-report-tabs button{padding:9px 8px}}
 /* Interactive report: local, self-contained, no external requests. */
 #qingzhang-v4{--q-bg:#f3f5f2;--q-paper:#fff;--q-ink:#253a30;--q-muted:#69796e;--q-line:#e2e8e0;--q-green:#54876b;--q-soft:#e7efe5;--q-purple:#a39dbf;--q-blue:#6c95b0;--q-amber:#bb914d;--q-red:#be6960}
-body{background:#e8ece7}main{max-width:1240px}#qingzhang-v4{padding:28px 30px;border-radius:18px}#qingzhang-v4 .q-head{margin:28px 0 22px}#qingzhang-v4 .q-kpi{position:relative;transition:border-color .15s,transform .15s}#qingzhang-v4 .q-kpi:after{content:'查看明细 ↗';display:block;margin-top:8px;font-size:10px;color:var(--q-muted)}
+body{background:#e8ece7}main{max-width:1240px}#qingzhang-v4{padding:28px 30px;border-radius:18px}#qingzhang-v4 .q-head{margin:28px 0 22px}#qingzhang-v4 .q-kpi{position:relative;transition:border-color .15s,transform .15s}#qingzhang-v4 .q-kpi:after{content:'查看明细 ↗';display:block;margin-top:8px;font-size:10px;color:var(--q-muted)}html:lang(en) #qingzhang-v4 .q-kpi:after{content:'View details ↗'}
 #qingzhang-v4 [data-detail]{cursor:pointer}#qingzhang-v4 [data-detail]:focus-visible{outline:2px solid var(--q-green);outline-offset:3px}#qingzhang-v4 .q-kpi:hover{border-color:var(--q-green);transform:translateY(-2px)}#qingzhang-v4 .q-rank{border-radius:6px;padding:5px 7px}#qingzhang-v4 .q-rank:hover,#qingzhang-v4 tr[data-detail]:hover{background:var(--q-bg)}#qingzhang-v4 .q-threebar>div:hover{filter:brightness(.96)}#qingzhang-v4 .q-svg text{pointer-events:none}#qingzhang-v4 .q-svg [data-detail]:hover{filter:brightness(.92)}
 #qingzhang-v4 .q-insights{gap:12px}#qingzhang-v4 .q-insights>div{padding:18px;background:var(--q-paper);border:1px solid var(--q-line);border-radius:10px;border-top:3px solid #789e8a}#qingzhang-v4 .q-insights b{font-size:14px;font-weight:600;margin-bottom:8px}#qingzhang-v4 .q-insights p{font-size:12px;line-height:1.8}#qingzhang-v4 .q-insights a,#qingzhang-v4 .q-text-link{display:inline-block;font-size:11px;color:var(--q-green);margin-top:8px}#qingzhang-v4 .q-insights>div:nth-child(2){border-top-color:#c09861}#qingzhang-v4 .q-insights>div:nth-child(3){border-top-color:#7f9db7}
 #qingzhang-v4 .q-section{margin-top:32px}#qingzhang-v4 .q-section-title h2{font-size:18px}#qingzhang-v4 .q-section-title .q-no{width:22px;height:22px;display:grid;place-items:center;background:#e4eae2;border-radius:5px;font-size:10px}#qingzhang-v4 .q-sankey-top{padding:14px 8px;margin-bottom:6px;font-size:11px;gap:12px}#qingzhang-v4 .q-sankey-top strong{font-size:15px;margin-top:3px}#qingzhang-v4 .q-sankey-top>div:last-child{text-align:right}
@@ -971,7 +972,7 @@ body.q-modal-open{overflow:hidden}#qingzhang-v4 dialog{border:1px solid #d6e1d8;
 <dialog id="q2-detail-dialog" aria-labelledby="q2-detail-title"><div class="q-detail-top"><span class="q-detail-eyebrow">经营明细 · 示例数据</span><button type="button" id="q2-detail-close" aria-label="关闭明细">关闭 <span aria-hidden="true">×</span></button></div><div id="q2-detail-body"></div></dialog>
 <footer class="q-footer">有数 · 一页看清经营 ｜ OPC AI企业合成场景 · 经营图表按现金，利润与报表按账务 · 不代表真实经营成效。</footer>
 
-<script src="assets/report-statements.js?v=refund-income-20261101"></script>
+<script src="assets/report-statements.js?v=statement-locales-2"></script>
 <script>
 (()=>{
 const root=document.getElementById('qingzhang-v4'),$=s=>root.querySelector(s),money=v=>'¥'+Math.round(v).toLocaleString('zh-CN');
@@ -1320,12 +1321,16 @@ new ResizeObserver(()=>{const box=forecastPlot.getBoundingClientRect(),size=box.
 <script src="assets/supplement-data.js?v=cash-history-20261101"></script>
 <script src="assets/own-report-cash.js?v=cash-history-20261101"></script>
 <script src="assets/report-model.js?v=cash-history-20261101"></script>
-<script src="assets/report-charts.js?v=cash-history-20261101"></script>
+<script src="assets/report-charts.js?v=statement-locales-2"></script>
 <script src="assets/random-scenario-generator.js?v=random-details-1"></script>
 <script src="assets/random-scenario-insights.js?v=refund-income-20261101"></script>
 <script src="assets/own-report-insights.js?v=cash-history-20261101"></script>
-<script src="assets/report-view.js?v=clean-release-031"></script>
+<script src="assets/report-view.js?v=statement-locales-2"></script>
 <script src="assets/fixed-sample-project.js?v=global-period-20261031"></script>
-<script src="assets/supplement-ui.js?v=cash-history-20261101"></script>
-<script src="assets/workspace.js?v=clean-release-031"></script>
+<script src="assets/supplement-ui.js?v=statement-locales-2"></script>
+<script src="assets/en-report.js?v=statement-locales-2"></script>
+<script src="assets/en-workspace.js?v=statement-locales-2"></script>
+<script src="assets/en-examples.js"></script>
+<script src="assets/language.js?v=statement-locales-2"></script>
+<script src="assets/workspace.js?v=statement-locales-2"></script>
 </body></html>

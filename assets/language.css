@@ -1,0 +1,34 @@
+#ys-app .ys-nav-controls {display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+#ys-app .ys-nav .ys-language-switch {
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  width:clamp(90px,9.52vw,134px);min-height:44px;padding:5px 2px;
+  border:0;background:transparent;color:#205b40;
+  font-size:clamp(15px,1.55vw,18px);font-weight:650;line-height:1.4;white-space:nowrap;
+}
+#ys-app .ys-language-switch svg {width:1.12em;height:1.12em;flex:none}
+#ys-app .ys-language-switch span {
+  text-decoration:underline;text-decoration-color:#67917d;text-decoration-thickness:1px;text-underline-offset:4px;
+}
+#ys-app .ys-language-switch:hover span,#ys-app .ys-language-switch:focus-visible span {
+  text-decoration-color:currentColor;text-decoration-thickness:2px;
+}
+html:lang(en) #ys-report [data-i18n-cny]+small {display:none}
+html:lang(en) #ys-report .rt-overview-kpis {grid-template-columns:repeat(3,minmax(0,1fr))}
+html:lang(en) #ys-report .rt-overview-kpi .rt-kpi-value {font-size:clamp(16px,2.2vw,26px);overflow-wrap:anywhere}
+html:lang(en) #ys-report .rt-heading,html:lang(en) #ys-report .rt-row {flex-wrap:wrap}
+html:lang(en) #ys-report .rt-focus-item {white-space:normal}
+html:lang(en) #ys-report .rt-overview-focus .rt-focus-item {display:flex;gap:5px;flex-wrap:wrap}
+html:lang(en) #ys-report .rt-heading .rt-intro {white-space:normal}
+@media(max-width:700px){
+  #ys-app .ys-nav-controls {width:100%;gap:9px;justify-content:space-between}
+  #ys-app .ys-nav-controls .ys-nav-tabs {width:auto;flex:1 1 auto}
+  #ys-app .ys-nav-controls .ys-nav-tabs button {min-width:0;padding:8px 9px;font-size:14px}
+  #ys-app .ys-nav .ys-language-switch {width:86px;font-size:16px}
+  html:lang(en) #ys-report .rt-overview-kpis {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:430px){
+  #ys-app .ys-nav .ys-nav-controls {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:5px}
+  #ys-app .ys-nav-controls .ys-nav-tabs {gap:3px}
+  #ys-app .ys-nav-controls .ys-nav-tabs button {font-size:12px;padding:6px;white-space:normal}
+}
+#ys-report .rt-kpi-value > [data-i18n-cny] {font-size:inherit;letter-spacing:inherit}

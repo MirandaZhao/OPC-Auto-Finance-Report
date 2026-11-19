@@ -84,7 +84,7 @@
         }else if(type==='balance'){
           html+=field('余额日期','date',data.date,'date','确认这一天的账户余额');
           if(balanceSuggestions?.aggregate&&Number.isFinite(balanceSuggestions.total))html+=`<p class="ys-sup-aggregate">账本已知总余额 <strong>${money(balanceSuggestions.total)}</strong> · 尚未分配到账户</p>`;
-          if(data.accounts.length)html+=data.accounts.map((row,index)=>{const hint=balanceHint(row.account),input=amount(esc(row.account),'account-'+index,row.amount).replace('min="0"','').replace('placeholder="不知道可留空"','placeholder="未填写按 0 计入"');return `<div class="ys-sup-account">${input}<p class="ys-sup-source ${hint.known?'is-known':''}">${esc(hint.text)}</p></div>`;}).join('');
+          if(data.accounts.length)html+=data.accounts.map((row,index)=>{const hint=balanceHint(row.account),input=amount('<span data-i18n-field="account">'+esc(row.account)+'</span>','account-'+index,row.amount).replace('min="0"','').replace('placeholder="不知道可留空"','placeholder="未填写按 0 计入"');return `<div class="ys-sup-account">${input}<p class="ys-sup-source ${hint.known?'is-known':''}">${esc(hint.text)}</p></div>`;}).join('');
           else html+='<p class="ys-sup-note">请先添加一份账单以识别账户。</p>';
           html+='<div id="ys-sup-balance-result" class="ys-sup-result" aria-live="polite"></div>'+footer('保存即确认当前金额；留空按 0 计入，不会新增收支或修改原始账单。')+'</form>';
         }else if(type==='books'){
@@ -101,10 +101,22 @@
       if(accountingImport()){const save=q('#ys-sup-save');if(save){save.disabled=true;save.textContent='已在报告中';}q('#ys-sup-form').querySelectorAll('input[type="number"]').forEach(el=>el.setAttribute('readonly',''));const intro=q('.ys-sup-intro');if(intro)intro.textContent='以下金额来自已导入的账务资料，无需重复补录。';}
       bind();if(type==='ar')renderReceipts();if(type!=='records')live();
     }
-    function summary(record){const d=record.data;if(record.type==='balance')return (d.date||'日期待补')+' · '+(d.accounts||[]).filter(x=>x.amount!=null).length+' 个账户已填写';if(record.type==='ar')return d.mode==='none'?(d.date||'')+' · 已确认没有应收':(d.customer||'客户待补')+' · '+(d.basis==='outstanding'?'未收 ':'总额 ')+money(d.amount)+(d.basis==='outstanding'&&d.snapshotAsOf?' · '+d.snapshotAsOf+' 确认':'');if(record.type==='books')return (d.month||'月份待补')+' · 账务资料';if(record.type==='plan')return (d.payee||'付款对象待补')+' · '+money(d.amount)+(d.repeat?' · 每月':'');return (d.date||'日期待补')+' · 资产负债资料';}
+    function summaryHTML(record){
+      const d=record.data;
+      const sourceName=(name,placeholder)=>name?'<span data-i18n-raw>'+esc(name)+'</span>':placeholder;
+      if(record.type==='balance')return esc(d.date||'日期待补')+' · '+(d.accounts||[]).filter(x=>x.amount!=null).length+' 个账户已填写';
+      if(record.type==='ar'){
+        if(d.mode==='none')return esc(d.date||'')+' · 已确认没有应收';
+        const basis=d.basis==='outstanding'?'未收 ':'总额 ';
+        return sourceName(d.customer,'客户待补')+' · '+basis+esc(money(d.amount))+(d.basis==='outstanding'&&d.snapshotAsOf?' · '+esc(d.snapshotAsOf)+' 确认':'');
+      }
+      if(record.type==='books')return esc(d.month||'月份待补')+' · 账务资料';
+      if(record.type==='plan')return sourceName(d.payee,'付款对象待补')+' · '+esc(money(d.amount))+(d.repeat?' · 每月':'');
+      return esc(d.date||'日期待补')+' · 资产负债资料';
+    }
     function recordsHTML(){
       const records=S.read(options.getProject()).records.slice().sort((a,b)=>(b.updatedAt||'').localeCompare(a.updatedAt||''));
-      return `<p class="ys-sup-intro">填过的资料都在这里，可以继续补充或修改。</p><div class="ys-sup-new"><label class="ys-sup-field"><span>添加资料</span><select id="ys-sup-new-type">${['ar','balance','books','plan','assets'].map(t=>`<option value="${t}">${titles[t]}</option>`).join('')}</select></label><button type="button" data-sup-new>添加</button></div>${canUndo&&options.onUndo?'<div class="ys-sup-undo" role="status"><span>已删除这份补录资料</span><button type="button" data-sup-undo>撤销删除</button></div>':''}<p id="ys-sup-error" class="ys-sup-error" role="alert" hidden></p>${records.length?records.map(r=>`<article class="ys-sup-record"><div class="ys-sup-record-top"><strong>${esc(titles[r.type]||r.type)}</strong><span class="ys-sup-badge">${r.status==='ready'?'已保存':'已保存 · 待补充'}</span></div><p>${esc(summary(r))}</p><div class="ys-sup-record-actions"><button type="button" data-sup-edit="${esc(r.id)}">编辑</button><button type="button" class="ys-sup-delete" data-sup-delete="${esc(r.id)}">删除</button></div></article>`).join(''):'<div class="ys-sup-empty"><strong>还没有补录资料</strong><p>需要时再补，不影响查看已有账单。</p></div>'}`;
+      return `<p class="ys-sup-intro">填过的资料都在这里，可以继续补充或修改。</p><div class="ys-sup-new"><label class="ys-sup-field"><span>添加资料</span><select id="ys-sup-new-type">${['ar','balance','books','plan','assets'].map(t=>`<option value="${t}">${titles[t]}</option>`).join('')}</select></label><button type="button" data-sup-new>添加</button></div>${canUndo&&options.onUndo?'<div class="ys-sup-undo" role="status"><span>已删除这份补录资料</span><button type="button" data-sup-undo>撤销删除</button></div>':''}<p id="ys-sup-error" class="ys-sup-error" role="alert" hidden></p>${records.length?records.map(r=>`<article class="ys-sup-record"><div class="ys-sup-record-top"><strong>${esc(titles[r.type]||r.type)}</strong><span class="ys-sup-badge">${r.status==='ready'?'已保存':'已保存 · 待补充'}</span></div><p>${summaryHTML(r)}</p><div class="ys-sup-record-actions"><button type="button" data-sup-edit="${esc(r.id)}">编辑</button><button type="button" class="ys-sup-delete" data-sup-delete="${esc(r.id)}">删除</button></div></article>`).join(''):'<div class="ys-sup-empty"><strong>还没有补录资料</strong><p>需要时再补，不影响查看已有账单。</p></div>'}`;
     }
     function receipts(){return (ctx.receipts||[]).filter(r=>!r.linkedRecordId||r.linkedRecordId===recordId);}
     function renderReceipts(){
@@ -112,7 +124,7 @@
       const all=receipts(),needle=search.trim().toLowerCase(),matches=all.filter(r=>!needle||[r.counterparty,r.account,r.date,r.amount].join(' ').toLowerCase().includes(needle));
       const selected=all.filter(r=>linked.has(r.key)),candidates=matches.filter(r=>!linked.has(r.key)).slice(0,12);
       const missing=[...linked].filter(key=>!all.some(r=>r.key===key));
-      target.innerHTML=selected.concat(candidates).map(r=>`<label class="ys-sup-receipt"><input type="checkbox" data-sup-receipt="${esc(r.key)}" ${linked.has(r.key)?'checked':''}><span><span class="ys-sup-receipt-line"><strong>${esc(r.counterparty||'未填写交易对象')}</strong><b>${money(r.amount)}</b></span><small>${esc(r.date)} · ${esc(r.account)}</small></span></label>`).join('')+missing.map(key=>`<div class="ys-sup-missing"><span>原关联流水已不可用</span><button type="button" data-sup-unlink="${esc(key)}">取消关联</button></div>`).join('')+(!selected.length&&!candidates.length&&!missing.length?'<p class="ys-sup-note">'+(needle?'没有找到匹配的到账流水':'暂时没有可关联的到账流水')+'</p>':'')+(matches.length>12?'<p class="ys-sup-note">可输入客户、金额或日期查找更多流水。</p>':'');
+      target.innerHTML=selected.concat(candidates).map(r=>`<label class="ys-sup-receipt"><input type="checkbox" data-sup-receipt="${esc(r.key)}" ${linked.has(r.key)?'checked':''}><span><span class="ys-sup-receipt-line"><strong data-i18n-field="counterparty">${esc(r.counterparty||'未填写交易对象')}</strong><b>${money(r.amount)}</b></span><small>${esc(r.date)} · <span data-i18n-field="account">${esc(r.account)}</span></small></span></label>`).join('')+missing.map(key=>`<div class="ys-sup-missing"><span>原关联流水已不可用</span><button type="button" data-sup-unlink="${esc(key)}">取消关联</button></div>`).join('')+(!selected.length&&!candidates.length&&!missing.length?'<p class="ys-sup-note">'+(needle?'没有找到匹配的到账流水':'暂时没有可关联的到账流水')+'</p>':'')+(matches.length>12?'<p class="ys-sup-note">可输入客户、金额或日期查找更多流水。</p>':'');
       target.querySelectorAll('[data-sup-receipt]').forEach(el=>el.onchange=()=>{const key=el.dataset.supReceipt;el.checked?linked.add(key):linked.delete(key);renderReceipts();live();Array.from(target.querySelectorAll('[data-sup-receipt]')).find(input=>input.dataset.supReceipt===key)?.focus();});
       target.querySelectorAll('[data-sup-unlink]').forEach(el=>el.onclick=()=>{linked.delete(el.dataset.supUnlink);renderReceipts();live();});
     }
