@@ -2,6 +2,10 @@
 
 [中文](#有数)
 
+![A fictional studio tests a 30-day payment delay, then follows a September expense back to its Alipay statement.](docs/media/en/youshu-demo.gif)
+
+[Download the English demo (MP4, 17.5 seconds)](docs/media/en/youshu-demo.mp4?raw=1)
+
 **Turn your WeChat, Alipay, and bank statements into a personalized financial report. Youshu makes professional financial reports easy to read for small businesses and solo founders.**
 
 v0.3.1 · No account required · Statements processed locally · English and Chinese interface (CNY)
@@ -57,6 +61,10 @@ Maintained by Yuchen Zhao. [MIT License](LICENSE) · [Third-party notices](asset
 # 有数
 
 [English](#youshu)
+
+![一家虚构工作室先看客户晚付 30 天时还剩多少现金，再从 9 月支出中找到一笔 7,800 元的支付宝付款。](docs/media/zh/youshu-demo.gif)
+
+[下载中文演示片（MP4，17.5 秒）](docs/media/zh/youshu-demo.mp4?raw=1)
 
 **把微信、支付宝和银行账单，变成个性化财务报告。专业还能看得懂！小微企业及OPC个人最佳搭子！**
 
