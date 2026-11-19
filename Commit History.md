@@ -4,14 +4,14 @@
 
 ## English
 
-This document records **all 71 commits reachable from `main` at the snapshot below**, preserving their original subjects and complete bodies. The English and Chinese summaries organize those records into development periods. Earlier version notes are retained with their historical source links.
+This document records **all 74 commits reachable from `main` at the snapshot below**, preserving their original subjects and complete bodies. The English and Chinese summaries organize those records into development periods. Earlier version notes are retained with their historical source links.
 
 - **Repository:** [MirandaZhao/OPC-Auto-Finance-Report](https://github.com/MirandaZhao/OPC-Auto-Finance-Report); branch: `main`.
-- **Coverage:** 2026-09-22 to 2026-11-17, using committer timestamps in Asia/Shanghai (UTC+08:00).
-- **Snapshot:** [9b3db4f](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9b3db4fd77c25a47bf0cf4b47fcc469142a9f639) (`9b3db4fd77c25a47bf0cf4b47fcc469142a9f639`), committed 2026-11-17 20:48:59 UTC+08:00.
-- **Count:** 71 original commit records, ordered from oldest to newest.
-- **Prepared:** 2026-11-17. Commits after this snapshot, including any later commit that publishes this regenerated file, are outside its scope.
-- **Source:** [GitHub commit list at the pinned snapshot](https://api.github.com/repos/MirandaZhao/OPC-Auto-Finance-Report/commits?sha=9b3db4fd77c25a47bf0cf4b47fcc469142a9f639&per_page=100&page=1).
+- **Coverage:** 2026-09-22 to 2026-11-19, using committer timestamps in Asia/Shanghai (UTC+08:00).
+- **Snapshot:** [a99f930](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/a99f930f69681480f9556d5101296e67aa2b0908) (`a99f930f69681480f9556d5101296e67aa2b0908`), committed 2026-11-19 21:30:13 UTC+08:00.
+- **Count:** 74 original commit records, ordered from oldest to newest.
+- **Prepared:** 2026-11-19. Commits after this snapshot, including any later commit that publishes this regenerated file, are outside its scope.
+- **Source:** [GitHub commit list at the pinned snapshot](https://api.github.com/repos/MirandaZhao/OPC-Auto-Finance-Report/commits?sha=a99f930f69681480f9556d5101296e67aa2b0908&per_page=100&page=1).
 
 **How this document was prepared:** The period summaries are written from the recorded commit messages. They distinguish application changes from documentation, packaging and cleanup. The original messages below retain wording, spelling and full bodies; only line endings are normalized for Markdown. Test results and pending work are attributed to the historical messages that report them. Regenerating this history does not rerun the software tests or establish a new deployment.
 
@@ -19,22 +19,33 @@ This document records **all 71 commits reachable from `main` at the snapshot bel
 
 | Period (UTC+08:00) | Commits | Summary |
 |---|---:|---|
-| 2026-11-17 | 2 | Put English documentation first and remove templates/file |
+| 2026-11-19 | 2 | Read reports in English or Chinese and preview them before importing statements |
+| 2026-11-17 | 3 | Put English first in project guides, clean up templates and document earlier changes |
 | 2026-11-02 | 2 | Explain report creation and add README visuals |
 | 2026-11-01 | 30 | Update the dashboard, distribute v0.3.1 and organize documentation |
 | 2026-10-26 | 2 | Clarify validation coverage and deployment steps |
 | 2026-10-22 to 2026-10-23 | 4 | Publish bilingual prototype explanations while application materials remained pending |
 | 2026-09-28 to 2026-10-10 | 16 | Expand design, evaluation and operating guidance |
 | 2026-09-22 | 15 | Establish the initial project and documentation |
-| **Total** | **71** | |
+| **Total** | **74** | |
 
-### 2026-11-17 | Put English documentation first and remove templates/file
+### 2026-11-19 | Read reports in English or Chinese and preview them before importing statements
 
 2 commits.
+
+- Add a language switch to example reports and personal reports, remember the reader’s choice, and include the bilingual app in the offline download. Readers can view charts, financial statements, transaction details and exports in their chosen language while matching imported names and descriptions to the source statement. [0a8a54a](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/0a8a54a990f24e5b1886ce3c0f22ef77e0ba1c1a).
+
+- Place a 17.5-second demo at the start of each README language section, with a GIF preview and an MP4 download. Visitors can see a cash forecast and trace an expense to its source before importing their own statements. [a99f930](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/a99f930f69681480f9556d5101296e67aa2b0908).
+
+### 2026-11-17 | Put English first in project guides, clean up templates and document earlier changes
+
+3 commits.
 
 - Move English ahead of Chinese in six project documents, update navigation and positional references, and retain the original commit messages. Third-party license files, application files and the downloadable ZIP remain unchanged. [bf2b5f0](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/bf2b5f0f65add75797e7c08f530d2a32e6b25be0).
 
 - Delete the templates/file path. [9b3db4f](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9b3db4fd77c25a47bf0cf4b47fcc469142a9f639).
+
+- Publish the original messages, author accounts, timestamps and commit links for the 71 changes through November 17 so readers can check the development summaries against the GitHub record. [d7024b2](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/d7024b2054ecd3d0d03f9c091dd8a3c46b5ffa32).
 
 ### 2026-11-02 | Explain report creation and add README visuals
 
@@ -133,7 +144,7 @@ First public version.
 
 ## Original commit messages
 
-The following 71 entries preserve the original subjects and complete bodies. All records are expanded and ordered from oldest to newest. Each entry includes the full commit hash, GitHub author account when available, committer timestamp in Asia/Shanghai (UTC+08:00), and a link to the recorded change.
+The following 74 entries preserve the original subjects and complete bodies. All records are expanded and ordered from oldest to newest. Each entry includes the full commit hash, GitHub author account when available, committer timestamp in Asia/Shanghai (UTC+08:00), and a link to the recorded change.
 
 Message text is retained as recorded, including historical statements about language order, reported checks and work that was still pending at the time.
 
@@ -916,17 +927,54 @@ Message text is retained as recorded, including historical statements about lang
 
 > Delete templates/file
 
+#### 72 · d7024b2
+
+- **Commit:** `d7024b2054ecd3d0d03f9c091dd8a3c46b5ffa32`
+- **Author account:** [MirandaZhao](https://github.com/MirandaZhao)
+- **Committed:** 2026-11-17 21:05:46 UTC+08:00
+- **Source:** [View commit and changes](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/d7024b2054ecd3d0d03f9c091dd8a3c46b5ffa32)
+
+> Refresh commit history through November 17, 2026
+>
+> Document all 71 commits through 9b3db4f with complete original messages, author accounts, full hashes and China Standard Time timestamps. Update the English-first bilingual summaries to seven periods and preserve the historical version notes.
+>
+> Keep the snapshot cutoff explicit; this documentation update is outside the 71 recorded commits.
+
+### 2026-11-19
+
+#### 73 · 0a8a54a
+
+- **Commit:** `0a8a54a990f24e5b1886ce3c0f22ef77e0ba1c1a`
+- **Author account:** [MirandaZhao](https://github.com/MirandaZhao)
+- **Committed:** 2026-11-19 19:36:06 UTC+08:00
+- **Source:** [View commit and changes](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/0a8a54a990f24e5b1886ce3c0f22ef77e0ba1c1a)
+
+> Let users explore examples and read their own reports in English or Chinese
+>
+> Add a language switch to both report views and remember the reader's choice. Translate chart labels, financial statements, transaction details, and exports while preserving names and descriptions from imported statements so readers can match entries to the originals.
+>
+> Update the README and offline download so visitors can open the bilingual app from the existing download link.
+
+#### 74 · a99f930
+
+- **Commit:** `a99f930f69681480f9556d5101296e67aa2b0908`
+- **Author account:** [MirandaZhao](https://github.com/MirandaZhao)
+- **Committed:** 2026-11-19 21:30:13 UTC+08:00
+- **Source:** [View commit and changes](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/a99f930f69681480f9556d5101296e67aa2b0908)
+
+> Add English and Chinese demos so readers can preview a report before importing statements
+
 ---
 
 ## 中文
 
-本文件收录**截止下方快照、可从 `main` 分支追溯的全部 71 条提交**，逐条保留原始标题和完整正文。中英文摘要按开发阶段归纳，另保留早期版本说明及其历史来源链接。
+本文件收录**截止下方快照、可从 `main` 分支追溯的全部 74 条提交**，逐条保留原始标题和完整正文。中英文摘要按开发阶段归纳，另保留早期版本说明及其历史来源链接。
 
 - **仓库：** [MirandaZhao/OPC-Auto-Finance-Report](https://github.com/MirandaZhao/OPC-Auto-Finance-Report)；分支：`main`。
-- **覆盖期间：** 2026-09-22 至 2026-11-17，按提交者时间换算为北京时间（Asia/Shanghai，UTC+08:00）。
-- **截止提交：** [9b3db4f](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9b3db4fd77c25a47bf0cf4b47fcc469142a9f639)（`9b3db4fd77c25a47bf0cf4b47fcc469142a9f639`），提交时间为 2026-11-17 20:48:59 UTC+08:00。
-- **记录数量：** 71 条，原始记录按最早到最近完整展开。
-- **整理日期：** 2026-11-17。本次快照之后的提交，包括后续发布这份重新生成文档的提交，不在收录范围内。
+- **覆盖期间：** 2026-09-22 至 2026-11-19，按提交者时间换算为北京时间（Asia/Shanghai，UTC+08:00）。
+- **截止提交：** [a99f930](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/a99f930f69681480f9556d5101296e67aa2b0908)（`a99f930f69681480f9556d5101296e67aa2b0908`），提交时间为 2026-11-19 21:30:13 UTC+08:00。
+- **记录数量：** 74 条，原始记录按最早到最近完整展开。
+- **整理日期：** 2026-11-19。本次快照之后的提交，包括后续发布这份重新生成文档的提交，不在收录范围内。
 - **原始记录：** [查看全部提交说明](#original-commit-messages)。
 
 **整理方法：** 阶段摘要依据 GitHub 中的提交说明编写，分别表述软件更改、文档修改、打包和文件清理。原始提交的措辞、拼写和正文完整保留，仅统一换行格式。历史消息中的测试结果、未完成事项及当时的语言顺序均按当时记录保留；重新整理本文件不代表重新执行软件测试或完成新的部署。
@@ -935,22 +983,33 @@ Message text is retained as recorded, including historical statements about lang
 
 | 期间（北京时间） | 提交数 | 阶段内容 |
 |---|---:|---|
-| 2026-11-17 | 2 | 调整双语文档顺序并删除 templates/file |
+| 2026-11-19 | 2 | 支持中英文报告，导入账单前即可观看演示 |
+| 2026-11-17 | 3 | 调整双语文档顺序、清理模板目录并整理提交历史 |
 | 2026-11-02 | 2 | 补充报告制作说明与 README 配图 |
 | 2026-11-01 | 30 | 更新看板、分发 v0.3.1 并整理文档 |
 | 2026-10-26 | 2 | 明确验证范围与部署步骤 |
 | 2026-10-22 至 2026-10-23 | 4 | 发布双语原型说明并标明应用材料待上传 |
 | 2026-09-28 至 2026-10-10 | 16 | 细化设计、评估与操作说明 |
 | 2026-09-22 | 15 | 建立初始项目与配套文档 |
-| **合计** | **71** | |
+| **合计** | **74** | |
 
-### 2026-11-17｜调整双语文档顺序并删除 templates/file
+### 2026-11-19｜支持中英文报告，导入账单前即可观看演示
 
 共 2 条提交。
+
+- 在「随机体验」和「我的报告」中加入语言切换并记住选择，离线下载包也同步更新。用户可以用中文或英文查看图表、财务报表、交易明细和导出内容，并用导入时保留的原始名称和说明核对账单。[0a8a54a](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/0a8a54a990f24e5b1886ce3c0f22ef77e0ba1c1a)。
+
+- 在 README 的英文区和中文区开头分别加入 17.5 秒的循环演示和 MP4 下载链接。访客可以先看现金预测，再看一笔支出如何追溯到原始账单，然后决定是否导入自己的账单。[a99f930](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/a99f930f69681480f9556d5101296e67aa2b0908)。
+
+### 2026-11-17｜调整双语文档顺序、清理模板目录并整理提交历史
+
+共 3 条提交。
 
 - 将六份项目文档调整为英文在前、中文在后，更新导航和位置指代并保留原始提交说明。第三方许可文件、应用文件和下载 ZIP 保持不变。 [bf2b5f0](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/bf2b5f0f65add75797e7c08f530d2a32e6b25be0)。
 
 - 删除 templates/file 路径。 [9b3db4f](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/9b3db4fd77c25a47bf0cf4b47fcc469142a9f639)。
+
+- 整理截至 11 月 17 日上一快照的 71 条提交，保留原始说明、作者账号、时间和链接，方便读者在 GitHub 上逐条核对开发摘要。[d7024b2](https://github.com/MirandaZhao/OPC-Auto-Finance-Report/commit/d7024b2054ecd3d0d03f9c091dd8a3c46b5ffa32)。
 
 ### 2026-11-02｜补充报告制作说明与 README 配图
 
